@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>HTML学习(11)-Storage</title>
+    <link href="/2024/06/16/HTML%E5%AD%A6%E4%B9%A0(11)-Storage/"/>
+    <url>/2024/06/16/HTML%E5%AD%A6%E4%B9%A0(11)-Storage/</url>
+    
+    <content type="html"><![CDATA[<p>通过网络存储，网络应用程序可以在用户的浏览器中本地存储数据。</p><span id="more"></span><h1 id="Web-Storage"><a href="#Web-Storage" class="headerlink" title="Web Storage"></a>Web Storage</h1><p>在HTML5之前，</p><h2 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h2><p>sessionStorage为每一个给定的源维持一个独立的存储区域，该存储区域在页面会话期间可用（即只要浏览器处于打开状态，包括页面重新加载和恢复）。</p><ol><li>sessionStorage仅为会话存储数据，这意味着数据将一直存储到浏览器（或选项卡）关闭。</li><li>数据不会被传输到服务器。</li><li>存储限额最大5MB</li></ol><h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><p>localStorage和sessionStorage一致，不同的是浏览器关闭并重新打开数据也仍然存在。</p><ol><li>存储的数据没有过期日期，只能通过 JavaScript、清除浏览器缓存或本地存储的数据来清除。</li><li>存储限额最大5MB</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>HTML</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>HTML</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>HTML学习(10)-多媒体</title>
     <link href="/2024/06/15/HTML%E5%AD%A6%E4%B9%A0(10)-%E5%A4%9A%E5%AA%92%E4%BD%93/"/>
     <url>/2024/06/15/HTML%E5%AD%A6%E4%B9%A0(10)-%E5%A4%9A%E5%AA%92%E4%BD%93/</url>
