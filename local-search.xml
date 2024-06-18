@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>HTML学习(13)-嵌入</title>
+    <link href="/2024/06/18/HTML%E5%AD%A6%E4%B9%A0(13)-%E5%B5%8C%E5%85%A5/"/>
+    <url>/2024/06/18/HTML%E5%AD%A6%E4%B9%A0(13)-%E5%B5%8C%E5%85%A5/</url>
+    
+    <content type="html"><![CDATA[<p>图片、多媒体等内容丰富了HTML页面，如何在HTML页面展示其他类型的内容。</p><span id="more"></span><h1 id="嵌入"><a href="#嵌入" class="headerlink" title="嵌入"></a>嵌入</h1><p>使用嵌入元素可以在网页上嵌入各种类型的内容，<code>&lt;iframe&gt;</code>元素用于嵌入其他网页，<code>&lt;embed&gt;</code>和<code>&lt;object&gt;</code>元素用于嵌入外部资源。</p><h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><p><code>&lt;iframe&gt;</code>元素表示嵌套的浏览上下文，它能够将另一个HTML页面嵌入到当前页面中。</p><p><strong>属性</strong>：</p><ol><li><strong>src</strong>：被嵌套的页面的URL地址</li><li><strong>width</strong>和<strong>height</strong>：iframe的宽度和高度，默认是300*150</li><li><strong>allowfullscreen</strong>：设置为true时，通过调用**requestFullScreen()**方法激活全屏模式</li><li><strong>name</strong>：嵌入的浏览上下文的名称</li><li><strong>sandbox</strong>：控制应用于嵌入在 <code>&lt;iframe&gt;</code> 中的内容的限制（沙盒）</li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span></span></span><br><span class="line"><span class="tag">    <span class="attr">src</span>=<span class="string">&quot;https://example.org&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">title</span>=<span class="string">&quot;iframe Example 1&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">&quot;400&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="lt-embed-gt-和-lt-object-gt"><a href="#lt-embed-gt-和-lt-object-gt" class="headerlink" title="&lt;embed&gt;和&lt;object&gt;"></a><code>&lt;embed&gt;</code>和<code>&lt;object&gt;</code></h2><p><code>&lt;embed&gt;</code>和<code>&lt;object&gt;</code>元素用于嵌入外部资源。</p><h3 id="lt-embed-gt"><a href="#lt-embed-gt" class="headerlink" title="&lt;embed&gt;"></a><code>&lt;embed&gt;</code></h3><p><strong>属性</strong>：</p><ol><li><strong>src</strong>：被嵌套的资源的 URL。</li><li><strong>type</strong>：MIME 类型。</li><li><strong>width</strong>和<strong>height</strong>：资源显示的宽度和高度</li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">embed</span> <span class="attr">type</span>=<span class="string">&quot;video/quicktime&quot;</span> <span class="attr">src</span>=<span class="string">&quot;movie.mov&quot;</span> <span class="attr">width</span>=<span class="string">&quot;640&quot;</span> <span class="attr">height</span>=<span class="string">&quot;480&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure><h3 id="lt-object-gt"><a href="#lt-object-gt" class="headerlink" title="&lt;object&gt;"></a><code>&lt;object&gt;</code></h3><p><strong>属性</strong>：</p><ol><li><strong>data</strong>：一个合法的 URL 作为资源的地址，需要为 <strong>data</strong> 和 <strong>type</strong> 中至少一个设置值。</li><li><strong>type</strong>：<strong>data</strong> 指定的资源的 MIME 类型，需要为 <strong>data</strong> 和 <strong>type</strong> 中至少一个设置值。</li><li><strong>width</strong>和<strong>height</strong>：资源显示的宽度和高度</li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">type</span>=<span class="string">&quot;application/pdf&quot;</span> <span class="attr">data</span>=<span class="string">&quot;/media/examples/In-CC0.pdf&quot;</span> <span class="attr">width</span>=<span class="string">&quot;250&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>HTML</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>HTML</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>HTML学习(12)-拖放</title>
     <link href="/2024/06/17/HTML%E5%AD%A6%E4%B9%A0(12)-%E6%8B%96%E6%94%BE/"/>
     <url>/2024/06/17/HTML%E5%AD%A6%E4%B9%A0(12)-%E6%8B%96%E6%94%BE/</url>
