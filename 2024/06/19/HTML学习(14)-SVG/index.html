@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="矢量图形在很多情况下非常有用——它们拥有较小的文件尺寸，却高度可缩放，所以它们不会在镜头拉近或者放大图像时像素化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML学习(14)-SVG">
+<meta property="og:url" content="https://zzstriker.github.io/2024/06/19/HTML%E5%AD%A6%E4%B9%A0(14)-SVG/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="矢量图形在很多情况下非常有用——它们拥有较小的文件尺寸，却高度可缩放，所以它们不会在镜头拉近或者放大图像时像素化。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/svg.png">
+<meta property="article:published_time" content="2024-06-19T02:50:53.000Z">
+<meta property="article:modified_time" content="2024-06-19T02:51:10.803Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zzstriker.github.io/imgs/HTML/svg.png">
+  
+  
+  
+  <title>HTML学习(14)-SVG - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HTML学习(14)-SVG"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-19 10:50" pubdate>
+          2024年6月19日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">HTML学习(14)-SVG</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>矢量图形在很多情况下非常有用——它们拥有较小的文件尺寸，却高度可缩放，所以它们不会在镜头拉近或者放大图像时像素化。</p>
+<span id="more"></span>
+
+<h1 id="矢量图形"><a href="#矢量图形" class="headerlink" title="矢量图形"></a>矢量图形</h1><p>在Web中，我们常和两种类型的图片打交道</p>
+<ol>
+<li><strong>位图</strong>：使用像素网格定义，位图文件精确包含每个像素的位置和色彩信息（bmp、png、jpg、gif）</li>
+<li><strong>矢量图</strong>：使用算法来定义，矢量文件包含了图形和路径的定义（svg）</li>
+</ol>
+<h1 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h1><p><strong>SVG</strong>是用于描述矢量图像的语言，它基于<strong>XML</strong>。它提供了许多不同的元素来定义要显示在图像中的形状。</p>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>绘制矢量图，需要从<code>&lt;svg&gt;</code>根元素开始</li>
+<li>SVG文件规则是“后来居上”，越后面的元素越可见</li>
+<li>可以使用<code>&lt;img&gt;</code>、<code>&lt;object&gt;</code>等元素引用</li>
+</ol>
+<h2 id="坐标定位"><a href="#坐标定位" class="headerlink" title="坐标定位"></a>坐标定位</h2><p>SVG使用的坐标系统，以页面的左上角为(0, 0)坐标点为顶点，坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下。</p>
+<p><img src="/./imgs/HTML/svg.png" srcset="/img/loading.gif" lazyload alt="svg"></p>
+<h2 id="基本形状"><a href="#基本形状" class="headerlink" title="基本形状"></a>基本形状</h2><h3 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h3><p><code>rect</code>元素会在屏幕上绘制一个矩形</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x</strong>：矩形左上角的 x 坐标</li>
+<li><strong>y</strong>：矩形左上角的 y 坐标</li>
+<li><strong>width</strong>：矩形的宽度</li>
+<li><strong>height</strong>：矩形的高度</li>
+<li><strong>rx</strong>：圆角的 x 方位的半径</li>
+<li><strong>ry</strong>：圆角的 y 方位的半径</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;60&quot;</span> <span class="attr">y</span>=<span class="string">&quot;10&quot;</span> <span class="attr">rx</span>=<span class="string">&quot;10&quot;</span> <span class="attr">ry</span>=<span class="string">&quot;10&quot;</span> <span class="attr">width</span>=<span class="string">&quot;30&quot;</span> <span class="attr">height</span>=<span class="string">&quot;30&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h3><p><code>circle</code>元素会在屏幕上绘制一个圆形</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>r</strong>：圆的半径</li>
+<li><strong>cx</strong>：圆心的 x 坐标</li>
+<li><strong>cy</strong>：圆心的 y 坐标</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">&quot;25&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;75&quot;</span> <span class="attr">r</span>=<span class="string">&quot;20&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="椭圆"><a href="#椭圆" class="headerlink" title="椭圆"></a>椭圆</h3><p><code>ellipse</code>元素会在屏幕上绘制一个椭圆</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>rx</strong>：椭圆的 x 半径</li>
+<li><strong>ry</strong>：椭圆的 y 半径</li>
+<li><strong>cx</strong>：椭圆中心的 x 坐标</li>
+<li><strong>cy</strong>：椭圆中心的 y 坐标</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ellipse</span> <span class="attr">cx</span>=<span class="string">&quot;75&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;75&quot;</span> <span class="attr">rx</span>=<span class="string">&quot;20&quot;</span> <span class="attr">ry</span>=<span class="string">&quot;5&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="线条"><a href="#线条" class="headerlink" title="线条"></a>线条</h3><p><code>line</code>元素会在屏幕上绘制一个直线</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x1</strong>：起点的 x 坐标</li>
+<li><strong>y1</strong>：起点的 y 坐标</li>
+<li><strong>x2</strong>：终点的 x 坐标</li>
+<li><strong>y2</strong>：终点的 y 坐标</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;10&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;50&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;110&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;150&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="折线"><a href="#折线" class="headerlink" title="折线"></a>折线</h3><p><code>polyline</code>元素会在屏幕上绘制一组连接在一起的直线</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>points</strong>：点集数列，每个点必须包含2个数字，一个是x坐标，一个是y坐标，用逗号隔开，每个点的坐标用空白隔开</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">polyline</span> <span class="attr">points</span>=<span class="string">&quot;60, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 145&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="多边形"><a href="#多边形" class="headerlink" title="多边形"></a>多边形</h3><p><code>polygon</code>元素会在屏幕上绘制一组连接在一起的直线，看起来与折线很像，但是<code>&lt;polygon&gt;</code>元素会在最后一个点自动回到第一个点，构成一个多边形。</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>points</strong>：点集数列，每个点必须包含2个数字，一个是x坐标，一个是y坐标，用逗号隔开，每个点的坐标用空白隔开</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">polygon</span> <span class="attr">points</span>=<span class="string">&quot;50, 160 55, 180 70, 180 60, 190 65, 205 50, 195 35, 205 40, 190 30, 180 45, 180&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p><code>&lt;path&gt;</code>元素是SVG形状中最强大的一个，他可以构建线条、曲线、弧形等等。</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>d</strong>：一个“命令 + 参数”的序列</li>
+</ol>
+<h3 id="直线命令"><a href="#直线命令" class="headerlink" title="直线命令"></a>直线命令</h3><h4 id="Move-To"><a href="#Move-To" class="headerlink" title="Move To"></a>Move To</h4><p>“Move To”命令。简称M，需要两个参数，分别是需要移动的点的x轴和y轴的坐标。M命令经常出现在路径的开始处，指明从何处开始画。</p>
+<h4 id="Line-To"><a href="#Line-To" class="headerlink" title="Line To"></a>Line To</h4><p>“Line To”命令。简称L，需要两个参数，分别一个点的x轴和y轴的坐标。L 命令将会在当前位置和新位置之间画一条线段。</p>
+<h4 id="H-amp-V"><a href="#H-amp-V" class="headerlink" title="H&amp;V"></a>H&amp;V</h4><p>H 绘制水平线。V 绘制垂直线。这两个命令都只带一个参数，标明在 x 轴或 y 轴移动到的坐标，因为它们都只在坐标轴的一个方向上移动。</p>
+<h4 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h4><p>Z 命令会从当前点画一条直线到路径的起点，尽管我们不总是需要闭合路径，但是它还是经常被放到路径的最后。另外，Z 命令不用区分大小写。</p>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>大写命令的参数指定明确的坐标点，小写命令的参数是相对于当前点需要移动多少的距离（反方向的距离是负数）</li>
+<li>m命令是当前位置坐标加上参数的坐标，即为新起点的坐标</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 H 90 V 90 H 10 L 10 10&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 H 90 V 90 H 10 Z&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 h 80 v 80 h -80 Z&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="曲线命令"><a href="#曲线命令" class="headerlink" title="曲线命令"></a>曲线命令</h3><h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p><strong>C</strong>命令会创建一个三次贝塞尔曲线，三次贝塞尔曲线需要4个坐标点位置，我们通过M命令设置了曲线的起点，因此还需要设置3组坐标参数</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x1、y1</strong>：起点的控制点</li>
+<li><strong>x2、y2</strong>：终点的控制点</li>
+<li><strong>x、y</strong>：曲线的终点</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 C 20 20, 40 20, 50 10&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="S"><a href="#S" class="headerlink" title="S"></a>S</h4><p><strong>S</strong>命令也可以用来创建三次贝塞尔曲线，如果<strong>S</strong>命令跟在<strong>C</strong>或<strong>S</strong>命令后面，<strong>S</strong>命令曲线的起点是上一命令曲线的终点，<strong>S</strong>命令起点的控制点是上一命令终点控制点的中心对称点；如果<strong>S</strong>命令单独使用，前面没有<strong>C</strong>或<strong>S</strong>命令，那当前点（可能是曲线的起点）将作为起点的控制点。</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x2、y2</strong>：终点的控制点</li>
+<li><strong>x、y</strong>：曲线的终点</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h4><p><strong>Q</strong>命令会创建一个二次贝塞尔曲线，二次贝塞尔曲线需要3个坐标点位置，我们通过M命令设置了曲线的起点，因此还需要设置2组坐标参数</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x1、y1</strong>：控制点</li>
+<li><strong>x、y</strong>：曲线的终点</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 80 Q 95 10 180 80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="T"><a href="#T" class="headerlink" title="T"></a>T</h4><p><strong>T</strong>命令也可以用来创建二次贝塞尔曲线，如果<strong>T</strong>命令跟在<strong>Q</strong>或<strong>T</strong>命令后面，<strong>T</strong>命令曲线的起点是上一命令曲线的终点，<strong>T</strong>命令控制点是上一命令控制点的中心对称点；如果<strong>T</strong>命令单独使用，前面没有<strong>Q</strong>或<strong>T</strong>命令，那么控制点就会被认为和终点是同一个点，画出来的将是一条直线。</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x、y</strong>：曲线的终点</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 80 Q 52.5 10, 95 80 T 180 80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="A"><a href="#A" class="headerlink" title="A"></a>A</h4><p><strong>A</strong>命令是创建弧形的命令，弧形可以视为圆形或椭圆形的一部分</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>rx、ry</strong>：弧形的x轴和y轴半径</li>
+<li><strong>x-axis-rotation</strong>：x轴旋转角度</li>
+<li><strong>large-arc-flag</strong>：决定弧线是大于还是小于 180 度，0 表示小角度弧，1 表示大角度弧。</li>
+<li><strong>sweep-flag</strong>：表示弧线的方向，0 表示从起点到终点沿逆时针画弧，1 表示从起点到终点沿顺时针画弧。</li>
+<li><strong>x、y</strong>：弧形终点的x、y轴坐标</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;325&quot;</span> <span class="attr">height</span>=<span class="string">&quot;325&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 80 80</span></span></span><br><span class="line"><span class="string"><span class="tag">        A 45 45, 0, 0, 0, 125 125</span></span></span><br><span class="line"><span class="string"><span class="tag">        L 125 80 Z&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;green&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 230 80</span></span></span><br><span class="line"><span class="string"><span class="tag">        A 45 45, 0, 1, 0, 275 125</span></span></span><br><span class="line"><span class="string"><span class="tag">        L 275 80 Z&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;red&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 80 230</span></span></span><br><span class="line"><span class="string"><span class="tag">        A 45 45, 0, 0, 1, 125 275</span></span></span><br><span class="line"><span class="string"><span class="tag">        L 125 230 Z&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;purple&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 230 230</span></span></span><br><span class="line"><span class="string"><span class="tag">        A 45 45, 0, 1, 1, 275 275</span></span></span><br><span class="line"><span class="string"><span class="tag">        L 275 230 Z&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;blue&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="填充和边框"><a href="#填充和边框" class="headerlink" title="填充和边框"></a>填充和边框</h2><h3 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h3><p><strong>fill</strong>属性设置对象内部的颜色</p>
+<p><strong>fill-opacity</strong>属性控制填充色的不透明度</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;10&quot;</span> <span class="attr">y</span>=<span class="string">&quot;10&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;purple&quot;</span> <span class="attr">fill-opacity</span>=<span class="string">&quot;0.5&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h3><p><strong>stroke</strong>属性设置绘制对象的线条的颜色</p>
+<p><strong>stroke-opacity</strong>属性控制描边的不透明度</p>
+<p><strong>stroke-width</strong>属性定义了描边的宽度</p>
+<p><strong>stroke-linecap</strong>属性控制边框的形状（butt：直角，round：圆角）</p>
+<p><strong>stroke-linejoin</strong>属性控制两条边框之间，用什么方式连接（miter：直角，round：圆角，bevel：折角）</p>
+<p><strong>stroke-dasharray</strong>属性的参数是一组用逗号分隔的数字，每一组数字中，第一个表示填色区域的长度，第二个表示非填色区域的长度</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;10&quot;</span> <span class="attr">y</span>=<span class="string">&quot;10&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;blue&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;none&quot;</span> <span class="attr">stroke-opacity</span>=<span class="string">&quot;0.8&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;2&quot;</span> <span class="attr">stroke-linecap</span>=<span class="string">&quot;round&quot;</span> <span class="attr">stroke-linejoin</span>=<span class="string">&quot;butt&quot;</span> <span class="attr">stroke-dasharray</span>=<span class="string">&quot;5&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h2><p>使用渐变需要给渐变内容指定一个<strong>id</strong>属性，否则文档内的其他元素就不能引用它，为了让渐变能重复使用，渐变内容需要定义在<code>&lt;defs&gt;</code>元素内，而不是定义在形状上面。</p>
+<h3 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h3><p>线性渐变沿着直线改变颜色，要插入一个线性渐变，需要在 SVG 文件的<code>&lt;defs&gt;</code>元素内部，创建一个<code>&lt;linearGradient&gt;</code>元素</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>x1、x2、y1、y2</strong>：这些属性定义了渐变路线走向。渐变色默认是水平方向的，但是通过修改这些属性，就可以旋转该方向。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;Gradient1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">stop-color</span>=<span class="string">&quot;black&quot;</span> <span class="attr">stop-opacity</span>=<span class="string">&quot;0&quot;</span> <span class="attr">offset</span>=<span class="string">&quot;50%&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;10&quot;</span> <span class="attr">y</span>=<span class="string">&quot;10&quot;</span> <span class="attr">rx</span>=<span class="string">&quot;15&quot;</span> <span class="attr">ry</span>=<span class="string">&quot;15&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;url(#Gradient1)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h3><p>径向渐变与线性渐变相似，只是它是从一个点开始发散绘制渐变。创建径向渐变需要在文档的<code>&lt;defs&gt;</code>元素中添加一个<code>&lt;radiaGradient&gt;</code>元素</p>
+<p><strong>属性</strong>：</p>
+<ol>
+<li><strong>fx、fy</strong>：径向渐变的起点圆的X、Y坐标</li>
+<li><strong>cx、cy</strong>：径向渐变的终点圆的X、Y坐标</li>
+<li><strong>r</strong>：径向渐变的终点圆的半径</li>
+<li><strong>spreadMethod</strong>：表示渐变在边缘之外的表现<ul>
+<li><strong>pad</strong>：渐变的最终颜色填充边缘以外的形状</li>
+<li><strong>reflect</strong>：渐变在边缘以外反向重复</li>
+<li><strong>repeat</strong>：渐变在边缘以外按原始顺序重复</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">radialGradient</span> <span class="attr">id</span>=<span class="string">&quot;RadialGradient1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">radialGradient</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">radialGradient</span> <span class="attr">id</span>=<span class="string">&quot;RadialGradient2&quot;</span> <span class="attr">cx</span>=<span class="string">&quot;0.25&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;0.25&quot;</span> <span class="attr">r</span>=<span class="string">&quot;0.25&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">radialGradient</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">rect</span></span></span><br><span class="line"><span class="tag">    <span class="attr">x</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">y</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">rx</span>=<span class="string">&quot;15&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">ry</span>=<span class="string">&quot;15&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">fill</span>=<span class="string">&quot;url(#RadialGradient1)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rect</span></span></span><br><span class="line"><span class="tag">    <span class="attr">x</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">y</span>=<span class="string">&quot;120&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">rx</span>=<span class="string">&quot;15&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">ry</span>=<span class="string">&quot;15&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">&quot;100&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">fill</span>=<span class="string">&quot;url(#RadialGradient2)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="渐变节点"><a href="#渐变节点" class="headerlink" title="渐变节点"></a>渐变节点</h3><p>通过<code>&lt;stop&gt;</code>元素的<strong>offset</strong>和<strong>stop-color</strong>属性，可以说明在渐变的特定位置上应该是什么颜色，通过<strong>stop-opacity</strong>属性设置透明度</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;yellow&quot;</span> <span class="attr">stop-opacity</span>=<span class="string">&quot;0.5&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="遮罩"><a href="#遮罩" class="headerlink" title="遮罩"></a>遮罩</h3><p>利用遮罩效果也能实现线性渐变效果</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;Gradient&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;white&quot;</span> <span class="attr">stop-opacity</span>=<span class="string">&quot;0&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;1&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;white&quot;</span> <span class="attr">stop-opacity</span>=<span class="string">&quot;1&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mask</span> <span class="attr">id</span>=<span class="string">&quot;Mask&quot;</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;url(#Gradient)&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mask</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;green&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;red&quot;</span> <span class="attr">mask</span>=<span class="string">&quot;url(#Mask)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>利用<code>&lt;text&gt;</code>元素可以在图像中放置一些文本</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;10&quot;</span> <span class="attr">y</span>=<span class="string">&quot;10&quot;</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="变形"><a href="#变形" class="headerlink" title="变形"></a>变形</h2><p>通过<strong>transform</strong>属性可以实现变形操作</p>
+<h3 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h3><p>**translate()**方法能把元素移动一段距离</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;10&quot;</span> <span class="attr">height</span>=<span class="string">&quot;10&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;translate(30,40)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><p>**rotate()**方法能把元素旋转</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;20&quot;</span> <span class="attr">y</span>=<span class="string">&quot;20&quot;</span> <span class="attr">width</span>=<span class="string">&quot;20&quot;</span> <span class="attr">height</span>=<span class="string">&quot;20&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;rotate(45)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p>**scale()**方法能把元素缩放一定比例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;20&quot;</span> <span class="attr">y</span>=<span class="string">&quot;20&quot;</span> <span class="attr">width</span>=<span class="string">&quot;20&quot;</span> <span class="attr">height</span>=<span class="string">&quot;20&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;scale(.5)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="剪切"><a href="#剪切" class="headerlink" title="剪切"></a>剪切</h2><p>使用<code>&lt;clipPath&gt;</code>元素能够实现剪切的效果，<code>&lt;clipPath&gt;</code>元素经常放在一个<code>&lt;defs&gt;</code>元素内。需要<strong>id</strong>属性和<strong>clip-path</strong>匹配，确定剪切元素的路径和被剪切元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">clipPath</span> <span class="attr">id</span>=<span class="string">&quot;cut-off-bottom&quot;</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">clipPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">&quot;100&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;100&quot;</span> <span class="attr">r</span>=<span class="string">&quot;100&quot;</span> <span class="attr">clip-path</span>=<span class="string">&quot;url(#cut-off-bottom)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/HTML/" class="category-chain-item">HTML</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/HTML/" class="print-no-link">#HTML</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/18/HTML%E5%AD%A6%E4%B9%A0(13)-%E5%B5%8C%E5%85%A5/" title="HTML学习(13)-嵌入">
+                        <span class="hidden-mobile">HTML学习(13)-嵌入</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
