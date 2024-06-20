@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/svg.png">
 <meta property="article:published_time" content="2024-06-19T02:50:53.000Z">
-<meta property="article:modified_time" content="2024-06-19T02:51:10.803Z">
+<meta property="article:modified_time" content="2024-06-20T02:20:10.359Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary_large_image">
@@ -356,7 +356,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 H 90 V 90 H 10 L 10 10&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 H 90 V 90 H 10 Z&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 h 80 v 80 h -80 Z&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="曲线命令"><a href="#曲线命令" class="headerlink" title="曲线命令"></a>曲线命令</h3><h4 id="C"><a href="#C" class="headerlink" title="C"></a>C</h4><p><strong>C</strong>命令会创建一个三次贝塞尔曲线，三次贝塞尔曲线需要4个坐标点位置，我们通过M命令设置了曲线的起点，因此还需要设置3组坐标参数</p>
-<p><strong>属性</strong>：</p>
+<p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x1、y1</strong>：起点的控制点</li>
 <li><strong>x2、y2</strong>：终点的控制点</li>
@@ -365,7 +365,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 10 C 20 20, 40 20, 50 10&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="S"><a href="#S" class="headerlink" title="S"></a>S</h4><p><strong>S</strong>命令也可以用来创建三次贝塞尔曲线，如果<strong>S</strong>命令跟在<strong>C</strong>或<strong>S</strong>命令后面，<strong>S</strong>命令曲线的起点是上一命令曲线的终点，<strong>S</strong>命令起点的控制点是上一命令终点控制点的中心对称点；如果<strong>S</strong>命令单独使用，前面没有<strong>C</strong>或<strong>S</strong>命令，那当前点（可能是曲线的起点）将作为起点的控制点。</p>
-<p><strong>属性</strong>：</p>
+<p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x2、y2</strong>：终点的控制点</li>
 <li><strong>x、y</strong>：曲线的终点</li>
@@ -373,7 +373,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h4><p><strong>Q</strong>命令会创建一个二次贝塞尔曲线，二次贝塞尔曲线需要3个坐标点位置，我们通过M命令设置了曲线的起点，因此还需要设置2组坐标参数</p>
-<p><strong>属性</strong>：</p>
+<p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x1、y1</strong>：控制点</li>
 <li><strong>x、y</strong>：曲线的终点</li>
@@ -381,14 +381,14 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 80 Q 95 10 180 80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="T"><a href="#T" class="headerlink" title="T"></a>T</h4><p><strong>T</strong>命令也可以用来创建二次贝塞尔曲线，如果<strong>T</strong>命令跟在<strong>Q</strong>或<strong>T</strong>命令后面，<strong>T</strong>命令曲线的起点是上一命令曲线的终点，<strong>T</strong>命令控制点是上一命令控制点的中心对称点；如果<strong>T</strong>命令单独使用，前面没有<strong>Q</strong>或<strong>T</strong>命令，那么控制点就会被认为和终点是同一个点，画出来的将是一条直线。</p>
-<p><strong>属性</strong>：</p>
+<p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：曲线的终点</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M 10 80 Q 52.5 10, 95 80 T 180 80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="A"><a href="#A" class="headerlink" title="A"></a>A</h4><p><strong>A</strong>命令是创建弧形的命令，弧形可以视为圆形或椭圆形的一部分</p>
-<p><strong>属性</strong>：</p>
+<p><strong>参数</strong>：</p>
 <ol>
 <li><strong>rx、ry</strong>：弧形的x轴和y轴半径</li>
 <li><strong>x-axis-rotation</strong>：x轴旋转角度</li>
@@ -443,13 +443,13 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;10&quot;</span> <span class="attr">y</span>=<span class="string">&quot;10&quot;</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="变形"><a href="#变形" class="headerlink" title="变形"></a>变形</h2><p>通过<strong>transform</strong>属性可以实现变形操作</p>
-<h3 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h3><p>**translate()**方法能把元素移动一段距离</p>
+<h3 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h3><p><code>translate()</code>方法能把元素移动一段距离</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;10&quot;</span> <span class="attr">height</span>=<span class="string">&quot;10&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;translate(30,40)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><p>**rotate()**方法能把元素旋转</p>
+<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><p><code>rotate()</code>方法能把元素旋转</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;20&quot;</span> <span class="attr">y</span>=<span class="string">&quot;20&quot;</span> <span class="attr">width</span>=<span class="string">&quot;20&quot;</span> <span class="attr">height</span>=<span class="string">&quot;20&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;rotate(45)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p>**scale()**方法能把元素缩放一定比例</p>
+<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p><code>scale()</code>方法能把元素缩放一定比例</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;20&quot;</span> <span class="attr">y</span>=<span class="string">&quot;20&quot;</span> <span class="attr">width</span>=<span class="string">&quot;20&quot;</span> <span class="attr">height</span>=<span class="string">&quot;20&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;scale(.5)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="剪切"><a href="#剪切" class="headerlink" title="剪切"></a>剪切</h2><p>使用<code>&lt;clipPath&gt;</code>元素能够实现剪切的效果，<code>&lt;clipPath&gt;</code>元素经常放在一个<code>&lt;defs&gt;</code>元素内。需要<strong>id</strong>属性和<strong>clip-path</strong>匹配，确定剪切元素的路径和被剪切元素。</p>
@@ -500,6 +500,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/" title="HTML学习(15)-Canvas">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTML学习(15)-Canvas</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -24,7 +24,7 @@
 <meta property="og:description" content="超链接使我们能够将我们的文档链接到任何其他文档（或其他资源），也可以链接到文档的指定部分，我们可以在一个简单的网址上提供应用程序。几乎任何网络内容都可以转换为链接，点击（或激活）超链接将使网络浏览器转到另一个网址。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-11T02:54:35.000Z">
-<meta property="article:modified_time" content="2024-06-12T09:01:00.393Z">
+<meta property="article:modified_time" content="2024-06-20T01:58:20.316Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary_large_image">
@@ -276,10 +276,10 @@
 
 <h3 id="链接文档某一段"><a href="#链接文档某一段" class="headerlink" title="链接文档某一段"></a>链接文档某一段</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//链接相同页面</span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span>&gt;</span>邮寄地址<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    请将信件邮寄至</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#address&quot;</span>&gt;</span>我们的地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//链接不同页面</span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span>&gt;</span>邮寄地址<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    请将信件邮寄至</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;contacts.html#address&quot;</span>&gt;</span>我们的地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//链接到顶部</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>back top<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">or</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#top&quot;</span>&gt;</span>back top<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="链接邮箱地址"><a href="#链接邮箱地址" class="headerlink" title="链接邮箱地址"></a>链接邮箱地址</h3><p>href属性可以以<code>mailto:</code>开头，用于发送电子邮件</p>
+<h3 id="链接邮箱地址"><a href="#链接邮箱地址" class="headerlink" title="链接邮箱地址"></a>链接邮箱地址</h3><p><strong>href</strong>属性可以以<code>mailto:</code>开头，用于发送电子邮件</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;mailto:nowhere@mozilla.org&quot;</span>&gt;</span>Send email to nowhere<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="链接电话号码"><a href="#链接电话号码" class="headerlink" title="链接电话号码"></a>链接电话号码</h3><p>href属性可以以<code>tel:</code>开头，用于拨打电话</p>
+<h3 id="链接电话号码"><a href="#链接电话号码" class="headerlink" title="链接电话号码"></a>链接电话号码</h3><p><strong>href</strong>属性可以以<code>tel:</code>开头，用于拨打电话</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;tel:12345678910&quot;</span>&gt;</span>phone number<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="title属性"><a href="#title属性" class="headerlink" title="title属性"></a>title属性</h2><p>包含关于链接的补充信息，例如页面包含什么样的信息或需要注意的事情。</p>
@@ -290,10 +290,10 @@
 
 <h2 id="target属性"><a href="#target属性" class="headerlink" title="target属性"></a>target属性</h2><p>指定在何处显示链接的URL。</p>
 <ol>
-<li>_self：当前页面加载</li>
-<li>_blank：新标签页打开</li>
-<li>_parent：当前浏览环境的父级浏览上下文，如果没有父级，等同于 <strong><code>_self</code></strong></li>
-<li>_top：最高的浏览上下文，如果没有祖先，等同于 <strong><code>_self</code></strong></li>
+<li><strong>_self</strong>：当前页面加载</li>
+<li><strong>_blank</strong>：新标签页打开</li>
+<li><strong>_parent</strong>：当前浏览环境的父级浏览上下文，如果没有父级，等同于 <strong><code>_self</code></strong></li>
+<li><strong>_top</strong>：最高的浏览上下文，如果没有祖先，等同于 <strong><code>_self</code></strong></li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.mozilla.org/zh-CN/&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span><br><span class="line">    Mozilla主页</span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
