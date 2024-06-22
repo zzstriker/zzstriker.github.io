@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="JavaScript 采用的是单线程模型，也就是说，所有任务只能在一个线程上完成，一次只能做一件事。前面的任务没做完，后面的任务只能等着。">
+    <meta name="description" content="层叠样式表—–Cascading Style Sheets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML学习(16)-Web Worker">
-<meta property="og:url" content="https://zzstriker.github.io/2024/06/21/HTML%E5%AD%A6%E4%B9%A0(16)-Web%20Worker/index.html">
+<meta property="og:title" content="CSS学习(1)-CSS介绍">
+<meta property="og:url" content="https://zzstriker.github.io/2024/06/22/CSS%E5%AD%A6%E4%B9%A0(1)-CSS%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="JavaScript 采用的是单线程模型，也就是说，所有任务只能在一个线程上完成，一次只能做一件事。前面的任务没做完，后面的任务只能等着。">
+<meta property="og:description" content="层叠样式表—–Cascading Style Sheets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-21T01:25:15.000Z">
-<meta property="article:modified_time" content="2024-06-21T01:25:37.279Z">
+<meta property="article:published_time" content="2024-06-22T06:09:01.000Z">
+<meta property="article:modified_time" content="2024-06-22T06:09:23.702Z">
 <meta property="article:author" content="zzstriker">
-<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>HTML学习(16)-Web Worker - zzstriker blogs</title>
+  <title>CSS学习(1)-CSS介绍 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="HTML学习(16)-Web Worker"></span>
+            <span id="subtitle" data-typed-text="CSS学习(1)-CSS介绍"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-21 09:25" pubdate>
-          2024年6月21日 上午
+        <time datetime="2024-06-22 14:09" pubdate>
+          2024年6月22日 下午
         </time>
       </span>
     
@@ -260,45 +260,39 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">HTML学习(16)-Web Worker</h1>
+            <h1 id="seo-header">CSS学习(1)-CSS介绍</h1>
             
             
               <div class="markdown-body">
                 
-                <p>JavaScript 采用的是单线程模型，也就是说，所有任务只能在一个线程上完成，一次只能做一件事。前面的任务没做完，后面的任务只能等着。</p>
+                <p>层叠样式表—–<strong>C</strong>ascading <strong>S</strong>tyle <strong>S</strong>heets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。</p>
 <span id="more"></span>
 
-<h1 id="Web-Worker"><a href="#Web-Worker" class="headerlink" title="Web Worker"></a>Web Worker</h1><p>Web Worker 的作用，就是为 JavaScript 创造多线程环境，允许主线程创建 Worker 线程，将一些任务分配给后者运行。在主线程运行的同时，Worker 线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 Worker 线程负担了，主线程（通常负责 UI 交互）就会很流畅，不会被阻塞或拖慢。</p>
-<h2 id="主线程阻塞"><a href="#主线程阻塞" class="headerlink" title="主线程阻塞"></a>主线程阻塞</h2><p>当页面中有JavaScript代码在执行且耗时过长，会阻塞UI更新</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">fib</span>(<span class="params">n</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="title function_">fib</span>(n - <span class="number">1</span>) + <span class="title function_">fib</span>(n - <span class="number">2</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">fib</span>(<span class="number">45</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> el = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    el.<span class="property">innerHTML</span> = <span class="string">&#x27;Hello Web Worker&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="title function_">appendChild</span>(el);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Worker创建"><a href="#Worker创建" class="headerlink" title="Worker创建"></a>Worker创建</h2><p>主线程采用<code>new</code>命令，调用<code>Worker()</code>构造函数，新建一个 Worker 线程。</p>
-<p><strong>注意</strong>：</p>
+<h1 id="CSS语法"><a href="#CSS语法" class="headerlink" title="CSS语法"></a>CSS语法</h1><p>CSS 是一门基于规则的语言，你能定义用于你的网页中特定元素样式的一组规则。CSS由2个部分组成：</p>
 <ol>
-<li><strong>同源策略</strong>：Worker线程运行的脚本必须和主线程的脚本文件同源</li>
-<li><strong>DOM限制</strong>：Worker无法读取主线程所在页面的DOM对象，也无法使用document、window、parent对象，可以使用navigator、location对象</li>
-<li><strong>文件限制</strong>：Worker线程无法读取本地文件（file:&#x2F;&#x2F;）</li>
+<li><strong>属性</strong>：可读的标识符，指示想要更改的样式特征。</li>
+<li><strong>值</strong>：每个指定的属性都有一个值，这个值表示如何对属性施加样式。</li>
 </ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(aURL, options);</span><br></pre></td></tr></table></figure>
+<p>当一个属性与一个值配对时，这种配对被称为 <em>CSS 声明</em>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>: blue;</span><br></pre></td></tr></table></figure>
 
-<p><strong>属性</strong>：</p>
-<ol>
-<li><strong>aURL</strong>：Worker将执行的脚本的URL</li>
-<li><strong>options</strong>：创建对象实例时设置的选项属性的对象</li>
-</ol>
-<h2 id="Worker通信"><a href="#Worker通信" class="headerlink" title="Worker通信"></a>Worker通信</h2><p>主线程与 Worker 之间通信采用的是消息传递机制。</p>
-<h3 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h3><p>主线程调用<code>worker.postMessage()</code>方法，向 Worker 发消息，<code>worker.postMessage()</code>方法的参数，就是主线程传给 Worker 的数据。主线程通过<code>worker.onmessage</code>指定监听函数，接收子线程发回来的消息，也可以通过<code>worker.addEventListener()</code>监听。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;worker.js&#x27;</span>);</span><br><span class="line"></span><br><span class="line">worker.<span class="title function_">postMessage</span>(<span class="string">&quot;Hello Worker!&quot;</span>);</span><br><span class="line"></span><br><span class="line">worker.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">data</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">worker.<span class="title function_">addEventListener</span>(<span class="string">&quot;message&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">data</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>CSS 声明可以在 <em>CSS 声明块</em>中找到。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">    <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Worker线程"><a href="#Worker线程" class="headerlink" title="Worker线程"></a>Worker线程</h3><p><code>self</code>代表子线程自身，即子线程的全局对象。与主线程基本一致，worker线程调用<code>postMessage()</code>方法，向 Main 发消息，通过<code>onmessage</code>或<code>addEventListener()</code>指定监听函数，接收主线程发回来的消息。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">self.<span class="title function_">postMessage</span>(<span class="string">&quot;Hello Main!&quot;</span>);</span><br><span class="line"></span><br><span class="line">self.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">data</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&quot;message&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">data</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>CSS 声明块与选择器配对，生成 <em>CSS 规则集</em>（或称 <em>CSS 规则</em>）。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">    <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>主线程可以监听 Worker 是否发生错误。如果发生错误，Worker 会触发主线程的<code>error</code>事件。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">worker.<span class="title function_">onerror</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(event);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">worker.<span class="title function_">addEventListener</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="CSS引用方式"><a href="#CSS引用方式" class="headerlink" title="CSS引用方式"></a>CSS引用方式</h1><h2 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h2><p>外部样式表在一个单独的扩展名为 .css 的文件中包含 CSS。这是将 CSS 应用到文档中最常见和最有用的方法。你可以将一个 CSS 文件链接到多个网页上，用同一个 CSS 样式表为所有网页确定样式。使用 HTML <code>&lt;link&gt; </code>元素来链接外部样式表文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>我的 CSS 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles.css&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是我的第一个 CSS 示例<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="Worker销毁"><a href="#Worker销毁" class="headerlink" title="Worker销毁"></a>Worker销毁</h2><p><code>worker.terminate() </code>是在主线程中调用的方法，用于立即终止 Worker 线程。当你调用<code>terminate()</code>时，<strong>Worker 线程会被强制停止，它不会有机会完成当前正在执行的任务或进行清理工作</strong>。这是主线程对 Worker 线程的一种单向控制。</p>
-<p><code>self.close() </code>是在 Worker 线程内部调用的方法，用于优雅地关闭 Worker 线程。当你从 Worker 线程内部调用<code>close()</code>时，<strong>Worker 线程会完成当前正在执行的任务，然后关闭自己</strong>。这种方式允许 Worker 线程在关闭前进行必要的清理工作。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程</span></span><br><span class="line">worker.<span class="title function_">terminate</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Worker 线程</span></span><br><span class="line">self.<span class="title function_">close</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h2><p>内部样式表在 HTML 文档内。创建一个内部样式表，要把 CSS 放置在包含在 HTML <code>&lt;head&gt;</code> 元素中的 <code>&lt;style&gt;</code> 元素内。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>我的 CSS 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">h1</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">color</span>: blue;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">background-color</span>: yellow;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">            	<span class="attribute">color</span>: red;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是我的第一个 CSS 示例<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h2><p>内联样式是影响单个 HTML 元素的 CSS 声明，包含在元素的 style 属性中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>我的 CSS 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color: blue;background-color: yellow;border: 1px solid black;&quot;</span>&gt;</span></span><br><span class="line">        	Hello World!</span><br><span class="line">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>这是我的第一个 CSS 示例<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p>CSS 中的注释以 <code>/*</code> 开头，以 <code>*/</code> 结尾。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .special &#123;</span></span><br><span class="line"><span class="comment">    color: red;</span></span><br><span class="line"><span class="comment">&#125; */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
                 
@@ -318,7 +312,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/HTML/" class="category-chain-item">HTML</a>
+  <a href="/categories/CSS/" class="category-chain-item">CSS</a>
   
   
 
@@ -333,7 +327,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/HTML/" class="print-no-link">#HTML</a>
+        <a href="/tags/CSS/" class="print-no-link">#CSS</a>
       
     </div>
   
@@ -347,18 +341,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/22/CSS%E5%AD%A6%E4%B9%A0(1)-CSS%E4%BB%8B%E7%BB%8D/" title="CSS学习(1)-CSS介绍">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CSS学习(1)-CSS介绍</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/" title="HTML学习(15)-Canvas">
-                        <span class="hidden-mobile">HTML学习(15)-Canvas</span>
+                      <a href="/2024/06/21/HTML%E5%AD%A6%E4%B9%A0(16)-Web%20Worker/" title="HTML学习(16)-Web Worker">
+                        <span class="hidden-mobile">HTML学习(16)-Web Worker</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
