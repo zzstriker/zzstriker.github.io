@@ -1,0 +1,681 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在 CSS 中，所有的元素都被一个个的“盒子”包围着，理解这些“盒子”的基本原理，是我们使用 CSS 实现准确布局、处理元素排列的关键。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS学习(9)-盒子模型">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/01/CSS%E5%AD%A6%E4%B9%A0(9)-%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="在 CSS 中，所有的元素都被一个个的“盒子”包围着，理解这些“盒子”的基本原理，是我们使用 CSS 实现准确布局、处理元素排列的关键。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-01T01:27:13.000Z">
+<meta property="article:modified_time" content="2024-07-01T01:27:28.021Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>CSS学习(9)-盒子模型 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CSS学习(9)-盒子模型"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-01 09:27" pubdate>
+          2024年7月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CSS学习(9)-盒子模型</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在 CSS 中，所有的元素都被一个个的“盒子”包围着，理解这些“盒子”的基本原理，是我们使用 CSS 实现准确布局、处理元素排列的关键。</p>
+<span id="more"></span>
+
+<h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><h2 id="块盒子和内联盒子"><a href="#块盒子和内联盒子" class="headerlink" title="块盒子和内联盒子"></a>块盒子和内联盒子</h2><p>在 CSS 中，我们有几种类型的盒子，一般分为<strong>块盒子</strong>（block boxes）和<strong>内联盒子</strong>（inline boxes）。类型指的是盒子在页面流中的行为方式以及与页面上其他盒子的关系。</p>
+<h2 id="盒子显示类型"><a href="#盒子显示类型" class="headerlink" title="盒子显示类型"></a>盒子显示类型</h2><p>盒子有<strong>内部显示</strong>（inner display type）和<strong>外部显示</strong>（outer display type）两种类型。</p>
+<h3 id="外部显示类型"><a href="#外部显示类型" class="headerlink" title="外部显示类型"></a>外部显示类型</h3><p>一个<strong>块盒子</strong>在外部显示类型中会表现出以下行为：</p>
+<ol>
+<li>盒子会产生换行</li>
+<li><strong>width</strong>和<strong>height</strong>属性可以发挥作用</li>
+<li><strong>margin</strong>、<strong>padding</strong>、<strong>border</strong>会将其他元素从当前盒子周围”推开“</li>
+<li>如果没有指定<strong>width</strong>，盒子将填充容器中的空间</li>
+</ol>
+<p>一个<strong>内联盒子</strong>在外部显示类型中会表现出以下行为：</p>
+<ol>
+<li>盒子不会产生换行</li>
+<li><strong>width</strong>和<strong>height</strong>属性将不起作用</li>
+<li>垂直方向的<strong>margin</strong>、<strong>padding</strong>、<strong>border</strong>会被应用但是不会把其他<strong>内联盒子</strong>推开。</li>
+<li>水平方向的<strong>margin</strong>、<strong>padding</strong>、<strong>border</strong>会被应用且会把其他<strong>内联盒子</strong>推开。</li>
+</ol>
+<h3 id="内部显示类型"><a href="#内部显示类型" class="headerlink" title="内部显示类型"></a>内部显示类型</h3><p>决定了盒子内元素的布局方式。</p>
+<h2 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h2><p>CSS 盒模型整体上适用于块盒子，它定义了盒子的不同部分（外边距、边框、内边距和内容）如何协同工作，以创建一个在页面上可以看到的盒子。内联盒子使用的只是盒模型中定义的部分行为。</p>
+<p>CSS 中组成一个块盒子需要：</p>
+<ol>
+<li><strong>内容盒子</strong>：显示内容的区域</li>
+<li><strong>内边距盒子</strong>：填充位于内容周围的空白处</li>
+<li><strong>边框盒子</strong>：边框盒子包住内容和任何填充</li>
+<li><strong>外边距盒子</strong>：外边距是最外层，其包裹内容、内边距和边框，作为该盒子与其他元素之间的空白</li>
+</ol>
+<h3 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h3><p>在标准模型中，如果给盒子设置<strong>width</strong>和<strong>height</strong>，实际设置的是Content box。<strong>padding</strong> 和 <strong>border</strong> 再加上设置的宽高一起决定整个盒子的大小。</p>
+<h3 id="IE盒模型"><a href="#IE盒模型" class="headerlink" title="IE盒模型"></a>IE盒模型</h3><p>在IE盒模型中，所有宽度都是可见宽度，所以内容宽度是该宽度减去<strong>border</strong> 和 <strong>padding</strong>。</p>
+<p><strong>注意</strong>：默认情况下，浏览器使用标准盒模型。</p>
+<h3 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h3><ol>
+<li><strong>content-box</strong>：默认值，标准盒子模型。<strong>width</strong>和<strong>height</strong>只包括内容的宽和高，不包括<strong>border</strong>、<strong>padding</strong>、<strong>margin</strong></li>
+<li><strong>border-box</strong>：IE盒子模型。<strong>width</strong>和<strong>height</strong>包括内容的宽高和 <strong>border</strong>、<strong>padding</strong>，不包括<strong>margin</strong></li>
+</ol>
+<h2 id="外边距"><a href="#外边距" class="headerlink" title="外边距"></a>外边距</h2><p>外边距是盒子周围的空间，它会把其他元素从盒子旁边推开，无论使用标准模型还是替代模型，外边距总是在计算可见部分后额外添加。</p>
+<p>我们可以使用<strong>margin</strong>属性控制元素的所有边距，<strong>margin</strong> 属性是 <strong>margin-top</strong>、<strong>margin-right</strong>、<strong>margin-bottom</strong> 和 <strong>margin-left</strong> 的简写形式。</p>
+<p><strong>margin</strong> 简写形式以特定顺序应用属性：上、右、下、左，具体应用方式如下：</p>
+<ol>
+<li>一个值：所有面都会应用。(margin: 20px)</li>
+<li>两个值：第一个值将应用于 top 和 bottom，第二个值将应用于 left 和 right。(margin: 20px 40px)</li>
+<li>三个值：第一个值为 top，第二个值为 left 和 right，第三个值为 bottom。(margin: 20px 40px 30px)</li>
+<li>四个值：第一个值为 top，第二个值为 right，第三个值为 bottom，第四个值为 left。(margin: 20px 40px 30px 40px)</li>
+</ol>
+<h3 id="负外边距"><a href="#负外边距" class="headerlink" title="负外边距"></a>负外边距</h3><p>外边距属性值可以为正也可以为负。在盒子一侧设置负值会导致盒子和页面上的其他内容重叠。</p>
+<h3 id="外边距折叠"><a href="#外边距折叠" class="headerlink" title="外边距折叠"></a>外边距折叠</h3><p>根据外边距相接触的两个元素是正边距还是负边距，结果会有所不同：</p>
+<ol>
+<li>两个正外边距将合并为一个外边距。其大小等于最大的单个外边距</li>
+<li>两个负外边距会折叠，并使用最小（离零最远）的值</li>
+<li>如果其中一个外边距为负值，其值将从总值中减去</li>
+</ol>
+<p><strong>注意</strong>：外边距何时折叠，何时不折叠，由许多规则决定。需要记住的主要一点是，外边距折叠是指在使用外边距创建空间时，如果没有获得预期的空间，就会发生外边距折叠。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box1</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box2</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h2><p>元素外边距内就是边框，元素的边框就是围绕元素内容和内边距的一条或多条线。</p>
+<p>可以使用<strong>border</strong>属性一次设置所有四个边框的宽度、颜色和样式。<strong>border</strong> 属性是 <strong>border-top</strong>、<strong>border-right</strong>、<strong>border-bottom</strong> 和 <strong>border-left</strong> 的简写形式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.wrapper</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="边框样式"><a href="#边框样式" class="headerlink" title="边框样式"></a>边框样式</h3><p>如需显示边框，就必须定义<strong>border-style</strong></p>
+<ol>
+<li><strong>none</strong>：默认值，不显示边框</li>
+<li><strong>hidden</strong>：与none关键字类似，隐藏边框，如果存在其他的重叠边框，边框不会显示</li>
+<li><strong>dotted</strong>：显示为一系列圆点，圆点半径是<strong>border-width</strong>值的一半</li>
+<li><strong>dashed</strong>：显示为一系列短的方形虚线</li>
+<li><strong>solid</strong>：显示为一条实线</li>
+<li><strong>double</strong>：显示为一条双实线</li>
+<li><strong>groove</strong>：显示为有雕刻效果的边框，样式与<strong>ridge</strong>相反</li>
+<li><strong>ridge</strong>：显示为有浮雕效果的边框，样式与<strong>groove</strong>相反</li>
+<li><strong>inset</strong>：显示为有陷入效果的边框，样式与<strong>outset</strong>相反</li>
+<li><strong>outset</strong>：显示为有突出效果的边框，样式与<strong>inset</strong>相反</li>
+</ol>
+<h3 id="边框宽度"><a href="#边框宽度" class="headerlink" title="边框宽度"></a>边框宽度</h3><p>边框的宽度是线条的粗细，由 <strong>border-width</strong> 控制。</p>
+<ol>
+<li><strong>thin</strong>：细边线</li>
+<li><strong>medium</strong>：默认值，中等边线</li>
+<li><strong>thick</strong>：宽边线</li>
+<li>长度值设置边框宽度（px、em、rem、%）</li>
+</ol>
+<h3 id="边框颜色"><a href="#边框颜色" class="headerlink" title="边框颜色"></a>边框颜色</h3><p>可以使用 <strong>border-color</strong> 设置框的各侧或每一侧的颜色。默认情况下，它会使用框的当前文本颜色</p>
+<h3 id="边框圆角"><a href="#边框圆角" class="headerlink" title="边框圆角"></a>边框圆角</h3><p>使用<strong>border-radius</strong>属性设置边框的圆角，在简写形式中指定每个角的半径，遵循顺序：左上角、右上角、右下角、左下角。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.wrapper</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border-radius</span>: <span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="内边距"><a href="#内边距" class="headerlink" title="内边距"></a>内边距</h2><p>内边距位于边框和内容区域之间，用于将内容推离边框。与外边距不同，内边距不能为负数。任何应用于元素的背景都会显示在内边距后面。</p>
+<p><strong>padding</strong> 属性是<strong>padding-top</strong>、<strong>padding-right</strong>、<strong>padding-bottom</strong> 和 <strong>padding-left</strong> 的简写形式。</p>
+<h2 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h2><h3 id="块阴影"><a href="#块阴影" class="headerlink" title="块阴影"></a>块阴影</h3><p><strong>box-shadow</strong> 属性用于向 HTML 元素的框添加阴影。它适用于块元素和内联元素。</p>
+<p><strong>box-shadow</strong> 的值顺序如下：</p>
+<ol>
+<li>inset（可选）：如果没有指定<code>inset</code>，默认阴影在边框外，即阴影向外扩散。</li>
+<li>水平偏移：正数表示阴影位于元素右边，负数表示阴影位于元素左边。</li>
+<li>垂直偏移：正数表示阴影位于元素下方，负数表示阴影位于元素上方。</li>
+<li>模糊半径（可选）：值越大，模糊面积越大，阴影就越大越淡。不能为负值。默认为 0</li>
+<li>扩散半径（可选）：取正值时，阴影扩大；取负值时，阴影收缩。默认为 0，此时阴影与元素同样大。</li>
+<li>颜色（可选）：任何有效的颜色值。 如果未定义，将使用计算出的文本颜色。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">box-shadow</span>: <span class="number">1px</span> <span class="number">1px</span> <span class="number">20px</span> <span class="number">5px</span> <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文字阴影"><a href="#文字阴影" class="headerlink" title="文字阴影"></a>文字阴影</h3><p><strong>text-shadow</strong> 属性用于为文字添加阴影。</p>
+<p><strong>text-shadow</strong> 的值顺序如下：</p>
+<ol>
+<li>水平偏移：正数表示阴影位于元素右边，负数表示阴影位于元素左边。</li>
+<li>垂直偏移：正数表示阴影位于元素下方，负数表示阴影位于元素上方。</li>
+<li>模糊半径（可选）：值越大，模糊面积越大，阴影就越大越淡。不能为负值。默认为 0</li>
+<li>颜色（可选）：任何有效的颜色值。 如果未定义，将使用计算出的文本颜色。</li>
+</ol>
+<h3 id="曲线阴影"><a href="#曲线阴影" class="headerlink" title="曲线阴影"></a>曲线阴影</h3><p>如果需要实现沿着图片任何可能曲线的阴影，可以使用<strong>drop-shadow</strong>过滤器</p>
+<p><strong>drop-shadow</strong> 的值顺序如下：</p>
+<ol>
+<li>水平偏移：正数表示阴影位于元素右边，负数表示阴影位于元素左边。</li>
+<li>垂直偏移：正数表示阴影位于元素下方，负数表示阴影位于元素上方。</li>
+<li>模糊半径（可选）：值越大，模糊面积越大，阴影就越大越淡。不能为负值。默认为 0</li>
+<li>扩散半径（可选）：取正值时，阴影扩大；取负值时，阴影收缩。默认为 0，此时阴影与元素同样大。</li>
+<li>颜色（可选）：任何有效的颜色值。 如果未定义，将使用计算出的文本颜色。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CSS/" class="category-chain-item">CSS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSS/" class="print-no-link">#CSS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/29/CSS%E5%AD%A6%E4%B9%A0(8)-%E8%A1%A8%E6%A0%BC/" title="CSS学习(8)-表格">
+                        <span class="hidden-mobile">CSS学习(8)-表格</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
