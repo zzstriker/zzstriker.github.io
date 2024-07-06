@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Flex是Flexible Box的缩写，是一种用于按行或按列布局元素的一维布局方法。元素可以膨胀以填充额外的空间，收缩以适应更小的空间。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS学习(15)-Flex">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/06/CSS%E5%AD%A6%E4%B9%A0(15)-Flex/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="Flex是Flexible Box的缩写，是一种用于按行或按列布局元素的一维布局方法。元素可以膨胀以填充额外的空间，收缩以适应更小的空间。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/CSS/flex.png">
+<meta property="article:published_time" content="2024-07-06T07:11:43.000Z">
+<meta property="article:modified_time" content="2024-07-06T07:12:04.464Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zzstriker.github.io/imgs/CSS/flex.png">
+  
+  
+  
+  <title>CSS学习(15)-Flex - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CSS学习(15)-Flex"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-06 15:11" pubdate>
+          2024年7月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CSS学习(15)-Flex</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Flex是Flexible Box的缩写，是一种用于按行或按列布局元素的一维布局方法。元素可以膨胀以填充额外的空间，收缩以适应更小的空间。</p>
+<span id="more"></span>
+
+<h1 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h1><p>Flexible Box 模型，通常被称为 flexbox，弹性布局的目的是提供一种更加高效的方式来对容器中的条目进行布局、对齐和分配空间。创建 flex 容器需要把容器的 <strong>display</strong> 属性设置为 <code>flex</code>。</p>
+<p><img src="/./imgs/CSS/flex.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li><strong>主轴</strong>（main axis）：是沿着 flex 元素放置的方向延伸的轴，该轴的开始和结束被称为 <strong>main start</strong> 和 <strong>main end</strong>。</li>
+<li><strong>交叉轴</strong>（cross axis）：是垂直于 flex 元素放置方向的轴。该轴的开始和结束被称为 <strong>cross start</strong> 和 <strong>cross end</strong>。</li>
+<li>设置了 <code>display: flex</code> 的父元素，被称之为 <strong>flex 容器（flex container）。</strong></li>
+<li>在 flex 容器中表现为弹性的盒子的元素被称之为 <strong>flex 项</strong>（<strong>flex item</strong>）。</li>
+</ol>
+<h2 id="主轴方向"><a href="#主轴方向" class="headerlink" title="主轴方向"></a>主轴方向</h2><p>在 flex 容器中添加 <strong>flex-direction</strong> 属性可以让我们更改 flex 元素的排列方向。</p>
+<p><strong>属性值</strong>：</p>
+<ol>
+<li><strong>row</strong>：表示flex 项从左向右排列。此时<strong>水平方向轴</strong>为主轴。</li>
+<li><strong>row-reverse</strong>：表示flex 项从右向左排列。</li>
+<li><strong>column</strong>：表示flex 项从上向下排列。此时<strong>垂直方向轴</strong>为主轴。</li>
+<li><strong>column-reverse</strong>：表示flex 项从下向上排列。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: column;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">min-height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><p>在 flex 容器中添加 <strong>flex-wrap</strong> 属性用于指定弹性布局中flex 项是否换行。</p>
+<p><strong>属性值</strong>：</p>
+<ol>
+<li><strong>nowrap</strong>：表示不换行，所有flex 项单行排列，flex 项可能会溢出。</li>
+<li><strong>wrap</strong>：表示换行，所有flex 项目多行排列，溢出的flex 项会被放到下一行，按从上向下顺序排列。</li>
+<li><strong>wrap-reverse</strong>：所有flex 项多行排列，按从下向上顺序排列。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-wrap</span>: wrap;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">min-height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h2><p>可以将两个属性 <strong>flex-direction</strong> 和 <strong>flex-wrap</strong> 组合为简写属性 <strong>flex-flow</strong>。第一个指定的值为 <strong>flex-direction</strong> ，第二个指定的值为 <strong>flex-wrap</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-flow</span>: row wrap;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">min-height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h2><h3 id="主轴方向对齐"><a href="#主轴方向对齐" class="headerlink" title="主轴方向对齐"></a>主轴方向对齐</h3><p><strong>justify-content</strong> 属性定义了flex 项在 <strong>主轴</strong>上的对齐方式。</p>
+<p><strong>属性值</strong>：</p>
+<ol>
+<li><strong>flex-start</strong>：默认值，表示弹性容器flex 项按主轴起点线对齐</li>
+<li><strong>flex-end</strong>：表示弹性容器flex 项按主轴终点线对齐</li>
+<li><strong>center</strong>：居中排列</li>
+<li><strong>space-between</strong>：弹性容器flex 项均匀分布，第一项紧贴主轴起点线，最后一项紧贴主轴终点线，flex 项之间的间隔都相等。要注意特殊情况，当剩余空间为负数或者只有一个项时，效果等同于 <strong>flex-start</strong>。</li>
+<li><strong>space-around</strong>：弹性容器flex 项均匀分布，每个项目两侧的间隔相等，相邻项目之间的距离是两个项目之间留白的和。所以，项目之间的间隔比项目与边框的间隔大一倍。要注意特殊情况，当剩余空间为负数或者只有一个项时，效果等同于 <strong>center</strong>。</li>
+<li><strong>space-evenly</strong>：弹性容器flex 项均匀分布，所有项目之间及项目与边框之间的距离相等。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-flow</span>: row wrap;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">min-height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="交叉轴方向对齐"><a href="#交叉轴方向对齐" class="headerlink" title="交叉轴方向对齐"></a>交叉轴方向对齐</h3><p><strong>align-items</strong> 属性定义了flex 项在 <strong>交叉轴</strong>上的对齐方式。</p>
+<p><strong>属性值</strong>：</p>
+<ol>
+<li><strong>stretch</strong>：默认值，当flex 项未设置高度或者高度为 <code>atuo</code> 时，会使所有flex 项沿着交叉轴的方向拉伸以填充父容器。如果父容器在交叉轴方向上没有固定高度，则所有flex 项的高度将与最高的flex 项一样。</li>
+<li><strong>flex-start</strong>：表示弹性容器flex 项按交叉轴起点线对齐。</li>
+<li><strong>flex-end</strong>：表示弹性容器flex 项按交叉轴终点线对齐。</li>
+<li><strong>center</strong>：表示与交叉轴的中线对齐。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-flow</span>: row wrap;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">min-height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="多交叉轴方向对齐"><a href="#多交叉轴方向对齐" class="headerlink" title="多交叉轴方向对齐"></a>多交叉轴方向对齐</h3><p><strong>align-content</strong> 属性定义了flex 项在 <strong>多根交叉轴</strong>上的对齐方式。如果只有一根交叉轴，该属性不起作用。针对盒子内部的元素超过了盒子的宽度出现了换行，flex 项是多行。</p>
+<p><strong>属性值</strong>：</p>
+<ol>
+<li><strong>stretch</strong>：默认值，当flex 项未设置高度或者高度为 <code>atuo</code> 时，会使所有flex 项沿着交叉轴的方向拉伸以填充父容器。如果父容器在交叉轴方向上没有固定高度，则所有flex 项的高度将与最高的flex 项一样。</li>
+<li><strong>flex-start</strong>：表示弹性容器flex 项按交叉轴起点线对齐。</li>
+<li><strong>flex-end</strong>：表示弹性容器flex 项按交叉轴终点线对齐。</li>
+<li><strong>center</strong>：表示与交叉轴的中线对齐。</li>
+<li><strong>space-between</strong>：弹性容器flex 项均匀分布，第一项紧贴主轴起点线，最后一项紧贴主轴终点线，flex 项之间的间隔都相等。要注意特殊情况，当剩余空间为负数或者只有一个项时，效果等同于 <strong>flex-start</strong>。</li>
+<li><strong>space-around</strong>：弹性容器flex 项均匀分布，每个项目两侧的间隔相等，相邻项目之间的距离是两个项目之间留白的和。所以，项目之间的间隔比项目与边框的间隔大一倍。要注意特殊情况，当剩余空间为负数或者只有一个项时，效果等同于 <strong>center</strong>。</li>
+<li><strong>space-evenly</strong>：弹性容器flex 项均匀分布，所有项目之间及项目与边框之间的距离相等。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-flow</span>: row wrap;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">align-content</span>: flex-end;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">min-height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="flex-项排序"><a href="#flex-项排序" class="headerlink" title="flex 项排序"></a>flex 项排序</h2><p>弹性盒子可以通过<strong>order</strong>改变 flex 项的布局位置的功能，而不会影响到源顺序（即 dom 树里元素的顺序）。</p>
+<ol>
+<li>所有的 flex 项默认的 <strong>order</strong> 值是0</li>
+<li><strong>order</strong> 值大的 flex 项比 order 值小的在显示顺序中更靠后。</li>
+<li>拥有相同 <strong>order</strong> 值的元素按照它们在源代码中出现的顺序进行布局。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.order</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">order</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item order&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="flex-项动态尺寸"><a href="#flex-项动态尺寸" class="headerlink" title="flex 项动态尺寸"></a>flex 项动态尺寸</h2><h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p><strong>flex-grow</strong> 属性定义flex 项的<strong>扩展比例</strong>，表示放大的比例，取值必须是正整数，负值无效，默认为 0。Flex 容器会根据flex 项设置的扩展比例作为比率来分配剩余空间，如果所有flex 项的 <strong>flex-grow</strong> 属性都为 1，则它们将等分剩余空间。如果一个flex 项的 <strong>flex-grow</strong> 属性为 2，其他为 1，则前者占据的剩余空间将比其他项多一倍。</p>
+<p><strong>计算方式</strong>：</p>
+<ol>
+<li>假设剩余空间 <code>x</code>（弹性容器宽度与所有flex 项宽度总和之差）</li>
+<li>假设有三个flex 项元素，<code>flex-grow</code> 设定值分别为 <code>a</code>、<code>b</code> 和 <code>c</code></li>
+<li>每个flex 项元素可以扩展的空间为：<code>a/(a+b+c) * x</code>、<code>b/(a+b+c) * x</code> 和 <code>c/(a+b+c) * x</code></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p><strong>flex-shrink</strong> 属性定义flex 项的<strong>缩小比例</strong>，表示缩小的比例，取值必须是正整数，负值无效，默认为 1。如果flex 项宽度之和超过Flex 容器宽度，Flex 容器会根据flex 项设置的缩小比例作为比率来压缩flex 项宽度，以保证不溢出。</p>
+<p><strong>计算方式</strong>：</p>
+<ol>
+<li>假设三个flex 项的 <code>width</code> 为：<code>w1</code>、<code>w2</code>、<code>w3</code></li>
+<li>假设三个flex 项的 <code>flex-shrink</code> 为：<code>a</code>、<code>b</code>、<code>c</code></li>
+<li>计算总压缩权重：<code>sum = a * w1 + b * w2 + c * w3</code></li>
+<li>计算每个元素压缩率：<code>s1 = a * w1 / sum</code>、<code>s2 = b * w2 / sum</code>、<code>s3 = c * w3 / sum</code></li>
+<li>计算每个元素宽度：<code>width - 压缩率 * 溢出空间</code></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p><strong>flex-basis</strong> 属性指定flex 项在主轴方向上的初始长度。</p>
+<p><strong>注意</strong>：</p>
+<p>设置 <code>flex-grow</code> 进行分配剩余空间，或者使用 <code>flex-shrink</code> 进行收缩都是在 <code>flex-basis</code> 的基础上进行的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p><strong>flex</strong> 属性是 <code>flex-grow</code>、<code>flex-shrink</code> 和 <code>flex-basis</code> 的简写，默认值为 <code>0 1 auto</code>。后两个属性可选。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex</span>: <span class="number">1</span> <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="flex-项对齐"><a href="#flex-项对齐" class="headerlink" title="flex 项对齐"></a>flex 项对齐</h2><p><strong>align-self</strong> 属性用于指定flex 项的对齐方式，可覆盖 <strong>align-items</strong> 属性。</p>
+<p><strong>属性值</strong>：</p>
+<ol>
+<li><strong>auto</strong>：默认值，表示继承父元素的 <strong>align-items</strong> 属性，如果没有父元素，则等同于 <strong>stretch</strong>。</li>
+<li><strong>flex-start</strong>：表示弹性容器flex 项按交叉轴起点线对齐。</li>
+<li><strong>flex-end</strong>：表示弹性容器flex 项按交叉轴终点线对齐。</li>
+<li><strong>center</strong>：表示与交叉轴的中线对齐。</li>
+<li><strong>stretch</strong>：当flex 项未设置高度或者高度为 <code>atuo</code> 时，会使所有flex 项沿着交叉轴的方向拉伸以填充父容器。如果父容器在交叉轴方向上没有固定高度，则所有flex 项的高度将与最高的flex 项一样。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex-direction</span>: row;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.flex-item</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">flex</span>: <span class="number">1</span> <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">align-self</span>: flex-end;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CSS/" class="category-chain-item">CSS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSS/" class="print-no-link">#CSS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/05/CSS%E5%AD%A6%E4%B9%A0(14)-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/" title="CSS学习(14)-多列布局">
+                        <span class="hidden-mobile">CSS学习(14)-多列布局</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
