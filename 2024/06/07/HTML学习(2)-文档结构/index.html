@@ -24,7 +24,7 @@
 <meta property="og:description" content="HTML 文档包含一个文档类型声明和 &lt;html&gt; 根元素，&lt;html&gt; 元素中嵌套的是&lt;head&gt;和&lt;body&gt;元素。页面在浏览器加载后&lt;head&gt;元素内的内容不会在浏览器中显示，它的作用是保存页面的一些元数据。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-07T06:24:13.000Z">
-<meta property="article:modified_time" content="2024-06-20T01:58:05.338Z">
+<meta property="article:modified_time" content="2024-07-15T05:42:51.744Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary_large_image">
@@ -281,7 +281,8 @@
 <h3 id="lt-head-gt-元素"><a href="#lt-head-gt-元素" class="headerlink" title="&lt;head&gt;元素"></a><code>&lt;head&gt;</code>元素</h3><p>包含文档的所有元数据，其中必须包含标题、字符集、视口设置。</p>
 <h4 id="lt-title-gt"><a href="#lt-title-gt" class="headerlink" title="&lt;title&gt;"></a><code>&lt;title&gt;</code></h4><p>设置页面的标题，显示在浏览器标签页上，也作为收藏网页的描述文字。</p>
 <h4 id="lt-meta-gt"><a href="#lt-meta-gt" class="headerlink" title="&lt;meta&gt;"></a><code>&lt;meta&gt;</code></h4><p>用于提供关于HTML文档的元数据。</p>
-<h5 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h5><ol>
+<p><strong>属性</strong>：</p>
+<ol>
 <li><p><strong>charset</strong>：指定文档中的字符编码</p>
 </li>
 <li><p><strong>content</strong>：是<strong>http-equiv</strong>或<strong>name</strong>属性的值</p>
@@ -292,7 +293,8 @@
 </li>
 </ol>
 <h4 id="lt-link-gt"><a href="#lt-link-gt" class="headerlink" title="&lt;link&gt;"></a><code>&lt;link&gt;</code></h4><p>设置HTML文档与外部资源的关系，常用于链接样式表，也可以创建站点图标。</p>
-<h5 id="属性：-1"><a href="#属性：-1" class="headerlink" title="属性："></a>属性：</h5><ol>
+<p><strong>属性</strong>：</p>
+<ol>
 <li><p><strong>rel</strong>：命名链接文档与当前文档的关系，例如：icon、stylesheet</p>
 </li>
 <li><p><strong>href</strong>：指定被链接资源的URL。URL可以是绝对的，也可以是相对的</p>
@@ -304,7 +306,8 @@
 <h4 id="lt-script-gt"><a href="#lt-script-gt" class="headerlink" title="&lt;script&gt;"></a><code>&lt;script&gt;</code></h4><p>用于嵌入可执行代码或数据，通常用作嵌入或者引用 JavaScript 代码。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;javascript.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="属性：-2"><a href="#属性：-2" class="headerlink" title="属性："></a>属性：</h5><ol>
+<p><strong>属性</strong>：</p>
+<ol>
 <li><p><strong>type</strong>：表示所代表的脚本类型</p>
 </li>
 <li><p><strong>async</strong>：脚本并行加载，加载完成之后立即执行，执行时机不确定，有可能阻塞HTML解析</p>
@@ -316,7 +319,8 @@
 </ol>
 <h4 id="lt-noscript-gt"><a href="#lt-noscript-gt" class="headerlink" title="&lt;noscript&gt;"></a><code>&lt;noscript&gt;</code></h4><p>定义了一段HTML，如果页面上的脚本类型不受支持，或者浏览器当前关闭了脚本，则插入该HTML。</p>
 <h4 id="lt-base-gt"><a href="#lt-base-gt" class="headerlink" title="&lt;base&gt;"></a><code>&lt;base&gt;</code></h4><p>一个文档中只能有一个<code>&lt;base&gt;</code>元素。指定用于一个文档中包含的所有相对URL的根URL，类似提供一个指定的默认目标地址。</p>
-<h5 id="属性：-3"><a href="#属性：-3" class="headerlink" title="属性："></a>属性：</h5><ol>
+<p><strong>属性</strong>：</p>
+<ol>
 <li><p><strong>href</strong>：设置文档中相对URL地址的基准URL，在链接中设置相对的访问目标，浏览器便会自动解析出一个完整的链接地址进行访问，倘若链接的访问目标为空，浏览器也会根据<code>&lt;base&gt;</code>所给的URL进行访问。值得注意的是，<code>&lt;base&gt;</code>标签需放在所有包含URL地址的语句前面。</p>
 </li>
 <li><p><strong>target</strong>：网页窗口的打开方式</p>
