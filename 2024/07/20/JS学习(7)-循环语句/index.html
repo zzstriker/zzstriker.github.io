@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Javascript 是一种弱类型语言，这意味着变量是没有明确类型的，而是由 JavaScript 引擎在编译时隐式完成，类型转换是将一种数据类型转换为另一种数据类型。">
+    <meta name="description" content="循环语句用于重复执行某段代码，直到满足某个条件为止。循环语句可以帮助减少代码冗余，使代码更加简洁和高效。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS学习(5)-类型转换">
-<meta property="og:url" content="https://zzstriker.github.io/2024/07/18/JS%E5%AD%A6%E4%B9%A0(5)-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:title" content="JS学习(7)-循环语句">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/20/JS%E5%AD%A6%E4%B9%A0(7)-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="Javascript 是一种弱类型语言，这意味着变量是没有明确类型的，而是由 JavaScript 引擎在编译时隐式完成，类型转换是将一种数据类型转换为另一种数据类型。">
+<meta property="og:description" content="循环语句用于重复执行某段代码，直到满足某个条件为止。循环语句可以帮助减少代码冗余，使代码更加简洁和高效。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-18T10:17:26.000Z">
-<meta property="article:modified_time" content="2024-07-18T10:23:59.674Z">
+<meta property="article:published_time" content="2024-07-20T07:33:39.000Z">
+<meta property="article:modified_time" content="2024-07-20T10:04:59.788Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="JS">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>JS学习(5)-类型转换 - zzstriker blogs</title>
+  <title>JS学习(7)-循环语句 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JS学习(5)-类型转换"></span>
+            <span id="subtitle" data-typed-text="JS学习(7)-循环语句"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-18 18:17" pubdate>
-          2024年7月18日 晚上
+        <time datetime="2024-07-20 15:33" pubdate>
+          2024年7月20日 下午
         </time>
       </span>
     
@@ -260,22 +260,61 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">JS学习(5)-类型转换</h1>
+            <h1 id="seo-header">JS学习(7)-循环语句</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Javascript 是一种弱类型语言，这意味着变量是没有明确类型的，而是由 JavaScript 引擎在编译时隐式完成，类型转换是将一种数据类型转换为另一种数据类型。</p>
+                <p>循环语句用于重复执行某段代码，直到满足某个条件为止。循环语句可以帮助减少代码冗余，使代码更加简洁和高效。</p>
 <span id="more"></span>
 
-<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><p>任何数据类型，无论是原始类型还是对象，都可以进行类型转换。尽管原始类型和对象的转换逻辑各不相同，但是都只能转换为三种类型：<strong>字符串（string）、数字（number）、布尔值（boolean）</strong>。</p>
-<p>JavaScript 中的类型转换有两种方式：</p>
+<h1 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h1><p>循环语句用于重复执行某段代码，直到满足某个条件为止。</p>
+<h2 id="for-语句"><a href="#for-语句" class="headerlink" title="for 语句"></a>for 语句</h2><p><code>for</code> 循环通常用于已知循环次数的情况。它由初始化语句、条件表达式和迭代语句组成。</p>
 <ol>
-<li><strong>隐式类型转换：</strong>由 JavaScript 编译器完成的自动类型转换。</li>
-<li><strong>显式类型转换：</strong>由开发人员完成的手动类型转换。</li>
+<li><strong>初始化语句</strong>：在循环开始前执行一次，通常用于初始化计数器变量。</li>
+<li><strong>条件表达式</strong>：在每次迭代开始前进行求值，如果条件为真，则执行循环体；如果条件为假，则退出循环。</li>
+<li><strong>迭代语句</strong>：在每次循环体执行后执行，用于更新计数器变量。</li>
 </ol>
-<h2 id="显式类型转换"><a href="#显式类型转换" class="headerlink" title="显式类型转换"></a>显式类型转换</h2><p>通过 JavaScript 内置的一些 API 将一种类型转换为另一种类型，这称为显式类型转化。</p>
-<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(i); <span class="comment">// 输出 0 到 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="while-语句"><a href="#while-语句" class="headerlink" title="while 语句"></a>while 语句</h2><p><code>while</code> 循环用于未知循环次数的情况，当条件表达式为真时执行循环体。</p>
+<ol>
+<li><strong>条件表达式</strong>：在每次迭代开始前进行求值，如果条件为真，则执行循环体；如果条件为假，则退出循环。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; <span class="number">5</span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(i); <span class="comment">// 输出 0 到 4</span></span><br><span class="line">	i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="do-whiile-语句"><a href="#do-whiile-语句" class="headerlink" title="do-whiile 语句"></a>do-whiile 语句</h2><p><code>do-while</code> 循环与 <code>while</code> 循环类似，但会先执行一次循环体，然后再检查条件表达式。</p>
+<ol>
+<li><strong>循环体</strong>：无条件执行一次，然后重复执行，直到条件表达式为假为止。</li>
+<li><strong>条件表达式</strong>：在每次循环体执行后进行求值，如果条件为真，则继续执行循环体；如果条件为假，则退出循环。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i); <span class="comment">// 输出 0 到 4</span></span><br><span class="line">    i++;</span><br><span class="line">&#125; <span class="keyword">while</span> (i &lt; <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="for-in-语句"><a href="#for-in-语句" class="headerlink" title="for-in 语句"></a>for-in 语句</h2><p><code>for-in</code> 循环用于遍历对象的可枚举属性。</p>
+<ol>
+<li><strong>key</strong>：在每次迭代时，变量 <code>key</code> 被赋值为对象的一个属性名。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(key, obj[key]); <span class="comment">// 输出 &quot;a 1&quot;, &quot;b 2&quot;, &quot;c 3&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="for-of-语句"><a href="#for-of-语句" class="headerlink" title="for-of 语句"></a>for-of 语句</h2><p><code>for-of</code> 循环用于遍历可迭代对象（如数组、字符串、Map、Set 等）的元素。</p>
+<ol>
+<li><strong>value</strong>：在每次迭代时，变量 <code>value</code> 被赋值为可迭代对象的一个元素。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> arr) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(value); <span class="comment">// 输出 1, 2, 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="for-await-of-语句"><a href="#for-await-of-语句" class="headerlink" title="for-await-of 语句"></a>for-await-of 语句</h2><p><code>for-await-of</code>循环用于处理异步可迭代对象，它允许在循环中等待每个异步操作完成</p>
+<ol>
+<li><strong>variable</strong>: 在每次迭代时，变量被赋值为异步可迭代对象的一个值。</li>
+<li><strong>iterable</strong>: 一个实现了 <code>Symbol.asyncIterator</code> 方法的异步可迭代对象。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个异步生成器函数</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span>* <span class="title function_">asyncGenerator</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">delay</span> = ms =&gt; <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(resolve, ms));</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">delay</span>(<span class="number">1000</span>); <span class="comment">// 模拟异步操作</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">delay</span>(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用 for-await-of 循环迭代异步生成器</span></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">let</span> value <span class="keyword">of</span> <span class="title function_">asyncGenerator</span>()) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(value); <span class="comment">// 输出 1, 2, 3，每个值之间间隔 1 秒</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟一个返回异步可迭代对象的函数</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span>* <span class="title function_">fetchData</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> urls = [</span><br><span class="line">        <span class="string">&quot;https://api.example.com/data1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://api.example.com/data2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://api.example.com/data3&quot;</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> url <span class="keyword">of</span> urls) &#123;</span><br><span class="line">        <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(url);</span><br><span class="line">        <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">        <span class="keyword">yield</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用 for-await-of 循环处理异步数据流</span></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">let</span> data <span class="keyword">of</span> <span class="title function_">fetchData</span>()) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(data); <span class="comment">// 逐个输出从 API 获取的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><code>for-await-of</code> 只能用于异步可迭代对象，不能用于普通的同步可迭代对象。</li>
+<li>必须在 <code>async</code> 函数中使用 <code>for-await-of</code> 循环。</li>
+</ol>
+
                 
               </div>
             
@@ -322,18 +361,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/19/JS%E5%AD%A6%E4%B9%A0(6)-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" title="JS学习(6)-条件语句">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JS学习(6)-条件语句</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/17/JS%E5%AD%A6%E4%B9%A0(4)-%E8%BF%90%E7%AE%97%E7%AC%A6/" title="JS学习(4)-运算符">
-                        <span class="hidden-mobile">JS学习(4)-运算符</span>
+                      <a href="/2024/07/19/JS%E5%AD%A6%E4%B9%A0(6)-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" title="JS学习(6)-条件语句">
+                        <span class="hidden-mobile">JS学习(6)-条件语句</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
