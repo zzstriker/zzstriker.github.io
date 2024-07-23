@@ -267,19 +267,20 @@
                 
                 <p>可以用 CSS 背景做一些创造性事情，添加背景图片或者渐变，背景可以解决 CSS 中的很多样式问题。</p>
 <span id="more"></span>
-
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><strong>background</strong> 属性是背景属性的简写，用于为元素添加背景效果。</p>
-<h2 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h2><p><strong>background-color</strong> 属性定义了 CSS 中任何元素的背景颜色。</p>
+<h1>背景</h1>
+<p><strong>background</strong> 属性是背景属性的简写，用于为元素添加背景效果。</p>
+<h2 id="背景颜色">背景颜色</h2>
+<p><strong>background-color</strong> 属性定义了 CSS 中任何元素的背景颜色。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: aquamarine;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">1rem</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Background<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="背景图像"><a href="#背景图像" class="headerlink" title="背景图像"></a>背景图像</h2><p><strong>background-image</strong> 属性可以在一个元素的背景中显示一个图像。支持多背景图像设置，背景之间用逗号(<code>,</code>)隔开。</p>
+<h2 id="背景图像">背景图像</h2>
+<p><strong>background-image</strong> 属性可以在一个元素的背景中显示一个图像。支持多背景图像设置，背景之间用逗号(<code>,</code>)隔开。</p>
 <ol>
 <li>使用<code>url()</code>函数的图片地址</li>
 <li>渐变函数</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>-<span class="selector-tag">img</span>: <span class="built_in">url</span>(<span class="string">&quot;/img/demo.png&quot;</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Background<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="背景平铺"><a href="#背景平铺" class="headerlink" title="背景平铺"></a>背景平铺</h2><p><strong>background-repeat</strong> 属性用于控制图像的平铺行为。</p>
+<h2 id="背景平铺">背景平铺</h2>
+<p><strong>background-repeat</strong> 属性用于控制图像的平铺行为。</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>repeat</strong>：默认值，图像会按需重复来覆盖整个背景图片所在的区域。最后一个图像会被裁剪，如果它的大小不合适的话。</li>
@@ -290,21 +291,24 @@
 <li><strong>round</strong>：剩余的空间不够放置下一个图片的时候，重复的图片会伸展填充满空间。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>-<span class="selector-tag">img</span>: <span class="built_in">url</span>(<span class="string">&quot;/img/demo.png&quot;</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-repeat</span>: no-repeat;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Background<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="背景定位"><a href="#背景定位" class="headerlink" title="背景定位"></a>背景定位</h2><p><strong>background-position</strong> 属性允许选择背景图片出现在它所应用的盒子上的位置。<strong>background-position</strong> 属性可以使用<code>top</code>、<code>bottom</code>、<code>center</code>、<code>left</code> 和 <code>right</code> 关键字，或者使用长度或百分比值。<strong>background-position</strong> 属性可以被指定一个或多个值。</p>
+<h2 id="背景定位">背景定位</h2>
+<p><strong>background-position</strong> 属性允许选择背景图片出现在它所应用的盒子上的位置。<strong>background-position</strong> 属性可以使用<code>top</code>、<code>bottom</code>、<code>center</code>、<code>left</code> 和 <code>right</code> 关键字，或者使用长度或百分比值。<strong>background-position</strong> 属性可以被指定一个或多个值。</p>
 <ol>
-<li><strong>一个值</strong>：<ul>
+<li><strong>一个值</strong>：
+<ul>
 <li>center：居中背景图片</li>
 <li>top、bottom、left、right：指定背景图片放在哪个边，另一个维度被设置为50%</li>
 <li>长度、百分比：相对于左边的<code>x</code>坐标，<code>y</code>坐标被设置为50%</li>
 </ul>
 </li>
-<li><strong>两个值</strong>：<ul>
+<li><strong>两个值</strong>：
+<ul>
 <li>top、bottom、left、right、center：一个定义<code>x</code>坐标，另一个定义<code>y</code>坐标，同垂直或水平方向的关键字使用两个是无效的，例如：<code>top top</code> 或 <code>left right</code></li>
 <li>长度、百分比：如果第一个值是关键字，那么定义该关键字另一方向的位置，如果两个值都是长度和百分比，则第一个定义<code>x</code>坐标，第二个定义<code>y</code>坐标</li>
 </ul>
 </li>
-<li><strong>三个值</strong>：<ul>
+<li><strong>三个值</strong>：
+<ul>
 <li>第一个值是关键字 <code>top</code>、<code>left</code>、<code>bottom</code>、<code>right</code>，或者 <code>center</code>。</li>
 <li>如果第二个值是长度或百分比，则是第一个值的偏移量。如果是第三个值，则是第二个值的偏移量。</li>
 </ul>
@@ -312,8 +316,8 @@
 <li><strong>四个值</strong>：第一个和第三个值是定义<code>x</code>和<code>y</code>的关键字值。第二个和第四个值是前面<code>x</code>和<code>y</code>关键字值的偏移量</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>-<span class="selector-tag">img</span>: <span class="built_in">url</span>(<span class="string">&quot;/img/demo.png&quot;</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-repeat</span>: no-repeat;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-position: top; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-position: left 30%; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-position: top left 30%; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-position: top 30% left; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-position: top 30% left 30%; */</span></span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Background<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="背景大小"><a href="#背景大小" class="headerlink" title="背景大小"></a>背景大小</h2><p><strong>background-size</strong> 属性设置背景图片大小。图片可以保有其原有的尺寸，或者拉伸到新的尺寸，或者在保持其原有比例的同时缩放到元素的可用空间的尺寸。设置背景图片的大小只能通过关键字或者设置宽高来实现。通过宽度和高度值来设定尺寸时，可以提供一个或两个数值，如果仅有一个数值，该数值将作为宽度大小，高度被设定为 <code>auto</code>，如果有两个数值，第一个作为宽度大小，第二个作为高度大小。</p>
+<h2 id="背景大小">背景大小</h2>
+<p><strong>background-size</strong> 属性设置背景图片大小。图片可以保有其原有的尺寸，或者拉伸到新的尺寸，或者在保持其原有比例的同时缩放到元素的可用空间的尺寸。设置背景图片的大小只能通过关键字或者设置宽高来实现。通过宽度和高度值来设定尺寸时，可以提供一个或两个数值，如果仅有一个数值，该数值将作为宽度大小，高度被设定为 <code>auto</code>，如果有两个数值，第一个作为宽度大小，第二个作为高度大小。</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>auto</strong>：以背景图片的比例缩放背景图片。</li>
@@ -323,41 +327,42 @@
 <li><strong>百分比</strong>：指定背景图片相对盒子的百分比。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>-<span class="selector-tag">img</span>: <span class="built_in">url</span>(<span class="string">&quot;/img/demo.png&quot;</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-repeat</span>: no-repeat;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-size: contain; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-size: cover; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-size: 30%; */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background-size: 30% 30%; */</span></span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Background<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h1><p>渐变是由<code>gradient()</code>函数创建的，渐变是一种图片，由至少两种或多种颜色之间的渐变过渡构成。</p>
-<h2 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h2><p>线性渐变创建了一条沿直线前进的颜色带。</p>
-<h3 id="基础渐变"><a href="#基础渐变" class="headerlink" title="基础渐变"></a>基础渐变</h3><p>最基本的渐变类型，只需指定两种颜色即可。</p>
+<h1>渐变</h1>
+<p>渐变是由<code>gradient()</code>函数创建的，渐变是一种图片，由至少两种或多种颜色之间的渐变过渡构成。</p>
+<h2 id="线性渐变">线性渐变</h2>
+<p>线性渐变创建了一条沿直线前进的颜色带。</p>
+<h3 id="基础渐变">基础渐变</h3>
+<p>最基本的渐变类型，只需指定两种颜色即可。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(blue, pink);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="渐变方向"><a href="#渐变方向" class="headerlink" title="渐变方向"></a>渐变方向</h3><p>默认情况下，线性渐变的方向是从上到下，可以指定一个值来改变渐变的方向。</p>
+<h3 id="渐变方向">渐变方向</h3>
+<p>默认情况下，线性渐变的方向是从上到下，可以指定一个值来改变渐变的方向。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to top, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to bottom, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to left, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to right, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to top left, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to top right, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to bottom left, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* background: linear-gradient(to bottom right, blue, pink); */</span></span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="渐变角度"><a href="#渐变角度" class="headerlink" title="渐变角度"></a>渐变角度</h3><p>如果想要更精确地控制渐变的方向，可以给渐变设置一个具体的角度。在使用角度的时候，<code>0deg</code> 代表渐变方向为从下到上，<code>90deg</code> 代表渐变方向为从左到右，诸如此类正角度都属于顺时针方向。而负角度意味着逆时针方向。</p>
+<h3 id="渐变角度">渐变角度</h3>
+<p>如果想要更精确地控制渐变的方向，可以给渐变设置一个具体的角度。在使用角度的时候，<code>0deg</code> 代表渐变方向为从下到上，<code>90deg</code> 代表渐变方向为从左到右，诸如此类正角度都属于顺时针方向。而负角度意味着逆时针方向。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">70deg</span>, blue, pink);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义渐变"><a href="#自定义渐变" class="headerlink" title="自定义渐变"></a>自定义渐变</h3><p>默认情况下，无论设置多少颜色，所设置颜色会均匀分布在渐变路径中。</p>
+<h3 id="自定义渐变">自定义渐变</h3>
+<p>默认情况下，无论设置多少颜色，所设置颜色会均匀分布在渐变路径中。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, red, orange, yellow, green, blue, indigo, violet);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>渐变会平滑地从一种颜色过渡到另一种颜色，可以通过设置一个值在颜色之间达到控制渐变进程的效果。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(blue, <span class="number">10%</span>, pink);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>渐变还支持透明度，可用于创建淡入淡出效果。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>));</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="叠加渐变"><a href="#叠加渐变" class="headerlink" title="叠加渐变"></a>叠加渐变</h3><p>可以将多个背景叠加起来以实现一些非常好看的效果。背景是从顶部到底部堆叠的，指定的第一个就是顶部。</p>
+<h3 id="叠加渐变">叠加渐变</h3>
+<p>可以将多个背景叠加起来以实现一些非常好看的效果。背景是从顶部到底部堆叠的，指定的第一个就是顶部。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)), <span class="built_in">url</span>(<span class="string">&quot;/img/demo.png&quot;</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h2><p>径向渐变是从一个中心点向外辐射的，可以指定中心点的位置，还可以使其为圆形或者是椭圆形。</p>
-<h3 id="基础渐变-1"><a href="#基础渐变-1" class="headerlink" title="基础渐变"></a>基础渐变</h3><p>最基本的渐变类型，只需指定两种颜色即可。默认情况下，渐变的中心点是 <code>50% 50%</code> 的位置，径向渐变是匹配盒子的比例显示是圆形还是椭圆形。</p>
+<h2 id="径向渐变">径向渐变</h2>
+<p>径向渐变是从一个中心点向外辐射的，可以指定中心点的位置，还可以使其为圆形或者是椭圆形。</p>
+<h3 id="基础渐变-2">基础渐变</h3>
+<p>最基本的渐变类型，只需指定两种颜色即可。默认情况下，渐变的中心点是 <code>50% 50%</code> 的位置，径向渐变是匹配盒子的比例显示是圆形还是椭圆形。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(red, blue);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="渐变位置"><a href="#渐变位置" class="headerlink" title="渐变位置"></a>渐变位置</h3><p>可以用百分比或者绝对长度指定每个径向渐变颜色的位置。</p>
+<h3 id="渐变位置">渐变位置</h3>
+<p>可以用百分比或者绝对长度指定每个径向渐变颜色的位置。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(red <span class="number">10px</span>, yellow <span class="number">30%</span>, <span class="number">#1e90ff</span> <span class="number">50%</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="渐变中心"><a href="#渐变中心" class="headerlink" title="渐变中心"></a>渐变中心</h3><p>可以使用关键字、百分比或者绝对长度、长度以指定渐变的中心。</p>
+<h3 id="渐变中心">渐变中心</h3>
+<p>可以使用关键字、百分比或者绝对长度、长度以指定渐变的中心。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(at <span class="number">0%</span> <span class="number">30%</span>, red <span class="number">10px</span>, yellow <span class="number">30%</span>, <span class="number">#1e90ff</span> <span class="number">50%</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="渐变大小"><a href="#渐变大小" class="headerlink" title="渐变大小"></a>渐变大小</h3><p>径向渐变可以指定渐变的大小，通过 <code>closest-corner</code>、<code>closest-side</code>、<code>farthest-corner</code> 和 <code>farthest-side</code>，其中 <code>farthest-corner</code> 是默认值。圆的大小为长度，椭圆则是长度和百分比。</p>
+<h3 id="渐变大小">渐变大小</h3>
+<p>径向渐变可以指定渐变的大小，通过 <code>closest-corner</code>、<code>closest-side</code>、<code>farthest-corner</code> 和 <code>farthest-side</code>，其中 <code>farthest-corner</code> 是默认值。圆的大小为长度，椭圆则是长度和百分比。</p>
 <ol>
 <li><strong>closest-side</strong>：渐变结束形状如果是圆形，与容器距离渐变中心点最近的一边相切，如果是椭圆，则与距离渐变中心点最近的垂直或水平边相切。</li>
 <li><strong>closest-corner</strong>：渐变结束形状与容器距离渐变中心点最近的一个角相交。</li>
@@ -365,7 +370,6 @@
 <li><strong>farthest-corner</strong>：默认值，渐变的结束形状与容器距离渐变中心点最远的一个角相交。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(circle closest-side, red <span class="number">10px</span>, yellow <span class="number">30%</span>, <span class="number">#1e90ff</span> <span class="number">50%</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -465,6 +469,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -654,6 +664,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

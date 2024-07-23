@@ -267,26 +267,28 @@
                 
                 <p>表单是用户和服务器之间交互的主要内容之一，表单允许用户输入数据，大多数情况下会将数据发送到web服务器进行处理和存储。</p>
 <span id="more"></span>
-
-<h1 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h1><p>表单是由一个或多个表单控件组成，这些控件可以是文本字段、选择框、按钮、复选框或单选按钮等等。</p>
-<h2 id="lt-form-gt-元素"><a href="#lt-form-gt-元素" class="headerlink" title="&lt;form&gt;元素"></a><code>&lt;form&gt;</code>元素</h2><p>创建一个HTML表单都必须从<code>&lt;form&gt;</code>元素开始，<code>&lt;form&gt;</code>元素包含各个表单控件，用于向 Web 服务器提交信息。</p>
+<h1>表单</h1>
+<p>表单是由一个或多个表单控件组成，这些控件可以是文本字段、选择框、按钮、复选框或单选按钮等等。</p>
+<h2 id="form-元素"><code>&lt;form&gt;</code>元素</h2>
+<p>创建一个HTML表单都必须从<code>&lt;form&gt;</code>元素开始，<code>&lt;form&gt;</code>元素包含各个表单控件，用于向 Web 服务器提交信息。</p>
 <p><strong>属性</strong>：</p>
 <ol>
 <li><strong>action</strong>：表单提交的 URL</li>
 <li><strong>method</strong>：浏览器使用哪种HTTP方法来提交表单</li>
 </ol>
-<h3 id="lt-fieldset-gt-和-lt-legend-gt-元素"><a href="#lt-fieldset-gt-和-lt-legend-gt-元素" class="headerlink" title="&lt;fieldset&gt;和&lt;legend&gt;元素"></a><code>&lt;fieldset&gt;</code>和<code>&lt;legend&gt;</code>元素</h3><p>出于样式和语义的目的，<code>&lt;fieldset&gt;</code>元素用于对表单中的控件进行分组。</p>
+<h3 id="fieldset-和-legend-元素"><code>&lt;fieldset&gt;</code>和<code>&lt;legend&gt;</code>元素</h3>
+<p>出于样式和语义的目的，<code>&lt;fieldset&gt;</code>元素用于对表单中的控件进行分组。</p>
 <p><code>&lt;legend&gt;</code>元素用于表示父元素<code>&lt;fieldset&gt;</code>内容的标题。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="lt-label-gt-元素"><a href="#lt-label-gt-元素" class="headerlink" title="&lt;label&gt;元素"></a><code>&lt;label&gt;</code>元素</h3><p><code>&lt;label&gt;</code>元素用于表示表单中某个控件的说明。</p>
+<h3 id="label-元素"><code>&lt;label&gt;</code>元素</h3>
+<p><code>&lt;label&gt;</code>元素用于表示表单中某个控件的说明。</p>
 <p><strong>属性</strong></p>
 <ol>
 <li><strong>for</strong>：用于关联表单控件id属性的值，或者使用<code>&lt;label&gt;</code>元素直接包裹表单元素，也可以达到<strong>for</strong>属性的作用。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;firstName&quot;</span>&gt;</span>First Name<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstName&quot;</span> <span class="attr">id</span>=<span class="string">&quot;firstName&quot;</span> /&gt;</span></span><br><span class="line">        or</span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">            Last Name</span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastName&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="lt-input-gt-元素"><a href="#lt-input-gt-元素" class="headerlink" title="&lt;input&gt;元素"></a><code>&lt;input&gt;</code>元素</h3><p><code>&lt;input&gt;</code>元素可以让用户输入任何类型的数据，在<code>&lt;input&gt;</code>元素中，最重要的属性是<strong>type</strong>属性，<strong>type</strong>属性定义了<code>&lt;input&gt;</code>元素各种使用方式。</p>
+<h3 id="input-元素"><code>&lt;input&gt;</code>元素</h3>
+<p><code>&lt;input&gt;</code>元素可以让用户输入任何类型的数据，在<code>&lt;input&gt;</code>元素中，最重要的属性是<strong>type</strong>属性，<strong>type</strong>属性定义了<code>&lt;input&gt;</code>元素各种使用方式。</p>
 <table>
 <thead>
 <tr>
@@ -295,7 +297,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>type</td>
 <td>all</td>
 <td>表单控件的类型</td>
@@ -385,13 +388,15 @@
 <td>time、number、range</td>
 <td>有效的增量值</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 单行文本框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 密码框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;密码&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 隐藏框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;other-data&quot;</span> <span class="attr">value</span>=<span class="string">&quot;用户不可见数据&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 单选框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span>&gt;</span>男</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span>女</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 复选框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;vegetable&quot;</span> <span class="attr">value</span>=<span class="string">&quot;carrots&quot;</span> <span class="attr">checked</span> /&gt;</span>Carrots</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;vegetable&quot;</span> <span class="attr">value</span>=<span class="string">&quot;peas&quot;</span>  /&gt;</span>Peas</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 上传文件 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;file&quot;</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 邮箱输入框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">id</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">multiple</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 搜索框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span> <span class="attr">name</span>=<span class="string">&quot;search&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;搜索&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 电话号码 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;tel&quot;</span> <span class="attr">id</span>=<span class="string">&quot;tel&quot;</span> <span class="attr">name</span>=<span class="string">&quot;tel&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- URL字段 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;url&quot;</span> <span class="attr">id</span>=<span class="string">&quot;url&quot;</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 数字输入框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;只能输入数字&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 滑块 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;range&quot;</span> <span class="attr">name</span>=<span class="string">&quot;price&quot;</span> <span class="attr">id</span>=<span class="string">&quot;price&quot;</span> <span class="attr">min</span>=<span class="string">&quot;50000&quot;</span> <span class="attr">max</span>=<span class="string">&quot;500000&quot;</span> <span class="attr">step</span>=<span class="string">&quot;100&quot;</span> <span class="attr">value</span>=<span class="string">&quot;250000&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 日期选择框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;datetime-local&quot;</span> <span class="attr">name</span>=<span class="string">&quot;datetime&quot;</span> <span class="attr">id</span>=<span class="string">&quot;datetime&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;month&quot;</span> <span class="attr">name</span>=<span class="string">&quot;month&quot;</span> <span class="attr">id</span>=<span class="string">&quot;month&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">name</span>=<span class="string">&quot;time&quot;</span> <span class="attr">id</span>=<span class="string">&quot;time&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;week&quot;</span> <span class="attr">name</span>=<span class="string">&quot;week&quot;</span> <span class="attr">id</span>=<span class="string">&quot;week&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 颜色选择框 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;color&quot;</span> <span class="attr">name</span>=<span class="string">&quot;color&quot;</span> <span class="attr">id</span>=<span class="string">&quot;color&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="lt-button-gt-元素"><a href="#lt-button-gt-元素" class="headerlink" title="&lt;button&gt;元素"></a><code>&lt;button&gt;</code>元素</h3><p><code>&lt;button&gt;</code>元素表示一个可点击的按钮。</p>
+<h3 id="button-元素"><code>&lt;button&gt;</code>元素</h3>
+<p><code>&lt;button&gt;</code>元素表示一个可点击的按钮。</p>
 <p><strong>属性</strong>：</p>
 <ol>
-<li><strong>type</strong>：button 的类型<ul>
+<li><strong>type</strong>：button 的类型
+<ul>
 <li><strong>submit</strong>：按钮提交表单数据给服务器</li>
 <li><strong>reset</strong>：按钮重置所有表单组件至初始值</li>
 </ul>
@@ -400,17 +405,18 @@
 <li><strong>formmethod</strong>：按钮提交表单使用的HTTP方法，，如果使用了该属性，将覆盖<code>&lt;form&gt;</code>元素的<strong>method</strong>属性</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>submit button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span>&gt;</span>reset button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="文本域"><a href="#文本域" class="headerlink" title="文本域"></a>文本域</h3><p><code>&lt;textarea&gt;</code>元素表示文本域，文本域与单行文本框的区别在于，用户可以在要提交的数据中使用换行。</p>
+<h3 id="文本域">文本域</h3>
+<p><code>&lt;textarea&gt;</code>元素表示文本域，文本域与单行文本框的区别在于，用户可以在要提交的数据中使用换行。</p>
 <p><strong>属性</strong>：</p>
 <ol>
 <li><strong>rows</strong>：文本域指定的可见文本的行数，值为正整数，默认为2</li>
 <li><strong>cols</strong>：文本域的可见宽度，以平均字符宽度为单位，值为正整数，默认为20</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="下拉框"><a href="#下拉框" class="headerlink" title="下拉框"></a>下拉框</h3><p>下拉菜单是一种简单地让用户从许多不同选项中进行选择的控件，不占用用户界面太多空间。HTML 有两种下拉内容：一种是<strong>选择框</strong>、另外一种是<strong>自动补全框</strong>。</p>
-<h4 id="选择框"><a href="#选择框" class="headerlink" title="选择框"></a>选择框</h4><p>选择框是由<code>&lt;select&gt;</code>元素及一个或多个<code>&lt;option&gt;</code>子元素构成的，每个子元素指定了选择框的可能取值。</p>
+<h3 id="下拉框">下拉框</h3>
+<p>下拉菜单是一种简单地让用户从许多不同选项中进行选择的控件，不占用用户界面太多空间。HTML 有两种下拉内容：一种是<strong>选择框</strong>、另外一种是<strong>自动补全框</strong>。</p>
+<h4 id="选择框">选择框</h4>
+<p>选择框是由<code>&lt;select&gt;</code>元素及一个或多个<code>&lt;option&gt;</code>子元素构成的，每个子元素指定了选择框的可能取值。</p>
 <p><strong>属性</strong>：</p>
 <ol>
 <li><strong>multiple</strong>：在<code>&lt;select&gt;</code>元素设置<strong>multiple</strong>属性，选择框就允许用户选择多个选项</li>
@@ -418,11 +424,10 @@
 <li><strong>value</strong>：在<code>&lt;option&gt;</code>元素设置<strong>value</strong>属性，当表单提交时也会提交这个选项对应的值，如果省略了<strong>value</strong>属性，<code>&lt;option&gt;</code>元素的内容会作为提交的值。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;fruit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fruit&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;banana&quot;</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;cherry&quot;</span>&gt;</span>Cherry<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;lemon&quot;</span>&gt;</span>Lemon<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><code>&lt;option&gt;</code>元素可以嵌套在<code>&lt;optgroup&gt;</code>元素中，从视觉上给选项做分组。在<code>&lt;optgroup&gt;</code>元素中，<strong>label</strong>属性的值在嵌套选项前显示。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;groups&quot;</span> <span class="attr">name</span>=<span class="string">&quot;groups&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optgroup</span> <span class="attr">label</span>=<span class="string">&quot;fruits&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;banana&quot;</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;cherry&quot;</span>&gt;</span>Cherry<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;lemon&quot;</span>&gt;</span>Lemon<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">optgroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optgroup</span> <span class="attr">label</span>=<span class="string">&quot;vegetables&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;carrot&quot;</span>&gt;</span>Carrot<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;eggplant&quot;</span>&gt;</span>Eggplant<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;potato&quot;</span>&gt;</span>Potato<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">optgroup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="自动补全框"><a href="#自动补全框" class="headerlink" title="自动补全框"></a>自动补全框</h4><p>通过<code>&lt;datalist&gt;</code>元素以及<code>&lt;option&gt;</code>子元素为表单项提供推荐的自动补全值。<code>&lt;datalist&gt;</code> 元素需要指定一个<strong>id</strong>。<code>&lt;datalist&gt;</code>元素的<strong>id</strong>会绑定<code>&lt;input&gt;</code>元素的<strong>list</strong>属性，绑定之后<code>&lt;datalist&gt;</code>元素的选项就会被用来自动补全用户输入的文本。</p>
+<h4 id="自动补全框">自动补全框</h4>
+<p>通过<code>&lt;datalist&gt;</code>元素以及<code>&lt;option&gt;</code>子元素为表单项提供推荐的自动补全值。<code>&lt;datalist&gt;</code> 元素需要指定一个<strong>id</strong>。<code>&lt;datalist&gt;</code>元素的<strong>id</strong>会绑定<code>&lt;input&gt;</code>元素的<strong>list</strong>属性，绑定之后<code>&lt;datalist&gt;</code>元素的选项就会被用来自动补全用户输入的文本。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;fruit&quot;</span>&gt;</span>What&#x27;s your favorite fruit?<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fruit&quot;</span> <span class="attr">id</span>=<span class="string">&quot;fruit&quot;</span> <span class="attr">list</span>=<span class="string">&quot;fruitOptions&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;fruitOptions&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span>&gt;</span>Cherry<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span>&gt;</span>Lemon<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
                 
@@ -523,6 +528,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -712,6 +723,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

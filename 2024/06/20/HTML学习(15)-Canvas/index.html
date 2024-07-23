@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="zzstriker blogs">
 <meta property="og:description" content="除了使用SVG绘制矢量图形，我们也可以使用canvas在浏览器绘制2D图形。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas.png">
-<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas_arc.gif">
-<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas_translate.png">
-<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas_rotate.png">
+<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas.png">
+<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas_arc.gif">
+<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas_translate.png">
+<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas_rotate.png">
 <meta property="article:published_time" content="2024-06-20T01:26:08.000Z">
 <meta property="article:modified_time" content="2024-06-20T07:52:29.009Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zzstriker.github.io/imgs/HTML/canvas.png">
+<meta name="twitter:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas.png">
   
   
   
@@ -272,71 +272,76 @@
                 
                 <p>除了使用SVG绘制矢量图形，我们也可以使用canvas在浏览器绘制2D图形。</p>
 <span id="more"></span>
-
-<h1 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h1><p><code>&lt;canvas&gt;</code>元素用于在浏览器上绘制图形，但<code>&lt;canvas&gt;</code>元素只是图形的容器，我们需要使用<strong>JavaScript</strong>才能真正绘制图形。</p>
+<h1>Canvas</h1>
+<p><code>&lt;canvas&gt;</code>元素用于在浏览器上绘制图形，但<code>&lt;canvas&gt;</code>元素只是图形的容器，我们需要使用<strong>JavaScript</strong>才能真正绘制图形。</p>
 <p><strong>属性</strong>：</p>
 <ol>
 <li><strong>width</strong>：<code>&lt;canvas&gt;</code>元素占用空间的宽度，以像素表示，默认300px。</li>
 <li><strong>height</strong>：<code>&lt;canvas&gt;</code>元素占用空间的高度，以像素表示，默认150px。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span> <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="坐标定位"><a href="#坐标定位" class="headerlink" title="坐标定位"></a>坐标定位</h2><p>canvas使用的坐标系统与SVG一致，以页面的左上角为(0, 0)坐标点为顶点，坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下。</p>
-<p><img src="/./imgs/HTML/canvas.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p><code>&lt;canvas&gt;</code>元素创造了一个固定大小的画布，可以用来绘制和处理要展示的内容。<code>&lt;canvas&gt;</code>起初是空白的。为了展示，首先脚本需要找到渲染上下文，然后在它的上面绘制。<code>&lt;canvas&gt;</code>元素通过<code>getContext()</code>方法获得渲染上下文和它的绘画功能。</p>
+<h2 id="坐标定位">坐标定位</h2>
+<p>canvas使用的坐标系统与SVG一致，以页面的左上角为(0, 0)坐标点为顶点，坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下。</p>
+<p><img src="./imgs/HTML/canvas.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="基本用法">基本用法</h2>
+<p><code>&lt;canvas&gt;</code>元素创造了一个固定大小的画布，可以用来绘制和处理要展示的内容。<code>&lt;canvas&gt;</code>起初是空白的。为了展示，首先脚本需要找到渲染上下文，然后在它的上面绘制。<code>&lt;canvas&gt;</code>元素通过<code>getContext()</code>方法获得渲染上下文和它的绘画功能。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h2><h3 id="fillRect"><a href="#fillRect" class="headerlink" title="fillRect"></a>fillRect</h3><p><code>fillRect()</code>方法绘制一个填充了内容的矩形，填充样式由当前的<code>fillStyle</code> 决定。</p>
+<h2 id="矩形">矩形</h2>
+<h3 id="fillRect">fillRect</h3>
+<p><code>fillRect()</code>方法绘制一个填充了内容的矩形，填充样式由当前的<code>fillStyle</code> 决定。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：矩形起始点的x、y轴坐标</li>
 <li><strong>width、height</strong>：矩形的宽度和高度</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="strokeRect"><a href="#strokeRect" class="headerlink" title="strokeRect"></a>strokeRect</h3><p><code>strokeRect()</code>方法绘制一个一个描边（轮廓）矩形，边框样式由当前的<code>strokeStyle</code> 决定。</p>
+<h3 id="strokeRect">strokeRect</h3>
+<p><code>strokeRect()</code>方法绘制一个一个描边（轮廓）矩形，边框样式由当前的<code>strokeStyle</code> 决定。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：矩形起始点的x、y轴坐标</li>
 <li><strong>width、height</strong>：矩形的宽度和高度</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">strokeStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">strokeRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="clearRect"><a href="#clearRect" class="headerlink" title="clearRect"></a>clearRect</h3><p><code>clearRect()</code>方法用于清除画布上的一个矩形区域，清除后的矩形是透明的。</p>
+<h3 id="clearRect">clearRect</h3>
+<p><code>clearRect()</code>方法用于清除画布上的一个矩形区域，清除后的矩形是透明的。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：矩形起始点的x、y轴坐标</li>
 <li><strong>width、height</strong>：矩形的宽度和高度</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">ctx.<span class="title function_">clearRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">280</span>, <span class="number">280</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>图形的基本元素是路径。路径是通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合。</p>
-<h3 id="beginPath"><a href="#beginPath" class="headerlink" title="beginPath"></a>beginPath</h3><p>创建一个新的路径。</p>
-<h3 id="closePath"><a href="#closePath" class="headerlink" title="closePath"></a>closePath</h3><p>从当前点回到起始点，如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。</p>
-<h3 id="stroke"><a href="#stroke" class="headerlink" title="stroke"></a>stroke</h3><p>根据当前的画线样式，绘制当前或已经存在的路径。</p>
+<h2 id="路径">路径</h2>
+<p>图形的基本元素是路径。路径是通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合。</p>
+<h3 id="beginPath">beginPath</h3>
+<p>创建一个新的路径。</p>
+<h3 id="closePath">closePath</h3>
+<p>从当前点回到起始点，如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。</p>
+<h3 id="stroke">stroke</h3>
+<p>根据当前的画线样式，绘制当前或已经存在的路径。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="fill"><a href="#fill" class="headerlink" title="fill"></a>fill</h3><p>根据当前的填充样式，填充当前或已存在的路径。</p>
+<h3 id="fill">fill</h3>
+<p>根据当前的填充样式，填充当前或已存在的路径。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="title function_">fill</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="clip"><a href="#clip" class="headerlink" title="clip"></a>clip</h3><p>将当前正在构建的路径转换为当前的裁剪路径。</p>
+<h3 id="clip">clip</h3>
+<p>将当前正在构建的路径转换为当前的裁剪路径。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">arc</span>(<span class="number">100</span>, <span class="number">75</span>, <span class="number">50</span>, <span class="number">0</span>, <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="number">2</span>);</span><br><span class="line">ctx.<span class="title function_">clip</span>();</span><br><span class="line"></span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, canvas.<span class="property">width</span>, canvas.<span class="property">height</span>);</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;orange&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="moveTo"><a href="#moveTo" class="headerlink" title="moveTo"></a>moveTo</h3><p>将起始点移动到 (x，y) 坐标。</p>
+<h3 id="moveTo">moveTo</h3>
+<p>将起始点移动到 (x，y) 坐标。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：起始点的x轴和y轴的坐标。</li>
 </ol>
-<h3 id="lineTo"><a href="#lineTo" class="headerlink" title="lineTo"></a>lineTo</h3><p>使用直线连接子路径的最后的点到 x，y 坐标。</p>
+<h3 id="lineTo">lineTo</h3>
+<p>使用直线连接子路径的最后的点到 x，y 坐标。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：终点的x轴和y轴的坐标。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">125</span>, <span class="number">125</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">125</span>, <span class="number">45</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">45</span>, <span class="number">125</span>);</span><br><span class="line">ctx.<span class="title function_">closePath</span>();</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="arc"><a href="#arc" class="headerlink" title="arc"></a>arc</h3><p>绘制圆弧路径</p>
+<h3 id="arc">arc</h3>
+<p>绘制圆弧路径</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">arc</span>(x, y, radius, startAngle, endAngle, anticlockwise);</span><br></pre></td></tr></table></figure>
-
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：圆弧中心的x轴和y轴的坐标。</li>
@@ -346,26 +351,26 @@
 <li><strong>anticlockwise</strong>：如果为 <code>true</code>，逆时针绘制圆弧，反之，顺时针绘制。</li>
 </ol>
 <p>圆弧起止点示意图如下：</p>
-<p><img src="/./imgs/HTML/canvas_arc.gif" srcset="/img/loading.gif" lazyload></p>
+<p><img src="./imgs/HTML/canvas_arc.gif" srcset="/img/loading.gif" lazyload alt=""></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">arc</span>(<span class="number">150</span>, <span class="number">150</span>, <span class="number">150</span>, <span class="number">0</span>, <span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">2</span>, <span class="literal">false</span>);</span><br><span class="line">ctx.<span class="title function_">closePath</span>();</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="rect"><a href="#rect" class="headerlink" title="rect"></a>rect</h3><p>创建矩形路径</p>
+<h3 id="rect">rect</h3>
+<p>创建矩形路径</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x、y</strong>：矩形起点的x、y轴坐标</li>
 <li><strong>width、height</strong>：矩形的宽度和高度</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="title function_">fill</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="quadraticCurveTo"><a href="#quadraticCurveTo" class="headerlink" title="quadraticCurveTo"></a>quadraticCurveTo</h3><p>创建二次贝塞尔曲线路径</p>
+<h3 id="quadraticCurveTo">quadraticCurveTo</h3>
+<p>创建二次贝塞尔曲线路径</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>cpx、cpy</strong>：控制点的x、y轴坐标</li>
 <li><strong>x、y</strong>：终点的x、y轴坐标</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">20</span>, <span class="number">110</span>);</span><br><span class="line">ctx.<span class="title function_">quadraticCurveTo</span>(<span class="number">230</span>, <span class="number">150</span>, <span class="number">250</span>, <span class="number">20</span>);</span><br><span class="line">ctx.<span class="title function_">closePath</span>();</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="bezierCurveTo"><a href="#bezierCurveTo" class="headerlink" title="bezierCurveTo"></a>bezierCurveTo</h3><p>创建三次贝塞尔曲线路径</p>
+<h3 id="bezierCurveTo">bezierCurveTo</h3>
+<p>创建三次贝塞尔曲线路径</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>cp1x、cp1y</strong>：第一个控制点的x、y轴坐标</li>
@@ -373,17 +378,20 @@
 <li><strong>x、y</strong>：终点的x、y轴坐标</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">50</span>, <span class="number">20</span>);</span><br><span class="line">ctx.<span class="title function_">bezierCurveTo</span>(<span class="number">230</span>, <span class="number">30</span>, <span class="number">150</span>, <span class="number">60</span>, <span class="number">50</span>, <span class="number">100</span>);</span><br><span class="line">ctx.<span class="title function_">closePath</span>();</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h2 id="颜色和应用样式"><a href="#颜色和应用样式" class="headerlink" title="颜色和应用样式"></a>颜色和应用样式</h2><h3 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h3><h4 id="fillStyle"><a href="#fillStyle" class="headerlink" title="fillStyle"></a>fillStyle</h4><p>设置图形的填充颜色。</p>
+<h2 id="颜色和应用样式">颜色和应用样式</h2>
+<h3 id="颜色">颜色</h3>
+<h4 id="fillStyle">fillStyle</h4>
+<p>设置图形的填充颜色。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fill</span>();</span><br></pre></td></tr></table></figure>
-
-<h4 id="strokeStyle"><a href="#strokeStyle" class="headerlink" title="strokeStyle"></a>strokeStyle</h4><p>设置图形轮廓的颜色。</p>
+<h4 id="strokeStyle">strokeStyle</h4>
+<p>设置图形轮廓的颜色。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="property">strokeStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="线条"><a href="#线条" class="headerlink" title="线条"></a>线条</h3><h4 id="lineWidth"><a href="#lineWidth" class="headerlink" title="lineWidth"></a>lineWidth</h4><p>设置线段宽度</p>
+<h3 id="线条">线条</h3>
+<h4 id="lineWidth">lineWidth</h4>
+<p>设置线段宽度</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="property">lineWidth</span> = <span class="number">10</span>;</span><br><span class="line">ctx.<span class="property">strokeStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h4 id="lineCap"><a href="#lineCap" class="headerlink" title="lineCap"></a>lineCap</h4><p>设置线段末端的属性</p>
+<h4 id="lineCap">lineCap</h4>
+<p>设置线段末端的属性</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>butt</strong>：线段末端以方形结束</li>
@@ -391,8 +399,8 @@
 <li><strong>square</strong>：线段末端以方形结束，增加了一个线段宽度</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">ctx.<span class="property">lineWidth</span> = <span class="number">15</span>;</span><br><span class="line">ctx.<span class="property">lineCap</span> = <span class="string">&quot;square&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="title function_">closePath</span>();</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h4 id="lineJoin"><a href="#lineJoin" class="headerlink" title="lineJoin"></a>lineJoin</h4><p>定义两线相交拐点的类型</p>
+<h4 id="lineJoin">lineJoin</h4>
+<p>定义两线相交拐点的类型</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>round</strong>：填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。圆角的半径是线段的宽度。</li>
@@ -400,25 +408,26 @@
 <li><strong>miter</strong>：通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">lineWidth</span> = <span class="number">20</span>;</span><br><span class="line">ctx.<span class="property">lineJoin</span> = <span class="string">&quot;round&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">200</span>, <span class="number">20</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">20</span>, <span class="number">200</span>);</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h4 id="getLineDash"><a href="#getLineDash" class="headerlink" title="getLineDash"></a>getLineDash</h4><p>获取当前的线段样式。</p>
+<h4 id="getLineDash">getLineDash</h4>
+<p>获取当前的线段样式。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">setLineDash</span>([<span class="number">5</span>, <span class="number">15</span>]);</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">0</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">300</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ctx.<span class="title function_">getLineDash</span>());</span><br></pre></td></tr></table></figure>
-
-<h4 id="setLieDash"><a href="#setLieDash" class="headerlink" title="setLieDash"></a>setLieDash</h4><p>设置当前的线段样式。</p>
+<h4 id="setLieDash">setLieDash</h4>
+<p>设置当前的线段样式。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">setLineDash</span>([<span class="number">5</span>, <span class="number">15</span>]);</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">0</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">300</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h4 id="lineDashOffset"><a href="#lineDashOffset" class="headerlink" title="lineDashOffset"></a>lineDashOffset</h4><p>设置虚线偏移量</p>
+<h4 id="lineDashOffset">lineDashOffset</h4>
+<p>设置虚线偏移量</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">setLineDash</span>([<span class="number">4</span>, <span class="number">16</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dashed line with no offset</span></span><br><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">0</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">300</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dashed line with offset of 4</span></span><br><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="property">strokeStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="property">lineDashOffset</span> = <span class="number">4</span>;</span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">300</span>, <span class="number">100</span>);</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h3><h4 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h4><p>根据两个给定的坐标值所构成的线段创建一个线性渐变。</p>
+<h3 id="渐变">渐变</h3>
+<h4 id="线性渐变">线性渐变</h4>
+<p>根据两个给定的坐标值所构成的线段创建一个线性渐变。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x0、y0</strong>：起点的x、y轴坐标</li>
 <li><strong>x1、y1</strong>：终点的x、y轴坐标</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gradient = ctx.<span class="title function_">createLinearGradient</span>(<span class="number">20</span>, <span class="number">0</span>, <span class="number">220</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">gradient.<span class="title function_">addColorStop</span>(<span class="number">0</span>, <span class="string">&quot;green&quot;</span>);</span><br><span class="line">gradient.<span class="title function_">addColorStop</span>(<span class="number">0.5</span>, <span class="string">&quot;cyan&quot;</span>);</span><br><span class="line">gradient.<span class="title function_">addColorStop</span>(<span class="number">1</span>, <span class="string">&quot;green&quot;</span>);</span><br><span class="line"></span><br><span class="line">ctx.<span class="property">fillStyle</span> = gradient;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">20</span>, <span class="number">20</span>, <span class="number">200</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h4><p>根据参数确定两个圆的坐标，绘制放射性渐变</p>
+<h4 id="径向渐变">径向渐变</h4>
+<p>根据参数确定两个圆的坐标，绘制放射性渐变</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x0、y0</strong>：开始圆形的x、y轴坐标</li>
@@ -427,18 +436,20 @@
 <li><strong>r1</strong>：结束圆形的半径</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gradient = ctx.<span class="title function_">createRadialGradient</span>(<span class="number">110</span>, <span class="number">90</span>, <span class="number">30</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">70</span>);</span><br><span class="line"></span><br><span class="line">gradient.<span class="title function_">addColorStop</span>(<span class="number">0</span>, <span class="string">&quot;pink&quot;</span>);</span><br><span class="line">gradient.<span class="title function_">addColorStop</span>(<span class="number">0.9</span>, <span class="string">&quot;white&quot;</span>);</span><br><span class="line">gradient.<span class="title function_">addColorStop</span>(<span class="number">1</span>, <span class="string">&quot;green&quot;</span>);</span><br><span class="line"></span><br><span class="line">ctx.<span class="property">fillStyle</span> = gradient;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">20</span>, <span class="number">20</span>, <span class="number">160</span>, <span class="number">160</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="addColorStop"><a href="#addColorStop" class="headerlink" title="addColorStop"></a>addColorStop</h4><p>指定渐变对象中的颜色和位置。</p>
+<h4 id="addColorStop">addColorStop</h4>
+<p>指定渐变对象中的颜色和位置。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>offset</strong>：0-1之间的值</li>
 <li><strong>color</strong>：颜色</li>
 </ol>
-<h3 id="图案"><a href="#图案" class="headerlink" title="图案"></a>图案</h3><p>通过<code>createPattern()</code>方法来实现图案的效果</p>
+<h3 id="图案">图案</h3>
+<p>通过<code>createPattern()</code>方法来实现图案的效果</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>image</strong>：重复图像的来源</li>
-<li><strong>repetition</strong>：指定如何重复图像<ul>
+<li><strong>repetition</strong>：指定如何重复图像
+<ul>
 <li><strong>repeat</strong>：沿 x、y 轴平铺</li>
 <li><strong>repeat-x</strong>：沿 x 轴平铺</li>
 <li><strong>repeat-y</strong>：沿 y 轴平铺</li>
@@ -447,20 +458,22 @@
 </li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">img.<span class="property">src</span> = <span class="string">&quot;canvas_createpattern.png&quot;</span>;</span><br><span class="line">img.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> ptrn = ctx.<span class="title function_">createPattern</span>(img, <span class="string">&quot;repeat&quot;</span>);</span><br><span class="line">    ctx.<span class="property">fillStyle</span> = ptrn;</span><br><span class="line">    ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">150</span>, <span class="number">150</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><h4 id="shadowColor"><a href="#shadowColor" class="headerlink" title="shadowColor"></a>shadowColor</h4><p>设置阴影的颜色</p>
+<h3 id="阴影">阴影</h3>
+<h4 id="shadowColor">shadowColor</h4>
+<p>设置阴影的颜色</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">shadowColor</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="shadowBlur"><a href="#shadowBlur" class="headerlink" title="shadowBlur"></a>shadowBlur</h4><p>设置阴影的模糊效果</p>
+<h4 id="shadowBlur">shadowBlur</h4>
+<p>设置阴影的模糊效果</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">shadowColor</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="property">shadowBlur</span> = <span class="number">15</span>;</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="shadowOffsetX"><a href="#shadowOffsetX" class="headerlink" title="shadowOffsetX"></a>shadowOffsetX</h4><p>阴影水平方向的偏移量</p>
+<h4 id="shadowOffsetX">shadowOffsetX</h4>
+<p>阴影水平方向的偏移量</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">shadowColor</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="property">shadowOffsetX</span> = <span class="number">25</span>;</span><br><span class="line">ctx.<span class="property">shadowBlur</span> = <span class="number">10</span>;</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="shadowOffsetY"><a href="#shadowOffsetY" class="headerlink" title="shadowOffsetY"></a>shadowOffsetY</h4><p>阴影垂直方向的偏移量</p>
+<h4 id="shadowOffsetY">shadowOffsetY</h4>
+<p>阴影垂直方向的偏移量</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">shadowColor</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="property">shadowOffsetY</span> = <span class="number">25</span>;</span><br><span class="line">ctx.<span class="property">shadowBlur</span> = <span class="number">10</span>;</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><h3 id="fillText"><a href="#fillText" class="headerlink" title="fillText"></a>fillText</h3><p>在指定的坐标上绘制文本字符串，并使用当前的<strong>fillStyle</strong>对其进行填充。</p>
+<h2 id="文本">文本</h2>
+<h3 id="fillText">fillText</h3>
+<p>在指定的坐标上绘制文本字符串，并使用当前的<strong>fillStyle</strong>对其进行填充。</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>text</strong>：渲染上下文的文本字符串</li>
@@ -468,8 +481,8 @@
 <li><strong>y</strong>：绘制文本的基线的y轴坐标</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">fillText</span>(<span class="string">&quot;Hello world&quot;</span>, <span class="number">50</span>, <span class="number">90</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="strokeText"><a href="#strokeText" class="headerlink" title="strokeText"></a>strokeText</h3><p>在指定的坐标上绘制文本轮廓</p>
+<h3 id="strokeText">strokeText</h3>
+<p>在指定的坐标上绘制文本轮廓</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>text</strong>：渲染上下文的文本字符串</li>
@@ -477,11 +490,11 @@
 <li><strong>y</strong>：绘制文本的基线的y轴坐标</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">strokeText</span>(<span class="string">&quot;Hello world&quot;</span>, <span class="number">50</span>, <span class="number">90</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="font"><a href="#font" class="headerlink" title="font"></a>font</h3><p>绘制文字时，当前字体样式的属性。</p>
+<h3 id="font">font</h3>
+<p>绘制文字时，当前字体样式的属性。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">font</span> = <span class="string">&quot;50px serif&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillText</span>(<span class="string">&quot;Hello world&quot;</span>, <span class="number">50</span>, <span class="number">90</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="textAlign"><a href="#textAlign" class="headerlink" title="textAlign"></a>textAlign</h3><p>绘制文本时，文本水平方向的对齐方式。</p>
+<h3 id="textAlign">textAlign</h3>
+<p>绘制文本时，文本水平方向的对齐方式。</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>left</strong>：文本左对齐</li>
@@ -489,8 +502,8 @@
 <li><strong>center</strong>：文本居中对齐</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">font</span> = <span class="string">&quot;30px serif&quot;</span>;</span><br><span class="line">ctx.<span class="property">textAlign</span> = <span class="string">&quot;center&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">strokeRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>)</span><br><span class="line">ctx.<span class="title function_">fillText</span>(<span class="string">&quot;Hello world&quot;</span>, <span class="number">150</span>, <span class="number">150</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="textBaseline"><a href="#textBaseline" class="headerlink" title="textBaseline"></a>textBaseline</h3><p>绘制文本时，文本垂直方向的对齐方式。</p>
+<h3 id="textBaseline">textBaseline</h3>
+<p>绘制文本时，文本垂直方向的对齐方式。</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>top</strong>：文本基线在文本块的顶部</li>
@@ -501,16 +514,16 @@
 <li><strong>bottom</strong>：文本基线在文本块的底部</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> baselines = [</span><br><span class="line">    <span class="string">&quot;top&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hanging&quot;</span>,</span><br><span class="line">    <span class="string">&quot;middle&quot;</span>,</span><br><span class="line">    <span class="string">&quot;alphabetic&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ideographic&quot;</span>,</span><br><span class="line">    <span class="string">&quot;bottom&quot;</span>,</span><br><span class="line">];</span><br><span class="line">ctx.<span class="property">font</span> = <span class="string">&quot;36px serif&quot;</span>;</span><br><span class="line">ctx.<span class="property">strokeStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line"></span><br><span class="line">baselines.<span class="title function_">forEach</span>(<span class="function">(<span class="params">baseline, index</span>) =&gt;</span> &#123;</span><br><span class="line">    ctx.<span class="property">textBaseline</span> = baseline;</span><br><span class="line">    <span class="keyword">const</span> y = <span class="number">75</span> + index * <span class="number">75</span>;</span><br><span class="line">    ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">    ctx.<span class="title function_">moveTo</span>(<span class="number">0</span>, y + <span class="number">0.5</span>);</span><br><span class="line">    ctx.<span class="title function_">lineTo</span>(<span class="number">550</span>, y + <span class="number">0.5</span>);</span><br><span class="line">    ctx.<span class="title function_">stroke</span>();</span><br><span class="line">    ctx.<span class="title function_">fillText</span>(<span class="string">`Abcdefghijklmnop (<span class="subst">$&#123;baseline&#125;</span>)`</span>, <span class="number">0</span>, y);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="direction"><a href="#direction" class="headerlink" title="direction"></a>direction</h3><p>绘制文本时，描述文本方向。</p>
+<h3 id="direction">direction</h3>
+<p>绘制文本时，描述文本方向。</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>ltr</strong>：文本方向从左向右</li>
 <li><strong>rtl</strong>：文本方向从右向左</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">font</span> = <span class="string">&quot;48px serif&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillText</span>(<span class="string">&quot;Hi!&quot;</span>, <span class="number">150</span>, <span class="number">50</span>);</span><br><span class="line">ctx.<span class="property">direction</span> = <span class="string">&quot;rtl&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillText</span>(<span class="string">&quot;Hi!&quot;</span>, <span class="number">150</span>, <span class="number">130</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>canvas 具有图像操控能力，可以用于动态图像合成或者成为图形的背景。引入图像到 canvas 里需要以下两步基本操作：</p>
+<h2 id="图像">图像</h2>
+<p>canvas 具有图像操控能力，可以用于动态图像合成或者成为图形的背景。引入图像到 canvas 里需要以下两步基本操作：</p>
 <ol>
 <li>获取一个图片</li>
 <li>使用<code>drawImage()</code>函数将图片绘制到画布上</li>
@@ -522,37 +535,40 @@
 <li><strong>dWidth、dHeight</strong>：<code>image</code>在目标画布上绘制的宽度和高度</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">img.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ctx.<span class="title function_">drawImage</span>(img, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">    ctx.<span class="title function_">moveTo</span>(<span class="number">30</span>, <span class="number">96</span>);</span><br><span class="line">    ctx.<span class="title function_">lineTo</span>(<span class="number">70</span>, <span class="number">66</span>);</span><br><span class="line">    ctx.<span class="title function_">lineTo</span>(<span class="number">103</span>, <span class="number">76</span>);</span><br><span class="line">    ctx.<span class="title function_">lineTo</span>(<span class="number">170</span>, <span class="number">15</span>);</span><br><span class="line">    ctx.<span class="title function_">stroke</span>();</span><br><span class="line">&#125;;</span><br><span class="line">img.<span class="property">src</span> = <span class="string">&quot;demo.png&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><h3 id="save"><a href="#save" class="headerlink" title="save"></a>save</h3><p>保存canvas的所有状态，canvas状态存储在栈中，当<code>save()</code>方法被调用后，当前的状态就被推送到栈中保存</p>
-<h3 id="restore"><a href="#restore" class="headerlink" title="restore"></a>restore</h3><p>恢复canvas到最近保存的状态，如果没有使用<code>save()</code>方法保存状态，就不会生效</p>
+<h2 id="状态">状态</h2>
+<h3 id="save">save</h3>
+<p>保存canvas的所有状态，canvas状态存储在栈中，当<code>save()</code>方法被调用后，当前的状态就被推送到栈中保存</p>
+<h3 id="restore">restore</h3>
+<p>恢复canvas到最近保存的状态，如果没有使用<code>save()</code>方法保存状态，就不会生效</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">150</span>, <span class="number">150</span>); <span class="comment">// 使用默认设置绘制一个矩形</span></span><br><span class="line">ctx.<span class="title function_">save</span>(); <span class="comment">// 保存默认状态</span></span><br><span class="line"></span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;#09F&quot;</span>; <span class="comment">// 在原有配置基础上对颜色做改变</span></span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">15</span>, <span class="number">15</span>, <span class="number">120</span>, <span class="number">120</span>); <span class="comment">// 使用新的设置绘制一个矩形</span></span><br><span class="line"></span><br><span class="line">ctx.<span class="title function_">save</span>(); <span class="comment">// 保存当前状态</span></span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;#FFF&quot;</span>; <span class="comment">// 再次改变颜色配置</span></span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">30</span>, <span class="number">30</span>, <span class="number">90</span>, <span class="number">90</span>); <span class="comment">// 使用新的配置绘制一个矩形</span></span><br><span class="line"></span><br><span class="line">ctx.<span class="title function_">restore</span>(); <span class="comment">// 重新加载之前的颜色状态</span></span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">45</span>, <span class="number">45</span>, <span class="number">60</span>, <span class="number">60</span>); <span class="comment">// 使用上一次的配置绘制一个矩形</span></span><br><span class="line"></span><br><span class="line">ctx.<span class="title function_">restore</span>(); <span class="comment">// 加载默认颜色配置</span></span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">60</span>, <span class="number">60</span>, <span class="number">30</span>, <span class="number">30</span>); <span class="comment">// 使用加载的配置绘制一个矩形</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="变形"><a href="#变形" class="headerlink" title="变形"></a>变形</h2><h3 id="translate"><a href="#translate" class="headerlink" title="translate"></a>translate</h3><p>将 canvas 按原始 x 点的水平方向、原始 y 点的垂直方向进行<strong>平移变换</strong></p>
-<p><img src="/./imgs/HTML/canvas_translate.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="变形">变形</h2>
+<h3 id="translate">translate</h3>
+<p>将 canvas 按原始 x 点的水平方向、原始 y 点的垂直方向进行<strong>平移变换</strong></p>
+<p><img src="./imgs/HTML/canvas_translate.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x</strong>：水平方向的移动距离</li>
 <li><strong>y</strong>：垂直方向的移动距离</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;grey&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">80</span>);</span><br><span class="line">ctx.<span class="title function_">translate</span>(<span class="number">110</span>, <span class="number">30</span>);</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">80</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h3><p>将 canvas 按其起始点旋转</p>
-<p><img src="/./imgs/HTML/canvas_rotate.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="rotate">rotate</h3>
+<p>将 canvas 按其起始点旋转</p>
+<p><img src="./imgs/HTML/canvas_rotate.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>angle</strong>：顺时针旋转的弧度，可以使用公式：<code>degree * Math.PI / 180</code></li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;gray&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">100</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">ctx.<span class="title function_">rotate</span>((<span class="number">45</span> * <span class="title class_">Math</span>.<span class="property">PI</span>) / <span class="number">180</span>);</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">100</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="scale"><a href="#scale" class="headerlink" title="scale"></a>scale</h3><p>将 canvas 缩放</p>
+<h3 id="scale">scale</h3>
+<p>将 canvas 缩放</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x</strong>：水平方向的缩放因子</li>
 <li><strong>y</strong>：垂直方向的缩放因子</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">ctx.<span class="title function_">scale</span>(<span class="number">0.1</span>, <span class="number">0.1</span>);</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p>可以缩放、旋转、移动和倾斜上下文</p>
+<h3 id="transform">transform</h3>
+<p>可以缩放、旋转、移动和倾斜上下文</p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>a</strong>：水平方向的缩放因子</li>
@@ -563,12 +579,13 @@
 <li><strong>f</strong>：垂直方向的移动距离</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">transform</span>(<span class="number">1</span>, <span class="number">0.2</span>, <span class="number">0.8</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="setTransform"><a href="#setTransform" class="headerlink" title="setTransform"></a>setTransform</h3><p>重新设置当前的变形为初始值，并使用同样的变量调用 <code>transform() </code>方法。</p>
-<h3 id="resetTransform"><a href="#resetTransform" class="headerlink" title="resetTransform"></a>resetTransform</h3><p>设置当前的变形为初始值</p>
+<h3 id="setTransform">setTransform</h3>
+<p>重新设置当前的变形为初始值，并使用同样的变量调用 <code>transform() </code>方法。</p>
+<h3 id="resetTransform">resetTransform</h3>
+<p>设置当前的变形为初始值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">setTransform</span>(<span class="number">1</span>, <span class="number">0.2</span>, <span class="number">0.8</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">ctx.<span class="title function_">resetTransform</span>();</span><br></pre></td></tr></table></figure>
-
-<h2 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h2><p>在 canvas 中不仅可以在已有图形后面再画新图形，还可以用来遮盖指定区域，清除画布中的某些部分，通过<strong>globalCompositeOperation</strong>属性设置遮盖策略</p>
+<h2 id="合成">合成</h2>
+<p>在 canvas 中不仅可以在已有图形后面再画新图形，还可以用来遮盖指定区域，清除画布中的某些部分，通过<strong>globalCompositeOperation</strong>属性设置遮盖策略</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>source-over</strong>：在现有画布上绘制新图形</li>
@@ -584,7 +601,6 @@
 <li><strong>xor</strong>：重叠处图形变为透明，其他地方正常绘制</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">globalCompositeOperation</span> = <span class="string">&quot;xor&quot;</span>;</span><br><span class="line"></span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -684,6 +700,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -873,6 +895,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

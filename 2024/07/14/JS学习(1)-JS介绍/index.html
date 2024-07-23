@@ -267,51 +267,64 @@
                 
                 <p>JavaScript 是一种脚本编程语言，它可以在网页上实现复杂的功能，网页展现给你的不再是简单的静态信息，而是实时的内容更新。</p>
 <span id="more"></span>
-
-<h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><p>JavaScript 是一种编程语言，最初设计用于与网页元素交互。JavaScript 由三个主要部分组成：</p>
+<h1>JS</h1>
+<p>JavaScript 是一种编程语言，最初设计用于与网页元素交互。JavaScript 由三个主要部分组成：</p>
 <ul>
 <li>ECMAScript：提供核心功能</li>
 <li>文档对象模型（<strong>DOM</strong>）：提供与网页内容交互的方法和接口</li>
 <li>浏览器对象模型（<strong>BOM</strong>）：提供与浏览器交互的方法和接口</li>
 </ul>
-<h2 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h2><p>将 JavaScript 插入 HTML 的主要方法是使用<code>&lt;script&gt;</code>元素</p>
-<h3 id="内部"><a href="#内部" class="headerlink" title="内部"></a>内部</h3><p>要嵌入行内 JavaScript 代码，直接把代码放在<code>&lt;script&gt;</code>元素中</p>
+<h2 id="引用方式">引用方式</h2>
+<p>将 JavaScript 插入 HTML 的主要方法是使用<code>&lt;script&gt;</code>元素</p>
+<h3 id="内部">内部</h3>
+<p>要嵌入行内 JavaScript 代码，直接把代码放在<code>&lt;script&gt;</code>元素中</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="comment">// 在此编写 JavaScript 代码</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="外部"><a href="#外部" class="headerlink" title="外部"></a>外部</h3><p>包含外部文件中的 JavaScript，就必须使用 <strong>src</strong> 属性。这个属性的值是一个 URL，指向包含 JavaScript 代码的文件</p>
+<h3 id="外部">外部</h3>
+<p>包含外部文件中的 JavaScript，就必须使用 <strong>src</strong> 属性。这个属性的值是一个 URL，指向包含 JavaScript 代码的文件</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span> <span class="attr">defer</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><p>执行 JavaScript 代码时，通常会按从上往下的顺序执行代码。解释 JavaScript 代码会引起页面阻塞，需要让脚本调用的时机符合预期。</p>
+<h2 id="执行顺序">执行顺序</h2>
+<p>执行 JavaScript 代码时，通常会按从上往下的顺序执行代码。解释 JavaScript 代码会引起页面阻塞，需要让脚本调用的时机符合预期。</p>
 <ol>
-<li><p>内部调用：监听浏览器的 <code>DOMContentLoaded</code> 事件，标志 HTML 文档完全加载和解析。JavaScript 代码在事件被触发后才会运行。</p>
+<li>
+<p>内部调用：监听浏览器的 <code>DOMContentLoaded</code> 事件，标志 HTML 文档完全加载和解析。JavaScript 代码在事件被触发后才会运行。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// …</span></span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>外部引用：通过在 <code>&lt;script&gt;</code>元素上增加 <strong>async</strong> 和 <strong>defer</strong> 属性，决策脚本何时加载执行</p>
+<li>
+<p>外部引用：通过在 <code>&lt;script&gt;</code>元素上增加 <strong>async</strong> 和 <strong>defer</strong> 属性，决策脚本何时加载执行</p>
 <ul>
 <li>async：浏览器遇到 <code>async</code> 时不会阻塞页面渲染，而是直接下载，一旦下载完成，脚本就会执行，从而阻止页面渲染。</li>
 <li>defer：<code>defer</code> 属性加载的脚本将按照它们在页面上出现的顺序加载，在页面内容全部加载完毕之后，脚本才会执行。</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span> <span class="attr">async</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span> <span class="attr">defer</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span> <span class="attr">async</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span> <span class="attr">defer</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h2 id="区分大小写"><a href="#区分大小写" class="headerlink" title="区分大小写"></a>区分大小写</h2><p>JavaScript 是<strong>区分大小写</strong>的，无论是变量、函数名还是操作符，都区分大小写，例如：变量名 <code>test</code>和<code>Test</code>分别表示两个不同的变量。</p>
-<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>所谓<strong>标识符</strong>，就是变量、函数、属性或函数参数的名称，标识符不能使用关键字和保留字。标识符可以由一或多个下列字符组成：</p>
+<h2 id="区分大小写">区分大小写</h2>
+<p>JavaScript 是<strong>区分大小写</strong>的，无论是变量、函数名还是操作符，都区分大小写，例如：变量名 <code>test</code>和<code>Test</code>分别表示两个不同的变量。</p>
+<h2 id="标识符">标识符</h2>
+<p>所谓<strong>标识符</strong>，就是变量、函数、属性或函数参数的名称，标识符不能使用关键字和保留字。标识符可以由一或多个下列字符组成：</p>
 <ol>
 <li>第一个字符必须是一个字母、下划线或美元符号</li>
 <li>剩下的其他字符可以是字母、下划线、美元符号或数字</li>
 </ol>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>JavaScript 代码中也可以添加注释，浏览器会忽略它们。</p>
+<h2 id="注释">注释</h2>
+<p>JavaScript 代码中也可以添加注释，浏览器会忽略它们。</p>
 <ol>
-<li><p>在双斜杠（&#x2F;&#x2F;）后添加单行注释</p>
+<li>
+<p>在双斜杠（//）后添加单行注释</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="comment">// 这是一个单行注释</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在 <code>/*</code> 和 <code>*/</code> 之间添加多行注释</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="language-javascript">		这里是</span></span></span><br><span class="line"><span class="comment"><span class="language-javascript">		多行注释</span></span></span><br><span class="line"><span class="comment"><span class="language-javascript">	*/</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>
+<p>在 <code>/*</code> 和 <code>*/</code> 之间添加多行注释</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="language-javascript">		这里是</span></span></span><br><span class="line"><span class="comment"><span class="language-javascript">		多行注释</span></span></span><br><span class="line"><span class="comment"><span class="language-javascript">	*/</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><p>ECMAScript 5引入了严格模式的概念，严格模式是一种不同的 JavaScript 解析和执行模型，一些不规范写法在这种模式下会被处理，对于不安全的活动将抛出错误。脚本启用严格模式需要在脚本顶部添加<code>&quot;use strict&quot;</code>。</p>
-<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><p>语句是指程序中的一条指令或命令，用于执行某种操作。在 JavaScript 中，如果一条语句独占一行的话，那么分号是可以省略的（不建议这么做），如果一行中有多条语句，那么这些语句必须以分号分开。</p>
+<h2 id="严格模式">严格模式</h2>
+<p>ECMAScript 5引入了严格模式的概念，严格模式是一种不同的 JavaScript 解析和执行模型，一些不规范写法在这种模式下会被处理，对于不安全的活动将抛出错误。脚本启用严格模式需要在脚本顶部添加<code>&quot;use strict&quot;</code>。</p>
+<h2 id="语句">语句</h2>
+<p>语句是指程序中的一条指令或命令，用于执行某种操作。在 JavaScript 中，如果一条语句独占一行的话，那么分号是可以省略的（不建议这么做），如果一行中有多条语句，那么这些语句必须以分号分开。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="keyword">var</span> tmp = <span class="string">&quot;语句&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p>ECMA 描述了一组具有特定用途的<strong>关键字</strong>，这些关键字可用于表示控制语句的开始或结束，或者是执行特性操作，关键字不能用作标识符</p>
+<h2 id="关键字">关键字</h2>
+<p>ECMA 描述了一组具有特定用途的<strong>关键字</strong>，这些关键字可用于表示控制语句的开始或结束，或者是执行特性操作，关键字不能用作标识符</p>
 <table>
 <thead>
 <tr>
@@ -321,7 +334,8 @@
 <th>typeof</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>case</td>
 <td>else</td>
 <td>instanceof</td>
@@ -369,8 +383,10 @@
 <td>try</td>
 <td></td>
 </tr>
-</tbody></table>
-<h2 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h2><p>ECMA 描述了一组不能用作标识符的<strong>保留字</strong>，保留字暂时还没有特定的用途，有可能在将来被用作关键字</p>
+</tbody>
+</table>
+<h2 id="保留字">保留字</h2>
+<p>ECMA 描述了一组不能用作标识符的<strong>保留字</strong>，保留字暂时还没有特定的用途，有可能在将来被用作关键字</p>
 <table>
 <thead>
 <tr>
@@ -379,7 +395,8 @@
 <th>static</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>implements</td>
 <td>protected</td>
 <td>await</td>
@@ -394,17 +411,20 @@
 <td>public</td>
 <td></td>
 </tr>
-</tbody></table>
-<h2 id="输出方式"><a href="#输出方式" class="headerlink" title="输出方式"></a>输出方式</h2><h3 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h3><p><code>alert()</code>弹出警告框，在弹窗里显示一条信息，并等待用户按下确定。</p>
+</tbody>
+</table>
+<h2 id="输出方式">输出方式</h2>
+<h3 id="alert">alert</h3>
+<p><code>alert()</code>弹出警告框，在弹窗里显示一条信息，并等待用户按下确定。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="title function_">alert</span>(<span class="string">&quot;测试文本&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="prompt"><a href="#prompt" class="headerlink" title="prompt"></a>prompt</h3><p><code>prompt()</code>就是专门弹出能够让用户输入的对话框。</p>
+<h3 id="prompt">prompt</h3>
+<p><code>prompt()</code>就是专门弹出能够让用户输入的对话框。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="title function_">prompt</span>(<span class="string">&quot;请输入内容&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="console"><a href="#console" class="headerlink" title="console"></a>console</h3><p><code>console.log()</code>表示在控制台中输出。console 表示“控制台”，log 表示“输出”。括号里可以写字符串、数字、变量。</p>
+<h3 id="console">console</h3>
+<p><code>console.log()</code>表示在控制台中输出。console 表示“控制台”，log 表示“输出”。括号里可以写字符串、数字、变量。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;打印了一些内容&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="confirm"><a href="#confirm" class="headerlink" title="confirm"></a>confirm</h3><p><code>confirm()</code>弹出一个弹框，弹窗上有“确认”和“取消”两个按钮，点击“确定”返回 <code>true</code>，点击“取消”返回 <code>false</code>。</p>
+<h3 id="confirm">confirm</h3>
+<p><code>confirm()</code>弹出一个弹框，弹窗上有“确认”和“取消”两个按钮，点击“确定”返回 <code>true</code>，点击“取消”返回 <code>false</code>。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">	<span class="title function_">confirm</span>(<span class="string">&quot;确定关闭么？&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
                 
@@ -505,6 +525,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -694,6 +720,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

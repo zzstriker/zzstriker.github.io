@@ -267,11 +267,13 @@
                 
                 <p>HTML为我们提供了多种标记列表的不同方法。有序列表 (<code>&lt;ol&gt;</code>)、无序列表 (<code>&lt;ul&gt;</code>) 和描述列表 (<code>&lt;dl&gt;</code>)。</p>
 <span id="more"></span>
-
-<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>有序列表需要按照项目的顺序列出来，<code>&lt;ol&gt;</code>元素通常表示有序列表，<code>&lt;ol&gt;</code>的唯一子级是一个或多个<code>&lt;li&gt;</code>元素。</p>
+<h1>列表</h1>
+<h2 id="有序列表">有序列表</h2>
+<p>有序列表需要按照项目的顺序列出来，<code>&lt;ol&gt;</code>元素通常表示有序列表，<code>&lt;ol&gt;</code>的唯一子级是一个或多个<code>&lt;li&gt;</code>元素。</p>
 <p><strong>属性：</strong></p>
 <ol>
-<li><strong>type</strong>：用于设置编号类型<ul>
+<li><strong>type</strong>：用于设置编号类型
+<ul>
 <li><code>a</code> 表示小写英文字母编号</li>
 <li><code>A</code> 表示大写英文字母编号</li>
 <li><code>i</code> 表示小写罗马数字编号</li>
@@ -281,15 +283,16 @@
 </li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Blender<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Toaster<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Vacuum<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>无序列表用于标记列表项目顺序无关紧要的列表，<code>&lt;ul&gt;</code>元素通常表示有序列表，<code>&lt;ul&gt;</code>的唯一子级是一个或多个<code>&lt;li&gt;</code>元素。</p>
+<h2 id="无序列表">无序列表</h2>
+<p>无序列表用于标记列表项目顺序无关紧要的列表，<code>&lt;ul&gt;</code>元素通常表示有序列表，<code>&lt;ul&gt;</code>的唯一子级是一个或多个<code>&lt;li&gt;</code>元素。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Blender<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Toaster<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Vacuum<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="列表项"><a href="#列表项" class="headerlink" title="列表项"></a>列表项</h2><p><code>&lt;li&gt;</code>元素用于表示列表中的项目。它必须包含在一个父元素中：有序列表(<code>&lt;ol&gt;</code>)、无序列表(<code>&lt;ul&gt;</code>)或菜单(<code>&lt;menu&gt;</code>)。</p>
-<h2 id="描述列表"><a href="#描述列表" class="headerlink" title="描述列表"></a>描述列表</h2><p>描述列表用于描述一个术语和术语详情，<code>&lt;dl&gt;</code>元素通常表示描述列表，<code>&lt;dl&gt;</code>的子级是<code>&lt;dt&gt;</code>元素和<code>&lt;dd&gt;</code>元素。</p>
+<h2 id="列表项">列表项</h2>
+<p><code>&lt;li&gt;</code>元素用于表示列表中的项目。它必须包含在一个父元素中：有序列表(<code>&lt;ol&gt;</code>)、无序列表(<code>&lt;ul&gt;</code>)或菜单(<code>&lt;menu&gt;</code>)。</p>
+<h2 id="描述列表">描述列表</h2>
+<p>描述列表用于描述一个术语和术语详情，<code>&lt;dl&gt;</code>元素通常表示描述列表，<code>&lt;dl&gt;</code>的子级是<code>&lt;dt&gt;</code>元素和<code>&lt;dd&gt;</code>元素。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>描述名词<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>描述详情<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="嵌套列表"><a href="#嵌套列表" class="headerlink" title="嵌套列表"></a>嵌套列表</h2><p>将一个列表嵌入到另一个列表称之为嵌套列表</p>
+<h2 id="嵌套列表">嵌套列表</h2>
+<p>将一个列表嵌入到另一个列表称之为嵌套列表</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Blender<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Toaster<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        Vacuum</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>test1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>test2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
                 
@@ -390,6 +393,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -579,6 +588,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

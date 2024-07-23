@@ -24,7 +24,7 @@
 <meta property="og:description" content="在 JavaScript 中，Date 对象是用于处理日期和时间的内置对象。它允许创建、操作和格式化日期和时间。Date 对象提供了多种方法来获取和设置日期、时间、时区等信息。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-23T05:57:02.000Z">
-<meta property="article:modified_time" content="2024-07-23T05:58:05.659Z">
+<meta property="article:modified_time" content="2024-07-23T10:58:29.111Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="JS">
 <meta name="twitter:card" content="summary_large_image">
@@ -267,8 +267,10 @@
                 
                 <p>在 JavaScript 中，<code>Date</code> 对象是用于处理日期和时间的内置对象。它允许创建、操作和格式化日期和时间。<code>Date</code> 对象提供了多种方法来获取和设置日期、时间、时区等信息。</p>
 <span id="more"></span>
-
-<h1 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h1><p>内置对象 Date 用来处理日期和时间。</p>
+<h1>Date</h1>
+<p>内置对象 Date 用来处理日期和时间。</p>
+<h2 id="创建Date">创建Date</h2>
+<h2 id="方法">方法</h2>
 
                 
               </div>
@@ -362,6 +364,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -551,6 +559,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

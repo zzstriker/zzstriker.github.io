@@ -1722,6 +1722,9 @@ mjx-container svg:focus,
 .mjx-mrow {
   white-space: pre-wrap !important;
 }
+.katex-html {
+  display: none;
+}
 .footnote-ref [class*=hint--][aria-label]:after {
   max-width: 12rem;
   white-space: nowrap;

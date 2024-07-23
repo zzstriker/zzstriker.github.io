@@ -267,39 +267,49 @@
                 
                 <p>层叠和继承——这些概念决定着如何将 CSS 应用到 HTML 中，以及如何解决冲突。</p>
 <span id="more"></span>
-
-<h1 id="层叠和继承"><a href="#层叠和继承" class="headerlink" title="层叠和继承"></a>层叠和继承</h1><h2 id="层叠"><a href="#层叠" class="headerlink" title="层叠"></a>层叠</h2><p>层叠简单来说，就是 CSS 规则的顺序很重要，用于解决CSS规则产生的冲突。有三个因素需要考虑：</p>
+<h1>层叠和继承</h1>
+<h2 id="层叠">层叠</h2>
+<p>层叠简单来说，就是 CSS 规则的顺序很重要，用于解决CSS规则产生的冲突。有三个因素需要考虑：</p>
 <ol>
 <li><strong>资源顺序</strong></li>
 <li><strong>优先级</strong></li>
 <li><strong>重要程度</strong></li>
 </ol>
-<h3 id="资源顺序"><a href="#资源顺序" class="headerlink" title="资源顺序"></a>资源顺序</h3><p>如果你有超过一条规则，而且都是相同的权重，那么最后面的规则会应用。可以理解为后面的规则覆盖前面的规则，直到最后一个开始设置样式。资源顺序仅在规则的优先级相同时才体现出来。</p>
-<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><p>有些规则在最后出现，但是却应用了前面的具有冲突的规则，这是因为前面的有更高的<strong>优先级</strong>。优先级用于决定当多个规则匹配同一个元素时，哪一个规则应用于该元素。优先级是根据选择器的类型计算的。</p>
+<h3 id="资源顺序">资源顺序</h3>
+<p>如果你有超过一条规则，而且都是相同的权重，那么最后面的规则会应用。可以理解为后面的规则覆盖前面的规则，直到最后一个开始设置样式。资源顺序仅在规则的优先级相同时才体现出来。</p>
+<h3 id="优先级">优先级</h3>
+<p>有些规则在最后出现，但是却应用了前面的具有冲突的规则，这是因为前面的有更高的<strong>优先级</strong>。优先级用于决定当多个规则匹配同一个元素时，哪一个规则应用于该元素。优先级是根据选择器的类型计算的。</p>
 <p>我们使用0-0-0-0来表示千，百，十，个位；</p>
 <ul>
-<li><p>通配选择器，个位得0分；</p>
+<li>
+<p>通配选择器，个位得0分；</p>
 </li>
-<li><p>元素和伪元素选择器，个位得1分；</p>
+<li>
+<p>元素和伪元素选择器，个位得1分；</p>
 </li>
-<li><p>类、伪类和属性选择器，十位得1分；</p>
+<li>
+<p>类、伪类和属性选择器，十位得1分；</p>
 </li>
-<li><p>ID选择器，百位得1分；</p>
+<li>
+<p>ID选择器，百位得1分；</p>
 </li>
 </ul>
 <p>否定（<code>:not()</code>）和任意匹配（<code>:is()</code>）伪类本身对优先级没有影响，但它们的参数则会带来影响。参数中，对优先级算法有贡献的参数的优先级的最大值将作为该伪类选择器的优先级。</p>
-<h3 id="重要程度"><a href="#重要程度" class="headerlink" title="重要程度"></a>重要程度</h3><ol>
+<h3 id="重要程度">重要程度</h3>
+<ol>
 <li><strong>内联样式</strong>：即 <strong>style</strong> 属性内的样式声明，优先于所有普通的样式，无论其优先级如何。这样的声明没有选择器，它的优先级可以理解为 1-0-0-0；即无论选择器中有多少个 ID，它总是比其他任何优先级的权重都要高。</li>
 <li><strong>!important</strong>：可以覆盖所有上面所有优先级计算，需要很小心的使用。</li>
 </ol>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承需要在上下文中去理解，一些设置在父元素上的 CSS 属性是可以被子元素继承的，有些则不能。CSS 为控制继承提供了五个特殊的通用属性值。每个 CSS 属性都接收这些值。</p>
+<h2 id="继承">继承</h2>
+<p>继承需要在上下文中去理解，一些设置在父元素上的 CSS 属性是可以被子元素继承的，有些则不能。CSS 为控制继承提供了五个特殊的通用属性值。每个 CSS 属性都接收这些值。</p>
 <ol>
 <li><strong>inherit</strong>：使子元素属性和父元素相同，实际上就是“开启继承”</li>
 <li><strong>initial</strong>：将元素的属性值设置为该属性的初始值</li>
 <li><strong>revert</strong>：将元素的属性值设置为浏览器的默认样式</li>
 <li><strong>unset</strong>：将属性重置为自然值，也就是如果属性是自然继承那么就是 <strong>inherit</strong>，否则和 <strong>initial</strong> 一样</li>
 </ol>
-<h3 id="重置所有属性值"><a href="#重置所有属性值" class="headerlink" title="重置所有属性值"></a>重置所有属性值</h3><p>CSS 的简写属性 <strong>all</strong> ，它的值是（inherit、initial、unset、revert）中的任意一个，将元素继承属性的值重置</p>
+<h3 id="重置所有属性值">重置所有属性值</h3>
+<p>CSS 的简写属性 <strong>all</strong> ，它的值是（inherit、initial、unset、revert）中的任意一个，将元素继承属性的值重置</p>
 
                 
               </div>
@@ -399,6 +409,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -588,6 +604,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

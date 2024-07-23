@@ -267,19 +267,21 @@
                 
                 <p><strong>HTML 拖放</strong>（Drag and Drop）接口使应用程序能够在浏览器中使用拖放功能。</p>
 <span id="more"></span>
-
-<h1 id="拖放"><a href="#拖放" class="headerlink" title="拖放"></a>拖放</h1><p>用户可使用鼠标选择可拖拽（<em>draggable</em>）元素，将元素拖拽到可放置（<em>droppable</em>）元素，并释放鼠标按钮以放置这些元素。拖拽操作期间，会有一个可拖拽元素的半透明快照跟随着鼠标指针。</p>
-<h2 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h2><p>用户在拖拽操作期间，会触发一些拖放事件。</p>
-<h3 id="选中"><a href="#选中" class="headerlink" title="选中"></a>选中</h3><p>在HTML5标准中，为了使元素可拖动，需要把<strong>draggable</strong>属性设置为<strong>true</strong>。</p>
+<h1>拖放</h1>
+<p>用户可使用鼠标选择可拖拽（<em>draggable</em>）元素，将元素拖拽到可放置（<em>droppable</em>）元素，并释放鼠标按钮以放置这些元素。拖拽操作期间，会有一个可拖拽元素的半透明快照跟随着鼠标指针。</p>
+<h2 id="拖放事件">拖放事件</h2>
+<p>用户在拖拽操作期间，会触发一些拖放事件。</p>
+<h3 id="选中">选中</h3>
+<p>在HTML5标准中，为了使元素可拖动，需要把<strong>draggable</strong>属性设置为<strong>true</strong>。</p>
 <p><strong>draggable</strong>属性：</p>
 <ol>
 <li><strong>true</strong>：可以拖动</li>
 <li><strong>false</strong>：禁止拖动</li>
 <li><strong>auto</strong>：跟随浏览器定义是否可以拖动</li>
 </ol>
-<h3 id="拖动和释放"><a href="#拖动和释放" class="headerlink" title="拖动和释放"></a>拖动和释放</h3><p>用户操作拖放元素时，可以在<code>addEventListener()</code>方法中使用事件名称，也可以设置事件处理器属性。</p>
+<h3 id="拖动和释放">拖动和释放</h3>
+<p>用户操作拖放元素时，可以在<code>addEventListener()</code>方法中使用事件名称，也可以设置事件处理器属性。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">addEventListener</span>(<span class="string">&quot;drag&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;&#125;);</span><br><span class="line"></span><br><span class="line">ondrag = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;&#125;;</span><br></pre></td></tr></table></figure>
-
 <table>
 <thead>
 <tr>
@@ -288,7 +290,8 @@
 <th>触发时刻</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>dragstart</td>
 <td>ondragstart</td>
 <td>当用户开始拖动一个元素时触发</td>
@@ -323,31 +326,33 @@
 <td>ondrop</td>
 <td>当元素在可释放目标上被释放时触发</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dropzone&quot;</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;draggable&quot;</span> <span class="attr">draggable</span>=<span class="string">&quot;true&quot;</span>&gt;</span>这个 div 可以拖动<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dropzone&quot;</span> <span class="attr">id</span>=<span class="string">&quot;droptarget&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-tag">body</span> &#123;</span><br><span class="line">        user-select: none;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-id">#draggable</span> &#123;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="attribute">background</span>: white;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.dropzone</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">        <span class="attribute">background</span>: blueviolet;</span><br><span class="line">        <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.dropzone</span><span class="selector-class">.dragover</span> &#123;</span><br><span class="line">    	<span class="attribute">background-color</span>: purple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.dragging</span> &#123;</span><br><span class="line">    	<span class="attribute">opacity</span>: <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dragged;</span><br><span class="line"><span class="keyword">const</span> source = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;draggable&quot;</span>);</span><br><span class="line">source.<span class="title function_">addEventListener</span>(<span class="string">&quot;drag&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;dragging&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">source.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragstart&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 保存被拖动元素的引用</span></span><br><span class="line">    dragged = event.<span class="property">target</span>;</span><br><span class="line">    <span class="comment">// 设置为半透明</span></span><br><span class="line">    event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&quot;dragging&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">source.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragend&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 拖动结束，重置透明度</span></span><br><span class="line">    event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&quot;dragging&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 在放置目标上触发的事件 */</span></span><br><span class="line"><span class="keyword">const</span> target = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;droptarget&quot;</span>);</span><br><span class="line">target.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragover&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 阻止默认行为以允许放置</span></span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">&#125;, <span class="literal">false</span>,);</span><br><span class="line"></span><br><span class="line">target.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragenter&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 在可拖动元素进入潜在的放置目标时高亮显示该目标</span></span><br><span class="line">    <span class="keyword">if</span> (event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&quot;dropzone&quot;</span>)) &#123;</span><br><span class="line">    	event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&quot;dragover&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">target.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragleave&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 在可拖动元素离开潜在放置目标元素时重置该目标的背景</span></span><br><span class="line">    <span class="keyword">if</span> (event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&quot;dropzone&quot;</span>)) &#123;</span><br><span class="line">    	event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&quot;dragover&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">target.<span class="title function_">addEventListener</span>(<span class="string">&quot;drop&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 阻止默认行为（会作为某些元素的链接打开）</span></span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">    <span class="comment">// 将被拖动元素移动到选定的目标元素中</span></span><br><span class="line">    <span class="keyword">if</span> (event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&quot;dropzone&quot;</span>)) &#123;</span><br><span class="line">        event.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&quot;dragover&quot;</span>);</span><br><span class="line">        dragged.<span class="property">parentNode</span>.<span class="title function_">removeChild</span>(dragged);</span><br><span class="line">        event.<span class="property">target</span>.<span class="title function_">appendChild</span>(dragged);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Drag-Event"><a href="#Drag-Event" class="headerlink" title="Drag Event"></a>Drag Event</h2><p>当触发拖拽事件时候，会得到一个<strong>Event</strong>对象，这个<strong>Event</strong>对象其中包含这一些常用的属性：</p>
+<h2 id="Drag-Event">Drag Event</h2>
+<p>当触发拖拽事件时候，会得到一个<strong>Event</strong>对象，这个<strong>Event</strong>对象其中包含这一些常用的属性：</p>
 <ol>
 <li><strong>target</strong>：为拖拽中的元素的指向</li>
 <li><strong>clientX</strong>：当前鼠标的x点坐标</li>
 <li><strong>clientY</strong>：当前鼠标的y点坐标</li>
 <li><strong>dataTransfer</strong>：当一次拖拽开始发生的时候，会产生一个<strong>DataTransfer</strong>对象，这个<strong>DataTransfer</strong>对象于整个拖拽过程触发的事件共享。当这一次的拖拽行为<strong>结束之后</strong>，这个对象会被<strong>销毁</strong></li>
 </ol>
-<h2 id="DataTransfer"><a href="#DataTransfer" class="headerlink" title="DataTransfer"></a>DataTransfer</h2><p><strong>DataTransfer</strong>对象用于保存拖动过程中的数据。它可以保存一项或多项数据，存放在<strong>Drag Event</strong>下的<strong>dataTransfer</strong>中。</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ol>
+<h2 id="DataTransfer">DataTransfer</h2>
+<p><strong>DataTransfer</strong>对象用于保存拖动过程中的数据。它可以保存一项或多项数据，存放在<strong>Drag Event</strong>下的<strong>dataTransfer</strong>中。</p>
+<h3 id="方法">方法</h3>
+<ol>
 <li><strong>setData</strong>：将拖动操作的拖动数据设置为指定的数据和类型</li>
 <li><strong>getData</strong>：返回指定格式的数据，<strong>setData</strong>中数据格式一致</li>
 <li><strong>clearData</strong>：删除给定类型的拖动操作的数据。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">drag</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    event.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text&quot;</span>, event.<span class="property">target</span>.<span class="property">id</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">drop</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">    <span class="keyword">var</span> data = event.<span class="property">dataTransfer</span>.<span class="title function_">getData</span>(<span class="string">&quot;text&quot;</span>);</span><br><span class="line">    event.<span class="property">target</span>.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(data));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ol>
+<h3 id="属性">属性</h3>
+<ol>
 <li><strong>dropEffect</strong>：获取当前选定的拖放操作的类型或将操作设置为新类型。</li>
-<li><strong>effectAllowed</strong>： 指定拖放操作所允许的效果。<ul>
+<li><strong>effectAllowed</strong>： 指定拖放操作所允许的效果。
+<ul>
 <li><em>none</em>：不允许放下</li>
 <li><em>copy</em>：复制项出现在新位置</li>
 <li><em>move</em>：被移动到新位置</li>
@@ -358,7 +363,6 @@
 <li><strong>files</strong>：返回拖动操作中的文件列表。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">drag</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    event.<span class="property">dataTransfer</span>.<span class="property">effectAllowed</span> = <span class="string">&quot;move&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">drop</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">dataTransfer</span>.<span class="property">dropEffect</span>)</span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">    event.<span class="property">dataTransfer</span>.<span class="property">dropEffect</span> = <span class="string">&quot;move&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -458,6 +462,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -647,6 +657,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

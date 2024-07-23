@@ -267,10 +267,13 @@
                 
                 <p>在 CSS 中，所有的元素都被一个个的“盒子”包围着，理解这些“盒子”的基本原理，是我们使用 CSS 实现准确布局、处理元素排列的关键。</p>
 <span id="more"></span>
-
-<h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><h2 id="块盒子和内联盒子"><a href="#块盒子和内联盒子" class="headerlink" title="块盒子和内联盒子"></a>块盒子和内联盒子</h2><p>在 CSS 中，我们有几种类型的盒子，一般分为<strong>块盒子</strong>（block boxes）和<strong>内联盒子</strong>（inline boxes）。类型指的是盒子在页面流中的行为方式以及与页面上其他盒子的关系。</p>
-<h2 id="盒子显示类型"><a href="#盒子显示类型" class="headerlink" title="盒子显示类型"></a>盒子显示类型</h2><p>盒子有<strong>内部显示</strong>（inner display type）和<strong>外部显示</strong>（outer display type）两种类型。</p>
-<h3 id="外部显示类型"><a href="#外部显示类型" class="headerlink" title="外部显示类型"></a>外部显示类型</h3><p>一个<strong>块盒子</strong>在外部显示类型中会表现出以下行为：</p>
+<h1>盒模型</h1>
+<h2 id="块盒子和内联盒子">块盒子和内联盒子</h2>
+<p>在 CSS 中，我们有几种类型的盒子，一般分为<strong>块盒子</strong>（block boxes）和<strong>内联盒子</strong>（inline boxes）。类型指的是盒子在页面流中的行为方式以及与页面上其他盒子的关系。</p>
+<h2 id="盒子显示类型">盒子显示类型</h2>
+<p>盒子有<strong>内部显示</strong>（inner display type）和<strong>外部显示</strong>（outer display type）两种类型。</p>
+<h3 id="外部显示类型">外部显示类型</h3>
+<p>一个<strong>块盒子</strong>在外部显示类型中会表现出以下行为：</p>
 <ol>
 <li>盒子会产生换行</li>
 <li><strong>width</strong>和<strong>height</strong>属性可以发挥作用</li>
@@ -284,8 +287,10 @@
 <li>垂直方向的<strong>margin</strong>、<strong>padding</strong>、<strong>border</strong>会被应用但是不会把其他<strong>内联盒子</strong>推开。</li>
 <li>水平方向的<strong>margin</strong>、<strong>padding</strong>、<strong>border</strong>会被应用且会把其他<strong>内联盒子</strong>推开。</li>
 </ol>
-<h3 id="内部显示类型"><a href="#内部显示类型" class="headerlink" title="内部显示类型"></a>内部显示类型</h3><p>决定了盒子内元素的布局方式。</p>
-<h2 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h2><p>CSS 盒模型整体上适用于块盒子，它定义了盒子的不同部分（外边距、边框、内边距和内容）如何协同工作，以创建一个在页面上可以看到的盒子。内联盒子使用的只是盒模型中定义的部分行为。</p>
+<h3 id="内部显示类型">内部显示类型</h3>
+<p>决定了盒子内元素的布局方式。</p>
+<h2 id="CSS盒模型">CSS盒模型</h2>
+<p>CSS 盒模型整体上适用于块盒子，它定义了盒子的不同部分（外边距、边框、内边距和内容）如何协同工作，以创建一个在页面上可以看到的盒子。内联盒子使用的只是盒模型中定义的部分行为。</p>
 <p>CSS 中组成一个块盒子需要：</p>
 <ol>
 <li><strong>内容盒子</strong>：显示内容的区域</li>
@@ -293,14 +298,18 @@
 <li><strong>边框盒子</strong>：边框盒子包住内容和任何填充</li>
 <li><strong>外边距盒子</strong>：外边距是最外层，其包裹内容、内边距和边框，作为该盒子与其他元素之间的空白</li>
 </ol>
-<h3 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h3><p>在标准模型中，如果给盒子设置<strong>width</strong>和<strong>height</strong>，实际设置的是Content box。<strong>padding</strong> 和 <strong>border</strong> 再加上设置的宽高一起决定整个盒子的大小。</p>
-<h3 id="IE盒模型"><a href="#IE盒模型" class="headerlink" title="IE盒模型"></a>IE盒模型</h3><p>在IE盒模型中，所有宽度都是可见宽度，所以内容宽度是该宽度减去<strong>border</strong> 和 <strong>padding</strong>。</p>
+<h3 id="标准盒模型">标准盒模型</h3>
+<p>在标准模型中，如果给盒子设置<strong>width</strong>和<strong>height</strong>，实际设置的是Content box。<strong>padding</strong> 和 <strong>border</strong> 再加上设置的宽高一起决定整个盒子的大小。</p>
+<h3 id="IE盒模型">IE盒模型</h3>
+<p>在IE盒模型中，所有宽度都是可见宽度，所以内容宽度是该宽度减去<strong>border</strong> 和 <strong>padding</strong>。</p>
 <p><strong>注意</strong>：默认情况下，浏览器使用标准盒模型。</p>
-<h3 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h3><ol>
+<h3 id="box-sizing">box-sizing</h3>
+<ol>
 <li><strong>content-box</strong>：默认值，标准盒子模型。<strong>width</strong>和<strong>height</strong>只包括内容的宽和高，不包括<strong>border</strong>、<strong>padding</strong>、<strong>margin</strong></li>
 <li><strong>border-box</strong>：IE盒子模型。<strong>width</strong>和<strong>height</strong>包括内容的宽高和 <strong>border</strong>、<strong>padding</strong>，不包括<strong>margin</strong></li>
 </ol>
-<h2 id="外边距"><a href="#外边距" class="headerlink" title="外边距"></a>外边距</h2><p>外边距是盒子周围的空间，它会把其他元素从盒子旁边推开，无论使用标准模型还是替代模型，外边距总是在计算可见部分后额外添加。</p>
+<h2 id="外边距">外边距</h2>
+<p>外边距是盒子周围的空间，它会把其他元素从盒子旁边推开，无论使用标准模型还是替代模型，外边距总是在计算可见部分后额外添加。</p>
 <p>我们可以使用<strong>margin</strong>属性控制元素的所有边距，<strong>margin</strong> 属性是 <strong>margin-top</strong>、<strong>margin-right</strong>、<strong>margin-bottom</strong> 和 <strong>margin-left</strong> 的简写形式。</p>
 <p><strong>margin</strong> 简写形式以特定顺序应用属性：上、右、下、左，具体应用方式如下：</p>
 <ol>
@@ -309,8 +318,10 @@
 <li>三个值：第一个值为 top，第二个值为 left 和 right，第三个值为 bottom。(margin: 20px 40px 30px)</li>
 <li>四个值：第一个值为 top，第二个值为 right，第三个值为 bottom，第四个值为 left。(margin: 20px 40px 30px 40px)</li>
 </ol>
-<h3 id="负外边距"><a href="#负外边距" class="headerlink" title="负外边距"></a>负外边距</h3><p>外边距属性值可以为正也可以为负。在盒子一侧设置负值会导致盒子和页面上的其他内容重叠。</p>
-<h3 id="外边距折叠"><a href="#外边距折叠" class="headerlink" title="外边距折叠"></a>外边距折叠</h3><p>根据外边距相接触的两个元素是正边距还是负边距，结果会有所不同：</p>
+<h3 id="负外边距">负外边距</h3>
+<p>外边距属性值可以为正也可以为负。在盒子一侧设置负值会导致盒子和页面上的其他内容重叠。</p>
+<h3 id="外边距折叠">外边距折叠</h3>
+<p>根据外边距相接触的两个元素是正边距还是负边距，结果会有所不同：</p>
 <ol>
 <li>两个正外边距将合并为一个外边距。其大小等于最大的单个外边距</li>
 <li>两个负外边距会折叠，并使用最小（离零最远）的值</li>
@@ -318,12 +329,12 @@
 </ol>
 <p><strong>注意</strong>：外边距何时折叠，何时不折叠，由许多规则决定。需要记住的主要一点是，外边距折叠是指在使用外边距创建空间时，如果没有获得预期的空间，就会发生外边距折叠。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box1</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box2</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h2><p>元素外边距内就是边框，元素的边框就是围绕元素内容和内边距的一条或多条线。</p>
+<h2 id="边框">边框</h2>
+<p>元素外边距内就是边框，元素的边框就是围绕元素内容和内边距的一条或多条线。</p>
 <p>可以使用<strong>border</strong>属性一次设置所有四个边框的宽度、颜色和样式。<strong>border</strong> 属性是 <strong>border-top</strong>、<strong>border-right</strong>、<strong>border-bottom</strong> 和 <strong>border-left</strong> 的简写形式。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.wrapper</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="边框样式"><a href="#边框样式" class="headerlink" title="边框样式"></a>边框样式</h3><p>如需显示边框，就必须定义<strong>border-style</strong></p>
+<h3 id="边框样式">边框样式</h3>
+<p>如需显示边框，就必须定义<strong>border-style</strong></p>
 <ol>
 <li><strong>none</strong>：默认值，不显示边框</li>
 <li><strong>hidden</strong>：与none关键字类似，隐藏边框，如果存在其他的重叠边框，边框不会显示</li>
@@ -336,20 +347,25 @@
 <li><strong>inset</strong>：显示为有陷入效果的边框，样式与<strong>outset</strong>相反</li>
 <li><strong>outset</strong>：显示为有突出效果的边框，样式与<strong>inset</strong>相反</li>
 </ol>
-<h3 id="边框宽度"><a href="#边框宽度" class="headerlink" title="边框宽度"></a>边框宽度</h3><p>边框的宽度是线条的粗细，由 <strong>border-width</strong> 控制。</p>
+<h3 id="边框宽度">边框宽度</h3>
+<p>边框的宽度是线条的粗细，由 <strong>border-width</strong> 控制。</p>
 <ol>
 <li><strong>thin</strong>：细边线</li>
 <li><strong>medium</strong>：默认值，中等边线</li>
 <li><strong>thick</strong>：宽边线</li>
 <li>长度值设置边框宽度（px、em、rem、%）</li>
 </ol>
-<h3 id="边框颜色"><a href="#边框颜色" class="headerlink" title="边框颜色"></a>边框颜色</h3><p>可以使用 <strong>border-color</strong> 设置框的各侧或每一侧的颜色。默认情况下，它会使用框的当前文本颜色</p>
-<h3 id="边框圆角"><a href="#边框圆角" class="headerlink" title="边框圆角"></a>边框圆角</h3><p>使用<strong>border-radius</strong>属性设置边框的圆角，在简写形式中指定每个角的半径，遵循顺序：左上角、右上角、右下角、左下角。</p>
+<h3 id="边框颜色">边框颜色</h3>
+<p>可以使用 <strong>border-color</strong> 设置框的各侧或每一侧的颜色。默认情况下，它会使用框的当前文本颜色</p>
+<h3 id="边框圆角">边框圆角</h3>
+<p>使用<strong>border-radius</strong>属性设置边框的圆角，在简写形式中指定每个角的半径，遵循顺序：左上角、右上角、右下角、左下角。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.wrapper</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border-radius</span>: <span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="内边距"><a href="#内边距" class="headerlink" title="内边距"></a>内边距</h2><p>内边距位于边框和内容区域之间，用于将内容推离边框。与外边距不同，内边距不能为负数。任何应用于元素的背景都会显示在内边距后面。</p>
+<h2 id="内边距">内边距</h2>
+<p>内边距位于边框和内容区域之间，用于将内容推离边框。与外边距不同，内边距不能为负数。任何应用于元素的背景都会显示在内边距后面。</p>
 <p><strong>padding</strong> 属性是<strong>padding-top</strong>、<strong>padding-right</strong>、<strong>padding-bottom</strong> 和 <strong>padding-left</strong> 的简写形式。</p>
-<h2 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h2><h3 id="块阴影"><a href="#块阴影" class="headerlink" title="块阴影"></a>块阴影</h3><p><strong>box-shadow</strong> 属性用于向 HTML 元素的框添加阴影。它适用于块元素和内联元素。</p>
+<h2 id="阴影">阴影</h2>
+<h3 id="块阴影">块阴影</h3>
+<p><strong>box-shadow</strong> 属性用于向 HTML 元素的框添加阴影。它适用于块元素和内联元素。</p>
 <p><strong>box-shadow</strong> 的值顺序如下：</p>
 <ol>
 <li>inset（可选）：如果没有指定<code>inset</code>，默认阴影在边框外，即阴影向外扩散。</li>
@@ -360,8 +376,8 @@
 <li>颜色（可选）：任何有效的颜色值。 如果未定义，将使用计算出的文本颜色。</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">box-shadow</span>: <span class="number">1px</span> <span class="number">1px</span> <span class="number">20px</span> <span class="number">5px</span> <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="文字阴影"><a href="#文字阴影" class="headerlink" title="文字阴影"></a>文字阴影</h3><p><strong>text-shadow</strong> 属性用于为文字添加阴影。</p>
+<h3 id="文字阴影">文字阴影</h3>
+<p><strong>text-shadow</strong> 属性用于为文字添加阴影。</p>
 <p><strong>text-shadow</strong> 的值顺序如下：</p>
 <ol>
 <li>水平偏移：正数表示阴影位于元素右边，负数表示阴影位于元素左边。</li>
@@ -369,7 +385,8 @@
 <li>模糊半径（可选）：值越大，模糊面积越大，阴影就越大越淡。不能为负值。默认为 0</li>
 <li>颜色（可选）：任何有效的颜色值。 如果未定义，将使用计算出的文本颜色。</li>
 </ol>
-<h3 id="曲线阴影"><a href="#曲线阴影" class="headerlink" title="曲线阴影"></a>曲线阴影</h3><p>如果需要实现沿着图片任何可能曲线的阴影，可以使用<strong>drop-shadow</strong>过滤器</p>
+<h3 id="曲线阴影">曲线阴影</h3>
+<p>如果需要实现沿着图片任何可能曲线的阴影，可以使用<strong>drop-shadow</strong>过滤器</p>
 <p><strong>drop-shadow</strong> 的值顺序如下：</p>
 <ol>
 <li>水平偏移：正数表示阴影位于元素右边，负数表示阴影位于元素左边。</li>
@@ -477,6 +494,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -666,6 +689,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

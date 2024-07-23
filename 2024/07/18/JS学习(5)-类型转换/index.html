@@ -267,15 +267,17 @@
                 
                 <p>Javascript 是一种弱类型语言，这意味着变量是没有明确类型的，而是由 JavaScript 引擎在编译时隐式完成，类型转换是将一种数据类型转换为另一种数据类型。</p>
 <span id="more"></span>
-
-<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><p>任何数据类型，无论是原始类型还是对象，都可以进行类型转换。尽管原始类型和对象的转换逻辑各不相同，但是都只能转换为三种类型：<strong>字符串（string）、数字（number）、布尔值（boolean）</strong>。</p>
+<h1>类型转换</h1>
+<p>任何数据类型，无论是原始类型还是对象，都可以进行类型转换。尽管原始类型和对象的转换逻辑各不相同，但是都只能转换为三种类型：<strong>字符串（string）、数字（number）、布尔值（boolean）</strong>。</p>
 <p>JavaScript 中的类型转换有两种方式：</p>
 <ol>
-<li><strong>隐式类型转换：</strong>由 JavaScript 编译器完成的自动类型转换。</li>
-<li><strong>显式类型转换：</strong>由开发人员完成的手动类型转换。</li>
+<li>**隐式类型转换：**由 JavaScript 编译器完成的自动类型转换。</li>
+<li>**显式类型转换：**由开发人员完成的手动类型转换。</li>
 </ol>
-<h2 id="显式类型转换"><a href="#显式类型转换" class="headerlink" title="显式类型转换"></a>显式类型转换</h2><p>通过 JavaScript 内置的一些 API 将一种类型转换为另一种类型，这称为显式类型转化。</p>
-<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2>
+<h2 id="显式类型转换">显式类型转换</h2>
+<p>通过 JavaScript 内置的一些 API 将一种类型转换为另一种类型，这称为显式类型转化。</p>
+<h2 id="隐式类型转换">隐式类型转换</h2>
+
                 
               </div>
             
@@ -374,6 +376,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -563,6 +571,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

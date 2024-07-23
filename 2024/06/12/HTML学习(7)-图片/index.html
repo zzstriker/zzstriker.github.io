@@ -267,38 +267,42 @@
                 
                 <p>如果只使用文本，网页就会变得非常无聊，在HTML文档中插入图片可以改善网页的设计和外观。</p>
 <span id="more"></span>
-
-<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><p>在网页上添加图片，需要使用<code>&lt;img&gt;</code>元素，这个元素是空元素。</p>
-<h2 id="src属性"><a href="#src属性" class="headerlink" title="src属性"></a>src属性</h2><p>图片的URL，这个属性对<code>&lt;img&gt;</code>元素来说是必需的。</p>
-<h2 id="alt属性"><a href="#alt属性" class="headerlink" title="alt属性"></a>alt属性</h2><p>图片的文字描述，用于在图片无法显示或不能被看到的情况。</p>
+<h1>图片</h1>
+<p>在网页上添加图片，需要使用<code>&lt;img&gt;</code>元素，这个元素是空元素。</p>
+<h2 id="src属性">src属性</h2>
+<p>图片的URL，这个属性对<code>&lt;img&gt;</code>元素来说是必需的。</p>
+<h2 id="alt属性">alt属性</h2>
+<p>图片的文字描述，用于在图片无法显示或不能被看到的情况。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;demo.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;这是一个示例图片&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="图片尺寸"><a href="#图片尺寸" class="headerlink" title="图片尺寸"></a>图片尺寸</h2><p>用<strong>width</strong>和<strong>height</strong>属性来指定你的图片的宽度和高度。它们的值是不带单位的整数，以像素为单位表示图像的宽度和高度。</p>
+<h2 id="图片尺寸">图片尺寸</h2>
+<p>用<strong>width</strong>和<strong>height</strong>属性来指定你的图片的宽度和高度。它们的值是不带单位的整数，以像素为单位表示图像的宽度和高度。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;demo.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;这是一个示例图片&quot;</span> <span class="attr">width</span>=<span class="string">&quot;400&quot;</span> <span class="attr">height</span>=<span class="string">&quot;400&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="图片标题"><a href="#图片标题" class="headerlink" title="图片标题"></a>图片标题</h2><p>提供图片更多的信息。</p>
+<h2 id="图片标题">图片标题</h2>
+<p>提供图片更多的信息。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;demo.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;图片&quot;</span> <span class="attr">width</span>=<span class="string">&quot;400&quot;</span> <span class="attr">height</span>=<span class="string">&quot;400&quot;</span> <span class="attr">title</span>=<span class="string">&quot;这是一个示例图片&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h2><p><strong>loading</strong>属性告知浏览器应当如何加载该图片，默认<code>loading=&#39;eager&#39;</code>表示图片会在HTML解析后立即加载，设置<code>loading=&#39;lazy&#39;</code>，浏览器会延迟加载图片，直到图片有可能进入视图窗口位置才会加载。</p>
+<h2 id="延迟加载">延迟加载</h2>
+<p><strong>loading</strong>属性告知浏览器应当如何加载该图片，默认<code>loading='eager'</code>表示图片会在HTML解析后立即加载，设置<code>loading='lazy'</code>，浏览器会延迟加载图片，直到图片有可能进入视图窗口位置才会加载。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;demo.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;这是一个示例图片&quot;</span> <span class="attr">loading</span>=<span class="string">&quot;lazy&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="响应式图片"><a href="#响应式图片" class="headerlink" title="响应式图片"></a>响应式图片</h2><p>在不同的屏幕尺寸、分辨率或具有其他类似特性的设备上都呈现良好的图片。</p>
-<h3 id="sizes属性"><a href="#sizes属性" class="headerlink" title="sizes属性"></a>sizes属性</h3><p>定义了一组媒体条件（例如屏幕宽度）并且指明当某些媒体条件为真时，什么样的图片尺寸是最佳选择，如果没有设置<strong>secret</strong>属性，那么<strong>sizes</strong>属性也不起作用。</p>
+<h2 id="响应式图片">响应式图片</h2>
+<p>在不同的屏幕尺寸、分辨率或具有其他类似特性的设备上都呈现良好的图片。</p>
+<h3 id="sizes属性">sizes属性</h3>
+<p>定义了一组媒体条件（例如屏幕宽度）并且指明当某些媒体条件为真时，什么样的图片尺寸是最佳选择，如果没有设置<strong>secret</strong>属性，那么<strong>sizes</strong>属性也不起作用。</p>
 <ol>
 <li>媒体条件</li>
 <li>当媒体条件为真，图片的宽度</li>
 </ol>
-<h3 id="secret属性"><a href="#secret属性" class="headerlink" title="secret属性"></a>secret属性</h3><p>定义了浏览器可选择的图片集合以及每个图片的大小，每张图片信息的设置和前一个用逗号隔开，每个设置要写两个值</p>
+<h3 id="secret属性">secret属性</h3>
+<p>定义了浏览器可选择的图片集合以及每个图片的大小，每张图片信息的设置和前一个用逗号隔开，每个设置要写两个值</p>
 <ol>
 <li>指向图片的URL</li>
-<li>可选项<ul>
+<li>可选项
+<ul>
 <li>图片固有宽度（正整数，后面跟<code>w</code>符号），宽度除以<strong>sizes</strong>属性给出的宽度大小来计算得到有效的像素密度，即<code>x</code>符号等价的值</li>
 <li>像素密度（正浮点数，后面跟<code>x</code>符号）</li>
 </ul>
 </li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">  <span class="attr">srcset</span>=<span class="string">&quot;demo-480w.jpg 480w, demo-800w.jpg 800w&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">sizes</span>=<span class="string">&quot;(max-width: 600px) 480px,</span></span></span><br><span class="line"><span class="string"><span class="tag">         800px&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;demo-800w.jpg&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">alt</span>=<span class="string">&quot;这是一个示例图片&quot;</span> /&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -398,6 +402,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -587,6 +597,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

@@ -267,28 +267,30 @@
                 
                 <p>超链接使我们能够将我们的文档链接到任何其他文档（或其他资源），也可以链接到文档的指定部分，我们可以在一个简单的网址上提供应用程序。几乎任何网络内容都可以转换为链接，点击（或激活）超链接将使网络浏览器转到另一个网址。</p>
 <span id="more"></span>
-
-<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p>通过将文本或其他内容包裹在<code>&lt;a&gt;</code>元素内，并给它一个包含网址的<strong>href</strong>属性就可以创建一个基本链接。</p>
-<h2 id="href属性"><a href="#href属性" class="headerlink" title="href属性"></a>href属性</h2><p>链接所指向的URL，链接不限于基于 HTTP 的 URL，可以使用浏览器支持的任何 URL 协议。</p>
-<h3 id="链接绝对地址"><a href="#链接绝对地址" class="headerlink" title="链接绝对地址"></a>链接绝对地址</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.mozilla.com&quot;</span>&gt;</span> Mozilla <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="链接相对地址"><a href="#链接相对地址" class="headerlink" title="链接相对地址"></a>链接相对地址</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;//example.com&quot;</span>&gt;</span>相对于协议的URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/zh-CN/docs/Web/HTML&quot;</span>&gt;</span>相对于同源的URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;./p&quot;</span>&gt;</span>相对路径的URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="链接文档某一段"><a href="#链接文档某一段" class="headerlink" title="链接文档某一段"></a>链接文档某一段</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//链接相同页面</span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span>&gt;</span>邮寄地址<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    请将信件邮寄至</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#address&quot;</span>&gt;</span>我们的地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//链接不同页面</span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span>&gt;</span>邮寄地址<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    请将信件邮寄至</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;contacts.html#address&quot;</span>&gt;</span>我们的地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//链接到顶部</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>back top<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">or</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#top&quot;</span>&gt;</span>back top<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="链接邮箱地址"><a href="#链接邮箱地址" class="headerlink" title="链接邮箱地址"></a>链接邮箱地址</h3><p><strong>href</strong>属性可以以<code>mailto:</code>开头，用于发送电子邮件</p>
+<h1>链接</h1>
+<p>通过将文本或其他内容包裹在<code>&lt;a&gt;</code>元素内，并给它一个包含网址的<strong>href</strong>属性就可以创建一个基本链接。</p>
+<h2 id="href属性">href属性</h2>
+<p>链接所指向的URL，链接不限于基于 HTTP 的 URL，可以使用浏览器支持的任何 URL 协议。</p>
+<h3 id="链接绝对地址">链接绝对地址</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.mozilla.com&quot;</span>&gt;</span> Mozilla <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="链接相对地址">链接相对地址</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;//example.com&quot;</span>&gt;</span>相对于协议的URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/zh-CN/docs/Web/HTML&quot;</span>&gt;</span>相对于同源的URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;./p&quot;</span>&gt;</span>相对路径的URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="链接文档某一段">链接文档某一段</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//链接相同页面</span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span>&gt;</span>邮寄地址<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    请将信件邮寄至</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#address&quot;</span>&gt;</span>我们的地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//链接不同页面</span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span>&gt;</span>邮寄地址<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    请将信件邮寄至</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;contacts.html#address&quot;</span>&gt;</span>我们的地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//链接到顶部</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>back top<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">or</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#top&quot;</span>&gt;</span>back top<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="链接邮箱地址">链接邮箱地址</h3>
+<p><strong>href</strong>属性可以以<code>mailto:</code>开头，用于发送电子邮件</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;mailto:nowhere@mozilla.org&quot;</span>&gt;</span>Send email to nowhere<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="链接电话号码"><a href="#链接电话号码" class="headerlink" title="链接电话号码"></a>链接电话号码</h3><p><strong>href</strong>属性可以以<code>tel:</code>开头，用于拨打电话</p>
+<h3 id="链接电话号码">链接电话号码</h3>
+<p><strong>href</strong>属性可以以<code>tel:</code>开头，用于拨打电话</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;tel:12345678910&quot;</span>&gt;</span>phone number<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="title属性"><a href="#title属性" class="headerlink" title="title属性"></a>title属性</h2><p>包含关于链接的补充信息，例如页面包含什么样的信息或需要注意的事情。</p>
+<h2 id="title属性">title属性</h2>
+<p>包含关于链接的补充信息，例如页面包含什么样的信息或需要注意的事情。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  我创建了一个指向</span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.mozilla.org/zh-CN/&quot;</span> <span class="attr">title</span>=<span class="string">&quot;了解 Mozilla 使命以及如何参与贡献的最佳站点。&quot;</span>&gt;</span></span><br><span class="line">    Mozilla主页</span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  的超链接。</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="download属性"><a href="#download属性" class="headerlink" title="download属性"></a>download属性</h2><p>浏览器将链接的URL视为下载资源。</p>
+<h2 id="download属性">download属性</h2>
+<p>浏览器将链接的URL视为下载资源。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span></span></span><br><span class="line"><span class="tag">  <span class="attr">href</span>=<span class="string">&quot;https://download.mozilla.org/?product=firefox-latest-ssl&amp;os=win64&amp;lang=zh-CN&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">download</span>=<span class="string">&quot;firefox-latest-64bit-installer.exe&quot;</span>&gt;</span></span><br><span class="line">  下载最新的 Firefox 中文版 - Windows（64 位）</span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="target属性"><a href="#target属性" class="headerlink" title="target属性"></a>target属性</h2><p>指定在何处显示链接的URL。</p>
+<h2 id="target属性">target属性</h2>
+<p>指定在何处显示链接的URL。</p>
 <ol>
 <li><strong>_self</strong>：当前页面加载</li>
 <li><strong>_blank</strong>：新标签页打开</li>
@@ -395,6 +397,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -584,6 +592,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

@@ -267,11 +267,15 @@
                 
                 <p>CSS 中使用的每个属性都允许拥有一个或一组值。</p>
 <span id="more"></span>
-
-<h1 id="值与单位"><a href="#值与单位" class="headerlink" title="值与单位"></a>值与单位</h1><p>CSS 中的值类型是一种定义了一些可使用的值的集合的方式。</p>
-<h2 id="数字、长度、百分比"><a href="#数字、长度、百分比" class="headerlink" title="数字、长度、百分比"></a>数字、长度、百分比</h2><h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>css中有两类数字，整数和小数，这些数字可以作为其他值类型的基础，在某些情况下也可以直接作为属性的值。</p>
-<h3 id="长度"><a href="#长度" class="headerlink" title="长度"></a>长度</h3><p>CSS 中有两种类型的长度——相对长度和绝对长度。</p>
-<h4 id="绝对长度单位"><a href="#绝对长度单位" class="headerlink" title="绝对长度单位"></a>绝对长度单位</h4><p>它们与其他任何东西都没有关系，通常被认为总是相同的大小。</p>
+<h1>值与单位</h1>
+<p>CSS 中的值类型是一种定义了一些可使用的值的集合的方式。</p>
+<h2 id="数字、长度、百分比">数字、长度、百分比</h2>
+<h3 id="数字">数字</h3>
+<p>css中有两类数字，整数和小数，这些数字可以作为其他值类型的基础，在某些情况下也可以直接作为属性的值。</p>
+<h3 id="长度">长度</h3>
+<p>CSS 中有两种类型的长度——相对长度和绝对长度。</p>
+<h4 id="绝对长度单位">绝对长度单位</h4>
+<p>它们与其他任何东西都没有关系，通常被认为总是相同的大小。</p>
 <table>
 <thead>
 <tr>
@@ -280,77 +284,77 @@
 <th>等价换算</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>cm</td>
 <td>厘米</td>
-<td>1cm &#x3D; 37.8px &#x3D; 25.2&#x2F;64in</td>
+<td>1cm = 37.8px = 25.2/64in</td>
 </tr>
 <tr>
 <td>mm</td>
 <td>毫米</td>
-<td>1mm &#x3D; 0.1cm</td>
+<td>1mm = 0.1cm</td>
 </tr>
 <tr>
 <td>Q</td>
 <td>四分之一毫米</td>
-<td>1Q &#x3D; 0.25mm &#x3D; 0.025cm</td>
+<td>1Q = 0.25mm = 0.025cm</td>
 </tr>
 <tr>
 <td>in</td>
 <td>英寸</td>
-<td>1in &#x3D; 2.54cm &#x3D; 96px</td>
+<td>1in = 2.54cm = 96px</td>
 </tr>
 <tr>
 <td>pc</td>
 <td>派卡</td>
-<td>1pc &#x3D; 1&#x2F;6 in &#x3D; 16px</td>
+<td>1pc = 1/6 in = 16px</td>
 </tr>
 <tr>
 <td>pt</td>
 <td>点</td>
-<td>1pt &#x3D; 1&#x2F;72 in</td>
+<td>1pt = 1/72 in</td>
 </tr>
 <tr>
 <td>px</td>
 <td>像素</td>
-<td>1px &#x3D; 1&#x2F;96 in</td>
+<td>1px = 1/96 in</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: black;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: white;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="相对长度单位"><a href="#相对长度单位" class="headerlink" title="相对长度单位"></a>相对长度单位</h4><p>相对长度单位是相对于其他某些东西的。例如：</p>
+<h4 id="相对长度单位">相对长度单位</h4>
+<p>相对长度单位是相对于其他某些东西的。例如：</p>
 <ul>
 <li><code>em</code> 和 <code>rem</code> 分别相对于父元素和根元素的字体大小。</li>
 <li><code>vh</code> 和 <code>vw</code> 分别相对于视口的高度和宽度。</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">html</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">16px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">article</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">24px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">h1</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">2rem</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">font-size</span>: <span class="number">1em</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>第一段文本<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>第二段文本<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">50vw</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">50vh</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: black;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="百分比"><a href="#百分比" class="headerlink" title="百分比"></a>百分比</h3><p>百分比是相对于其他值设置的。可以是从父元素继承的值，也可以是祖先元素的一个值。</p>
+<h3 id="百分比">百分比</h3>
+<p>百分比是相对于其他值设置的。可以是从父元素继承的值，也可以是祖先元素的一个值。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.wrapper</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.px</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: sienna;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#FFF</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.percent</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">40%</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#FFF</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;px&quot;</span>&gt;</span>px box<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;percent&quot;</span>&gt;</span>percent box<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><p>在 CSS 中，相同的颜色值可以在任何地方使用，无论你指定的是文本颜色、背景颜色还是其他颜色。</p>
-<h3 id="颜色关键字"><a href="#颜色关键字" class="headerlink" title="颜色关键字"></a>颜色关键字</h3><p>假如只需要从很小的基本颜色集中选择就足够，可以通过使用你想要的颜色名即可。</p>
+<h2 id="颜色">颜色</h2>
+<p>在 CSS 中，相同的颜色值可以在任何地方使用，无论你指定的是文本颜色、背景颜色还是其他颜色。</p>
+<h3 id="颜色关键字">颜色关键字</h3>
+<p>假如只需要从很小的基本颜色集中选择就足够，可以通过使用你想要的颜色名即可。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: black;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: white;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="十六进制颜色"><a href="#十六进制颜色" class="headerlink" title="十六进制颜色"></a>十六进制颜色</h3><p>由#和6个十六进制的数字组成，每个十六进制数字都可以取 0 到 f（代表 15）之间的 16 个值中的一个，每对值表示一个通道（红色、绿色、蓝色），每个通道指定 256 个可用值中的任意一个（16 x 16 &#x3D; 256）。</p>
+<h3 id="十六进制颜色">十六进制颜色</h3>
+<p>由#和6个十六进制的数字组成，每个十六进制数字都可以取 0 到 f（代表 15）之间的 16 个值中的一个，每对值表示一个通道（红色、绿色、蓝色），每个通道指定 256 个可用值中的任意一个（16 x 16 = 256）。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="number">#c55da1</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h3><p>RGB 值是一个函数<code>rgb()</code>，他有三个参数，表示颜色的红色、绿色和蓝色，与十六进制相似，但是他的取值范围是由0-255的十进制数字表示。</p>
+<h3 id="RGB">RGB</h3>
+<p>RGB 值是一个函数<code>rgb()</code>，他有三个参数，表示颜色的红色、绿色和蓝色，与十六进制相似，但是他的取值范围是由0-255的十进制数字表示。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">197</span>, <span class="number">93</span>, <span class="number">161</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>可以向 <code>rgb()</code> 传递第四个参数，它代表颜色的 alpha 通道，控制不透明度。如果你把这个值设置为 <code>0</code>，它将使颜色完全透明，而 <code>1</code> 将使它完全不透明。介于两者之间的值会给你带来不同级别的透明度。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">197</span>, <span class="number">93</span>, <span class="number">161</span>, <span class="number">0.8</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="HSL"><a href="#HSL" class="headerlink" title="HSL"></a>HSL</h3><p>HSL值是一个函数<code>hsl()</code>，他有三个参数，色调、饱和度和亮度值</p>
+<h3 id="HSL">HSL</h3>
+<p>HSL值是一个函数<code>hsl()</code>，他有三个参数，色调、饱和度和亮度值</p>
 <ol>
 <li><strong>色调</strong>：颜色的底色，这个值在 0 和 360 之间</li>
 <li><strong>饱和度</strong>：它的值为 0–100%，其中 0 为无颜色（它将显示为灰色阴影），100% 为全色饱和度</li>
 <li><strong>亮度</strong>：它的值为 0–100%，其中 0 表示没有光（它将完全显示为黑色），100% 表示完全亮（它将完全显示为白色）</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background-color</span>: <span class="built_in">hsl</span>(<span class="number">321</span>, <span class="number">47%</span>, <span class="number">57%</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="built_in">hsl</span>(<span class="number">0</span>, <span class="number">0%</span>, <span class="number">100%</span>);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>就像 <code>rgb()</code> 一样，你可以向 <code>hsl()</code> 传递一个 alpha 参数来指定不透明度。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-color</span>: <span class="built_in">hsl</span>(<span class="number">321</span>, <span class="number">47%</span>, <span class="number">57%</span>, <span class="number">0.8</span>);</span><br></pre></td></tr></table></figure>
 
@@ -452,6 +456,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -641,6 +651,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

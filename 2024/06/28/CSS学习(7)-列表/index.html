@@ -267,18 +267,20 @@
                 
                 <p>列表的行为表现跟其他任何文本其实差不多，但需要了解一些专门用于列表的 CSS 样式</p>
 <span id="more"></span>
-
-<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>无序、有序和描述列表，它们都具有相似的样式特性，而某些特性却又各不相同。</p>
+<h1>列表</h1>
+<p>无序、有序和描述列表，它们都具有相似的样式特性，而某些特性却又各不相同。</p>
 <ol>
 <li><code>&lt;ul&gt;</code>和<code>&lt;ol&gt;</code>元素含有 <code>16px</code> 的顶部和底部的<strong>margin</strong>和 <code>40px</code> 的<strong>padding-left</strong></li>
 <li><code>&lt;li&gt;</code>元素默认是没有设置间距的</li>
 <li><code>&lt;dl&gt;</code>元素含有 <code>16px</code> 的顶部和底部的<strong>margin</strong>，但不含内边距</li>
 <li><code>&lt;dd&gt;</code>元素含有 <code>40px</code> 的<strong>margin-left</strong></li>
 </ol>
-<h2 id="列表间距"><a href="#列表间距" class="headerlink" title="列表间距"></a>列表间距</h2><p>通过 <strong>line-height</strong> 属性设置列表项之间的垂直间距</p>
+<h2 id="列表间距">列表间距</h2>
+<p>通过 <strong>line-height</strong> 属性设置列表项之间的垂直间距</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">line-height</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="列表符号"><a href="#列表符号" class="headerlink" title="列表符号"></a>列表符号</h2><h3 id="符号样式"><a href="#符号样式" class="headerlink" title="符号样式"></a>符号样式</h3><p>通过 <strong>list-style-type</strong> 属性设置列表符号的类型</p>
+<h2 id="列表符号">列表符号</h2>
+<h3 id="符号样式">符号样式</h3>
+<p>通过 <strong>list-style-type</strong> 属性设置列表符号的类型</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>none</strong>：不显示列表项的标记</li>
@@ -290,22 +292,22 @@
 <li><strong>upper-roman</strong>：大写罗马数字</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">ol</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">list-style-type</span>: disc;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">line-height</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="符号位置"><a href="#符号位置" class="headerlink" title="符号位置"></a>符号位置</h3><p><strong>list-style-position</strong>属性设置在每个列表项开始之前，列表符号是出现在列表项内，还是出现在其外</p>
+<h3 id="符号位置">符号位置</h3>
+<p><strong>list-style-position</strong>属性设置在每个列表项开始之前，列表符号是出现在列表项内，还是出现在其外</p>
 <p><strong>属性值</strong>：</p>
 <ol>
 <li><strong>inside</strong>：使项目符号位于列表项内</li>
 <li><strong>outside</strong>：使项目符号位于列表项之外</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.in</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">list-style-position</span>: inside;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.out</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">list-style-position</span>: outside;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;in&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;out&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义符号"><a href="#自定义符号" class="headerlink" title="自定义符号"></a>自定义符号</h3><p><strong>list-style-image</strong>属性允许对于列表符号使用自定义图片</p>
+<h3 id="自定义符号">自定义符号</h3>
+<p><strong>list-style-image</strong>属性允许对于列表符号使用自定义图片</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">	<span class="attribute">list-style-image</span>: <span class="built_in">url</span>(<span class="string">star.svg</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="列表样式简写"><a href="#列表样式简写" class="headerlink" title="列表样式简写"></a>列表样式简写</h2><p>通过简写属性<strong>list-style</strong>来设置上面的三个属性，属性值可以任意顺序排列，你可以设置一个，两个或者所有三个值。如果指定了 <code>type</code> 和 <code>image</code>，如果由于某种原因导致图像无法加载，则 <code>type</code> 将用作回退。</p>
+<h2 id="列表样式简写">列表样式简写</h2>
+<p>通过简写属性<strong>list-style</strong>来设置上面的三个属性，属性值可以任意顺序排列，你可以设置一个，两个或者所有三个值。如果指定了 <code>type</code> 和 <code>image</code>，如果由于某种原因导致图像无法加载，则 <code>type</code> 将用作回退。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">    <span class="attribute">list-style-type</span>: square;</span><br><span class="line">    <span class="attribute">list-style-image</span>: <span class="built_in">url</span>(<span class="string">example.png</span>);</span><br><span class="line">    <span class="attribute">list-style-position</span>: inside;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等同于</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">	<span class="attribute">list-style</span>: square <span class="built_in">url</span>(<span class="string">example.png</span>) inside;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="管理计数"><a href="#管理计数" class="headerlink" title="管理计数"></a>管理计数</h2><p>可以为<code>&lt;ol&gt;</code>有序列表设置计数规则</p>
+<h2 id="管理计数">管理计数</h2>
+<p>可以为<code>&lt;ol&gt;</code>有序列表设置计数规则</p>
 <p><strong>属性</strong>：</p>
 <ol>
 <li><strong>start</strong>：一个整数值属性，指定了列表编号的起始值。此属性的值应为阿拉伯数字，不管<strong>list-style-type</strong>设置的是什么类型</li>
@@ -317,7 +319,6 @@
 <li><strong>value</strong>：设置列表项指定数值</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span> <span class="attr">start</span>=<span class="string">“3”</span> <span class="attr">reversed</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">value</span>=<span class="string">&quot;4&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">value</span>=<span class="string">&quot;6&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -417,6 +418,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -606,6 +613,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

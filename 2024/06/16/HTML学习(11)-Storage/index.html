@@ -267,23 +267,23 @@
                 
                 <p>通过网络存储，网络应用程序可以在用户的浏览器中本地存储数据。</p>
 <span id="more"></span>
-
-<h1 id="Web-Storage"><a href="#Web-Storage" class="headerlink" title="Web Storage"></a>Web Storage</h1><p>提供了浏览器可以存储键&#x2F;值对的机制，其方式比使用<strong>cookie</strong>更直观。应用数据存储在本地，不会影响网站性能。</p>
-<h2 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h2><p>sessionStorage为每一个给定的源维持一个独立的存储区域，该存储区域在页面会话期间可用（即只要浏览器处于打开状态，包括页面重新加载和恢复）。</p>
+<h1>Web Storage</h1>
+<p>提供了浏览器可以存储键/值对的机制，其方式比使用<strong>cookie</strong>更直观。应用数据存储在本地，不会影响网站性能。</p>
+<h2 id="sessionStorage">sessionStorage</h2>
+<p>sessionStorage为每一个给定的源维持一个独立的存储区域，该存储区域在页面会话期间可用（即只要浏览器处于打开状态，包括页面重新加载和恢复）。</p>
 <ol>
 <li>sessionStorage仅为会话存储数据，这意味着数据将一直存储到浏览器（或选项卡）关闭。</li>
 <li>数据不会被传输到服务器。</li>
 <li>存储限额最大5MB</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存数据到 sessionStorage</span></span><br><span class="line"><span class="variable language_">sessionStorage</span>.<span class="title function_">setItem</span>(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 sessionStorage 获取数据</span></span><br><span class="line"><span class="keyword">let</span> data = <span class="variable language_">sessionStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 sessionStorage 删除保存的数据</span></span><br><span class="line"><span class="variable language_">sessionStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 sessionStorage 删除所有保存的数据</span></span><br><span class="line"><span class="variable language_">sessionStorage</span>.<span class="title function_">clear</span>();</span><br></pre></td></tr></table></figure>
-
-<h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><p>localStorage和sessionStorage一致，不同的是浏览器关闭并重新打开数据也仍然存在。</p>
+<h2 id="localStorage">localStorage</h2>
+<p>localStorage和sessionStorage一致，不同的是浏览器关闭并重新打开数据也仍然存在。</p>
 <ol>
 <li>存储的数据没有过期日期，只能通过 JavaScript、清除浏览器缓存或本地存储的数据来清除。</li>
 <li>存储限额最大5MB</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存数据到 localStorage</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 localStorage 获取数据</span></span><br><span class="line"><span class="keyword">let</span> data = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 localStorage 删除保存的数据</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 localStorage 删除所有保存的数据</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">clear</span>();</span><br></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -383,6 +383,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -572,6 +578,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
