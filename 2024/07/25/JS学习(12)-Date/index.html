@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在 JavaScript 中，Date 对象是用于处理日期和时间的内置对象。它允许创建、操作和格式化日期和时间。Date 对象提供了多种方法来获取和设置日期、时间、时区等信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS学习(12)-Date">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/25/JS%E5%AD%A6%E4%B9%A0(12)-Date/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="在 JavaScript 中，Date 对象是用于处理日期和时间的内置对象。它允许创建、操作和格式化日期和时间。Date 对象提供了多种方法来获取和设置日期、时间、时区等信息。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-25T02:53:59.000Z">
+<meta property="article:modified_time" content="2024-07-25T11:40:52.363Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JS学习(12)-Date - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS学习(12)-Date"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-25 10:53" pubdate>
+          2024年7月25日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JS学习(12)-Date</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在 JavaScript 中，<code>Date</code> 对象是用于处理日期和时间的内置对象。它允许创建、操作和格式化日期和时间。<code>Date</code> 对象提供了多种方法来获取和设置日期、时间、时区等信息。</p>
+<span id="more"></span>
+<h1>Date</h1>
+<p>内置对象 Date 用来处理日期和时间。</p>
+<h2 id="构造函数">构造函数</h2>
+<p><strong><code>Date()</code></strong> 构造函数可以创建一个 Date 实例或返回代表当前时间的字符串，<code>Date()</code>构造函数有四种基本形式</p>
+<ol>
+<li>
+<p>没有参数：表示实例化时刻的日期和时间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(now); <span class="comment">// Thu Jul 25 2024 10:02:28 GMT+0800 (中国标准时间)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>UNIX时间戳：从 1970-01-01T00:00:00Z 到给定时间的毫秒数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> timestamp = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">1721836800000</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(timestamp); <span class="comment">// Thu Jul 25 2024 00:00:00 GMT+0800 (中国标准时间)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>日期字符串：格式能被<code>Date.parse()</code>方法所识别就行（符合<a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc2822#page-14">IEFT  RFC 2822 timestamps</a>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dateString = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2024-07-25T00:00:00Z&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(dateString); <span class="comment">// Thu Jul 25 2024 08:00:00 GMT+0800 (中国标准时间)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用具体的年、月、日、时、分、秒、毫秒：年、月是必须的值，月是从0开始计数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> specificDate = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">2024</span>, <span class="number">6</span>, <span class="number">25</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(specificDate); <span class="comment">// Thu Jul 25 2024 00:00:00 GMT+0800 (中国标准时间)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="静态方法">静态方法</h2>
+<ol>
+<li>
+<p><code>Date.now()</code>：返回自 1970 年 1 月 1 日 00:00:00 (UTC) 到当前时间的毫秒数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(timestamp); <span class="comment">// 1721872958000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Date.parse()</code>：解析一个表示某个日期的字符串，并返回从 1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的 UTC 时间）的毫秒数，如果该字符串无法识别，则返回值为 NaN。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unixTimeZero = <span class="title class_">Date</span>.<span class="title function_">parse</span>(<span class="string">&#x27;01 Jan 1970 00:00:00 GMT&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(unixTimeZero); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> javaScriptRelease = <span class="title class_">Date</span>.<span class="title function_">parse</span>(<span class="string">&#x27;04 Dec 1995 00:12:00 GMT&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(javaScriptRelease); <span class="comment">// 818035920000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Date.UTC()</code>：返回自 1970 年 1 月 1 日 00:00:00 (UTC) 到当前UTC时间的毫秒数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> utcDate1 = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="title class_">Date</span>.<span class="title function_">UTC</span>(<span class="number">96</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(utcDate1.<span class="title function_">toUTCString</span>()); <span class="comment">// Fri, 02 Feb 1996 03:04:05 GMT</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="实例方法">实例方法</h2>
+<h3 id="获取日期和时间">获取日期和时间</h3>
+<ol>
+<li><code>getFullYear()</code>: 获取4位的年份</li>
+<li><code>getMonth()</code>: 获取月份（0-11）</li>
+<li><code>getDate()</code>: 获取月份中的第几天（1-31）</li>
+<li><code>getDay()</code>: 获取星期几（0-6）</li>
+<li><code>getHours()</code>: 获取小时（0-23）</li>
+<li><code>getMinutes()</code>: 获取分钟（0-59）</li>
+<li><code>getSeconds()</code>: 获取秒数（0-59）</li>
+<li><code>getMilliseconds()</code>: 获取毫秒数（0-999）</li>
+<li><code>getUTCFullYear()</code>: 以UTC时间为标准，获取4位的年份</li>
+<li><code>getUTCMonth()</code>: 以UTC时间为标准，获取月份（0-11）</li>
+<li><code>getUTCDate()</code>: 以UTC时间为标准，获取月份中的第几天（1-31）</li>
+<li><code>getUTCDay()</code>: 以UTC时间为标准，获取星期几（0-6）</li>
+<li><code>getUTCHours()</code>: 以UTC时间为标准，获取小时（0-23）</li>
+<li><code>getUTCMinutes()</code>: 以UTC时间为标准，获取分钟（0-59）</li>
+<li><code>getUTCSeconds()</code>: 以UTC时间为标准，获取秒数（0-59）</li>
+<li><code>getUTCMilliseconds()</code>: 以UTC时间为标准，获取毫秒数（0-999）</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">2024</span>, <span class="number">6</span>, <span class="number">25</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getFullYear</span>()); <span class="comment">// 2024</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getMonth</span>()); <span class="comment">// 6</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getDate</span>()); <span class="comment">// 25</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getDay</span>()); <span class="comment">// 4</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getHours</span>()); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getMinutes</span>()); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getSeconds</span>()); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getMilliseconds</span>()); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCFullYear</span>()); <span class="comment">// 2024</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCMonth</span>()); <span class="comment">// 6</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCDate</span>()); <span class="comment">// 24</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCDay</span>()); <span class="comment">// 3</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCHours</span>()); <span class="comment">// 16</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCMinutes</span>()); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCSeconds</span>()); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">getUTCMilliseconds</span>()); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置日期和时间">设置日期和时间</h3>
+<ol>
+<li><code>setFullYear()</code>: 设置年份</li>
+<li><code>setMonth()</code>: 设置月份（0-11）</li>
+<li><code>setDate()</code>: 设置月份中的第几天（1-31）</li>
+<li><code>setHours()</code>: 设置小时（0-23）</li>
+<li><code>setMinutes()</code>: 设置分钟（0-59）</li>
+<li><code>setSeconds()</code>: 设置秒数（0-59）</li>
+<li><code>setMilliseconds()</code>: 设置毫秒数（0-999）</li>
+<li><code>setUTCFullYear()</code>: 以UTC时间为标准，设置年份</li>
+<li><code>setUTCMonth()</code>: 以UTC时间为标准，设置月份（0-11）</li>
+<li><code>setUTCDate()</code>: 以UTC时间为标准，设置月份中的第几天（1-31）</li>
+<li><code>setUTCHours()</code>: 以UTC时间为标准，设置小时（0-23）</li>
+<li><code>setUTCMinutes()</code>: 以UTC时间为标准，设置分钟（0-59）</li>
+<li><code>setUTCSeconds()</code>: 以UTC时间为标准，设置秒数（0-59）</li>
+<li><code>setUTCMilliseconds()</code>: 以UTC时间为标准，设置毫秒数（0-999）</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">date.<span class="title function_">setFullYear</span>(<span class="number">2022</span>);</span><br><span class="line">date.<span class="title function_">setMonth</span>(<span class="number">11</span>);</span><br><span class="line">date.<span class="title function_">setDate</span>(<span class="number">25</span>);</span><br><span class="line">date.<span class="title function_">setHours</span>(<span class="number">7</span>);</span><br><span class="line">date.<span class="title function_">setMinutes</span>(<span class="number">30</span>);</span><br><span class="line">date.<span class="title function_">setSeconds</span>(<span class="number">45</span>);</span><br><span class="line">date.<span class="title function_">setMilliseconds</span>(<span class="number">500</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date); <span class="comment">// Sun Dec 25 2022 07:30:45 GMT+0800 (中国标准时间)</span></span><br><span class="line"></span><br><span class="line">date.<span class="title function_">setUTCFullYear</span>(<span class="number">2022</span>);</span><br><span class="line">date.<span class="title function_">setUTCMonth</span>(<span class="number">11</span>);</span><br><span class="line">date.<span class="title function_">setUTCDate</span>(<span class="number">25</span>);</span><br><span class="line">date.<span class="title function_">setUTCHours</span>(<span class="number">7</span>);</span><br><span class="line">date.<span class="title function_">setUTCMinutes</span>(<span class="number">30</span>);</span><br><span class="line">date.<span class="title function_">setUTCSeconds</span>(<span class="number">45</span>);</span><br><span class="line">date.<span class="title function_">setUTCMilliseconds</span>(<span class="number">500</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date); <span class="comment">// Sun Dec 25 2022 15:30:45 GMT+0800 (中国标准时间)</span></span><br></pre></td></tr></table></figure>
+<h3 id="日期和时间运算">日期和时间运算</h3>
+<ol>
+<li><code>getTime()</code>: 获取自1970-01-01T00:00:00Z以来的毫秒数</li>
+<li><code>setTime(time)</code>: 设置自1970-01-01T00:00:00Z以来的毫秒数</li>
+<li><code>getTimezoneOffset</code>：返回本地时间与 UTC 之间的时差（单位：分钟）。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// getTime()</span></span><br><span class="line"><span class="keyword">let</span> date1 = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="keyword">let</span> date2 = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">2022</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">let</span> diff = date1.<span class="title function_">getTime</span>() - date2.<span class="title function_">getTime</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(diff); <span class="comment">// 输出两个日期之间的毫秒数差异</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// setTime()</span></span><br><span class="line"><span class="keyword">const</span> launchDate = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&#x27;July 1, 1999, 12:00:00&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> futureDate = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">futureDate.<span class="title function_">setTime</span>(launchDate.<span class="title function_">getTime</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(futureDate); <span class="comment">// Thu Jul 01 1999 12:00:00 GMT+0800 (中国标准时间)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// getTimeOffset()</span></span><br><span class="line"><span class="keyword">let</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="keyword">let</span> offset = date.<span class="title function_">getTimezoneOffset</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(offset); <span class="comment">// -480</span></span><br></pre></td></tr></table></figure>
+<h3 id="格式化日期和时间">格式化日期和时间</h3>
+<ol>
+<li><code>toLocaleString()</code>：返回与浏览器 运行的本地环境一致的日期和时间。</li>
+<li><code>toString()</code>：返回一个字符串，以本地的时区表示</li>
+<li><code>valueOf()</code>：返回 Date 对象的原始值，即从 1970 年 1 月 1 日 0 时 0 分 0 秒（UTC）到该日期的毫秒数。</li>
+<li><code>toDateString()</code>: 将日期转换为字符串格式</li>
+<li><code>toTimeString()</code>: 将时间转换为字符串格式</li>
+<li><code>toISOString()</code>: 将日期转换为ISO 8601格式的字符串</li>
+<li><code>toLocaleDateString()</code>: 根据本地格式将日期转换为字符串</li>
+<li><code>toLocaleTimeString()</code>: 根据本地格式将时间转换为字符串</li>
+<li><code>toUTCString()</code>：将日期转换为一个字符串，使用 UTC 时区。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toLocaleString</span>()); <span class="comment">// 2024/7/25 10:28:22</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toString</span>()); <span class="comment">// Thu Jul 25 2024 10:28:22 GMT+0800 (中国标准时间)</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">valueOf</span>()); <span class="comment">// 1721874502812</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toDateString</span>()); <span class="comment">// Thu Jul 25 2024</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toTimeString</span>()); <span class="comment">// 10:28:22 GMT+0800 (中国标准时间)</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toISOString</span>()); <span class="comment">// 2024-07-25T02:28:22.812Z</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toLocaleDateString</span>()); <span class="comment">// 2024/7/25</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toLocaleTimeString</span>()); <span class="comment">// 10:28:22</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(date.<span class="title function_">toUTCString</span>()); <span class="comment">// Thu, 25 Jul 2024 02:28:22 GMT</span></span><br></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS/" class="print-no-link">#JS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/24/JS%E5%AD%A6%E4%B9%A0(11)-String/" title="JS学习(11)-String">
+                        <span class="hidden-mobile">JS学习(11)-String</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
