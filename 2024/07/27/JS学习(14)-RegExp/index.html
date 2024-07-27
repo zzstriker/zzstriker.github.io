@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在 JavaScript 中，Math 对象拥有一些数学常数属性和数学函数方法。Math 对象用于 Number 类型，不支持 BigInt。">
+    <meta name="description" content="在 JavaScript 中，RegExp 对象用于匹配字符串中的模式。可以通过字面量或者构造函数创建 RegExp 对象，用于执行匹配、搜索和替换操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS学习(13)-Math">
-<meta property="og:url" content="https://zzstriker.github.io/2024/07/26/JS%E5%AD%A6%E4%B9%A0(13)-Math/index.html">
+<meta property="og:title" content="JS学习(14)-RegExp">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/27/JS%E5%AD%A6%E4%B9%A0(14)-RegExp/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="在 JavaScript 中，Math 对象拥有一些数学常数属性和数学函数方法。Math 对象用于 Number 类型，不支持 BigInt。">
+<meta property="og:description" content="在 JavaScript 中，RegExp 对象用于匹配字符串中的模式。可以通过字面量或者构造函数创建 RegExp 对象，用于执行匹配、搜索和替换操作。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-26T05:55:28.000Z">
-<meta property="article:modified_time" content="2024-07-26T09:49:20.043Z">
+<meta property="article:published_time" content="2024-07-27T09:06:10.000Z">
+<meta property="article:modified_time" content="2024-07-27T09:54:10.941Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="JS">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>JS学习(13)-Math - zzstriker blogs</title>
+  <title>JS学习(14)-RegExp - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JS学习(13)-Math"></span>
+            <span id="subtitle" data-typed-text="JS学习(14)-RegExp"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-26 13:55" pubdate>
-          2024年7月26日 下午
+        <time datetime="2024-07-27 17:06" pubdate>
+          2024年7月27日 下午
         </time>
       </span>
     
@@ -260,97 +260,63 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">JS学习(13)-Math</h1>
+            <h1 id="seo-header">JS学习(14)-RegExp</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在 JavaScript 中，<code>Math</code> 对象拥有一些数学常数属性和数学函数方法。<code>Math</code> 对象用于 Number 类型，不支持 BigInt。</p>
+                <p>在 JavaScript 中，<code>RegExp</code> 对象用于匹配字符串中的模式。可以通过字面量或者构造函数创建 <code>RegExp</code> 对象，用于执行匹配、搜索和替换操作。</p>
 <span id="more"></span>
-<h1>Math</h1>
-<p><code>Math</code> 对象的方法和属性是静态的，可以直接调用而无需创建 <code>Math</code> 对象的实例。</p>
-<h2 id="静态属性">静态属性</h2>
+<h1>RegExp</h1>
+<p>正则表达式是用于匹配字符串中字符组合的模式。</p>
+<h2 id="正则字面量">正则字面量</h2>
+<p>由斜杠 (/) 包围而不是引号包围。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/abc/</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="构造函数">构造函数</h2>
+<p><strong><code>RegExp</code></strong> 用于创建正则表达式对象，该对象用于将文本与一个模式匹配</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">RegExp</span>(pattern [, flags])</span><br></pre></td></tr></table></figure>
 <ol>
-<li><code>Math.PI</code>：圆周率 π 的值（约等于 3.14159）。</li>
-<li><code>Math.E</code>：自然对数的底数 e（约等于 2.718）。</li>
-<li><code>Math.LN2</code>：2 的自然对数（约等于 0.693）。</li>
-<li><code>Math.LN10</code>：10 的自然对数（约等于 2.302）。</li>
-<li><code>Math.LOG2E</code>：以 2 为底的 e 的对数（约等于 1.442）。</li>
-<li><code>Math.LOG10E</code>：以 10 为底的 e 的对数（约等于 0.434）。</li>
-<li><code>Math.SQRT1_2</code>：1/2 的平方根（约等于 0.707）。</li>
-<li><code>Math.SQRT2</code>：2 的平方根（约等于 1.414）。</li>
+<li><strong>pattern</strong>：要匹配的字符串模式</li>
+<li><strong>flags</strong>：可选的标志字符串</li>
 </ol>
-<h2 id="静态方法">静态方法</h2>
+<h3 id="修饰符">修饰符</h3>
+<ol>
+<li><code>g</code>：全局匹配</li>
+<li><code>i</code>：忽略大小写</li>
+<li><code>m</code>：多行匹配</li>
+<li><code>s</code>：允许 <code>.</code> 匹配换行符</li>
+<li><code>u</code>：Unicode 模式</li>
+<li><code>y</code>：粘性匹配</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/abc/i</span>; <span class="comment">// 忽略大小写匹配 &quot;abc&quot;</span></span><br><span class="line"><span class="keyword">let</span> patternGlobal = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;g&#x27;</span>); <span class="comment">// 全局匹配 &quot;abc&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="实例方法">实例方法</h2>
 <ol>
 <li>
-<p><code>Marh.abs(x)</code>：返回数值的绝对值。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">abs</span>(-<span class="number">5</span>)); <span class="comment">// 5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">abs</span>(<span class="number">5</span>));  <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+<p><code>test()</code>：执行一个检索，用来查看正则表达式与指定的字符串是否匹配，返回布尔值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/hello/</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">test</span>(<span class="string">&#x27;Hello world&#x27;</span>)); <span class="comment">// 输出: false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">test</span>(<span class="string">&#x27;hello world&#x27;</span>)); <span class="comment">// 输出: true</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p><code>Marh.ceil(x)</code>：向上取整，返回大于等于 x 的最小整数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">ceil</span>(<span class="number">4.2</span>)); <span class="comment">// 5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">ceil</span>(-<span class="number">4.2</span>)); <span class="comment">// -4</span></span><br></pre></td></tr></table></figure>
+<p><code>exec()</code>：在一个指定字符串中执行一个搜索匹配。返回一个结果数组（未匹配则返回 <code>null</code>）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/hello/</span>;</span><br><span class="line"><span class="keyword">let</span> result = pattern.<span class="title function_">exec</span>(<span class="string">&#x27;hello world&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result); <span class="comment">// 输出: [ &#x27;hello&#x27;, index: 0, input: &#x27;hello world&#x27;, groups: undefined ]</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p><code>Marh.floor(x)</code>：向下取整，返回小于等于 x 的最大整数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="number">4.8</span>)); <span class="comment">// 4</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">floor</span>(-<span class="number">4.8</span>)); <span class="comment">// -5</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.round(x)</code>：四舍五入，返回最接近 x 的整数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">round</span>(<span class="number">4.5</span>)); <span class="comment">// 5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">round</span>(<span class="number">4.4</span>)); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.random()</code>：返回一个大于等于 0 且小于 1 的伪随机浮点数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()); <span class="comment">// 随机数（例如: 0.123456789）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.max(...values)</code>：返回给定一组数中的最大值，如果没有参数，则返回 -Infinity。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.min(...values)</code>：返回给定一组数中的最小值，如果没有参数，则返回 Infinity。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.pow(base, exponent)</code>：返回 base 的 exponent 次幂。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.sqrt(x)</code>：返回 x 的平方根。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">sqrt</span>(<span class="number">16</span>)); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.cbrt(x)</code>：返回 x 的立方根。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">cbrt</span>(<span class="number">8</span>)); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.hypot(...values)</code>：返回所有参数的平方和的平方根</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">hypot</span>(<span class="number">3</span>, <span class="number">4</span>)); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.trunc(x)</code>：返回数字的整数部分，去除小数部分。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">trunc</span>(<span class="number">4.9</span>)); <span class="comment">// 输出: 4</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">trunc</span>(-<span class="number">4.9</span>)); <span class="comment">// 输出: -4</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.sin(x)</code>：返回 x 的正弦值，x 是以弧度表示的角度。</p>
-</li>
-<li>
-<p><code>Marh.cos(x)</code>：返回 x 的余弦值，x 是以弧度表示的角度。</p>
-</li>
-<li>
-<p><code>Marh.tan(x)</code>：返回 x 的正切值，x 是以弧度表示的角度。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">sin</span>(<span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">2</span>)); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">cos</span>(<span class="title class_">Math</span>.<span class="property">PI</span>)); <span class="comment">// -1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">tan</span>(<span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">4</span>)); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>Marh.asin(x)</code>：返回 x 的反正弦值，返回值在 -π/2 到 π/2 之间。</p>
-</li>
-<li>
-<p><code>Marh.acos(x)</code>：返回 x 的反余弦值，返回值在 0 到 π 之间。</p>
-</li>
-<li>
-<p><code>Marh.atan(x)</code>：返回 x 的反正切值，返回值在 -π/2 到 π/2 之间。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">asin</span>(<span class="number">1</span>)); <span class="comment">// π/2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">acos</span>(<span class="number">1</span>)); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">atan</span>(<span class="number">1</span>)); <span class="comment">// π/4</span></span><br></pre></td></tr></table></figure>
+<p><code>toString()</code>：返回一个表示该正则表达式的字符串。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myExp = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;a+b+c&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(myExp.<span class="title function_">toString</span>()); <span class="comment">// &quot;/a+b+c/&quot;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<h2 id="实例属性">实例属性</h2>
+<ol>
+<li><code>global</code>：布尔值，表示是否设置了 g 标记。</li>
+<li><code>ignoreCase</code>：布尔值，表示是否设置了 i 标记。</li>
+<li><code>unicode</code>：布尔值，表示是否设置了 u 标记。</li>
+<li><code>sticky</code>：布尔值，表示是否设置了 y 标记。</li>
+<li><code>lastIndex</code>：整数，表示在源字符串中下一次搜索的开始位置，始终从 0 开始。</li>
+<li><code>multiline</code>：布尔值，表示是否设置了 m 标记。</li>
+<li><code>dotAll</code>：布尔值，表示是否设置了 s 标记。</li>
+<li><code>source</code>：正则表达式的字面量字符串，没有开头和结尾的 斜杠。</li>
+<li><code>flags</code>：正则表达式的标记字符串。始终以字面量而非传入构造函数的字符串模式形式返回</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern1 = <span class="regexp">/\[bc\]at/i</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern1.<span class="property">global</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern1.<span class="property">ignoreCase</span>); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern1.<span class="property">multiline</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern1.<span class="property">lastIndex</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern1.<span class="property">source</span>); <span class="comment">// &quot;\[bc\]at&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern1.<span class="property">flags</span>); <span class="comment">// &quot;i&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> pattern2 = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;\\[bc\\]at&quot;</span>, <span class="string">&quot;i&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern2.<span class="property">global</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern2.<span class="property">ignoreCase</span>); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern2.<span class="property">multiline</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern2.<span class="property">lastIndex</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern2.<span class="property">source</span>); <span class="comment">// &quot;\[bc\]at&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pattern2.<span class="property">flags</span>); <span class="comment">// &quot;i&quot; </span></span><br></pre></td></tr></table></figure>
 
                 
               </div>
@@ -398,18 +364,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/27/JS%E5%AD%A6%E4%B9%A0(14)-RegExp/" title="JS学习(14)-RegExp">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JS学习(14)-RegExp</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/25/JS%E5%AD%A6%E4%B9%A0(12)-Date/" title="JS学习(12)-Date">
-                        <span class="hidden-mobile">JS学习(12)-Date</span>
+                      <a href="/2024/07/26/JS%E5%AD%A6%E4%B9%A0(13)-Math/" title="JS学习(13)-Math">
+                        <span class="hidden-mobile">JS学习(13)-Math</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
