@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>JS学习(15)-Symbol</title>
+    <link href="/2024/07/28/JS%E5%AD%A6%E4%B9%A0(15)-Symbol/"/>
+    <url>/2024/07/28/JS%E5%AD%A6%E4%B9%A0(15)-Symbol/</url>
+    
+    <content type="html"><![CDATA[<p><code>Symbol</code> 是 ES6 引入的一种新的原始数据类型。每个 <code>Symbol</code> 值都是唯一的，用于生成独一无二的标识符。它是通过调用 <code>Symbol</code> 函数创建的，<code>Symbol</code> 函数不能作为构造函数使用。</p><span id="more"></span><h1>Symbol</h1><p>每个从 <code>Symbol()</code> 返回的 symbol 值都是唯一的。一个 symbol 值能作为对象属性的标识符</p><h2 id="构造函数">构造函数</h2><h2 id="静态方法">静态方法</h2><h2 id="静态属性">静态属性</h2><h2 id="实例方法">实例方法</h2><ol><li><p><code>toString</code>：返回当前 symbol 对象的字符串表示。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   </span><br></pre></td></tr></table></figure></li><li><p><code>valueOf()</code>：返回当前 symbol 对象的值。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> symbol1 = <span class="title class_">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>(symbol1)); <span class="comment">// Symbol &#123;Symbol(foo), description: &#x27;foo&#x27;&#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>(symbol1).<span class="title function_">valueOf</span>()); <span class="comment">// Symbol(foo)</span></span><br></pre></td></tr></table></figure></li></ol><h2 id="实例属性">实例属性</h2><ol><li><p><code>description</code>：是一个只读属性，它会返回 Symbol 对象的可选描述的字符串。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sym1 = <span class="title class_">Symbol</span>(<span class="string">&#x27;desc&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> sym2 = <span class="title class_">Symbol</span>(<span class="string">&#x27;desc&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sym1 === sym2); <span class="comment">// 输出: false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sym1.<span class="property">description</span>); <span class="comment">// 输出: &#x27;desc&#x27;</span></span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>JS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JS学习(14)-RegExp</title>
     <link href="/2024/07/27/JS%E5%AD%A6%E4%B9%A0(14)-RegExp/"/>
     <url>/2024/07/27/JS%E5%AD%A6%E4%B9%A0(14)-RegExp/</url>
