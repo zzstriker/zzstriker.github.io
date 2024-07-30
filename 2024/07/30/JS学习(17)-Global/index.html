@@ -16,19 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="JS学习-BigInt">
-<meta property="og:url" content="https://zzstriker.github.io/2024/07/29/JS%E5%AD%A6%E4%B9%A0-BigInt/index.html">
+    <meta name="description" content="Global 对象代码不会显式地访问它。Global 对象针对的是不属于任何对象的属性和方法。全局作用域中定义的变量和函数都会变成 Global 对象的属性 。包括 isNaN()、isFinite()、parseInt()和 parseFloat()，实际上都是 Global 对象的方法。除了这些，Global 对象上还有另外一些方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS学习(17)-Global">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/30/JS%E5%AD%A6%E4%B9%A0(17)-Global/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="Global 对象代码不会显式地访问它。Global 对象针对的是不属于任何对象的属性和方法。全局作用域中定义的变量和函数都会变成 Global 对象的属性 。包括 isNaN()、isFinite()、parseInt()和 parseFloat()，实际上都是 Global 对象的方法。除了这些，Global 对象上还有另外一些方法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-29T01:38:14.000Z">
-<meta property="article:modified_time" content="2024-07-29T01:38:14.275Z">
+<meta property="article:published_time" content="2024-07-30T02:14:50.000Z">
+<meta property="article:modified_time" content="2024-07-30T08:05:57.122Z">
 <meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="JS">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>JS学习-BigInt - zzstriker blogs</title>
+  <title>JS学习(17)-Global - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -189,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JS学习-BigInt"></span>
+            <span id="subtitle" data-typed-text="JS学习(17)-Global"></span>
           
         </div>
 
@@ -200,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-29 09:38" pubdate>
-          2024年7月29日 上午
+        <time datetime="2024-07-30 10:14" pubdate>
+          2024年7月30日 上午
         </time>
       </span>
     
@@ -257,12 +260,70 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">JS学习-BigInt</h1>
+            <h1 id="seo-header">JS学习(17)-Global</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <p>Global 对象代码不会显式地访问它。Global 对象针对的是不属于任何对象的属性和方法。全局作用域中定义的变量和函数都会变成 Global 对象的属性 。包括 <code>isNaN()</code>、<code>isFinite()</code>、<code>parseInt()</code>和 <code>parseFloat()</code>，实际上都是 Global 对象的方法。除了这些，Global 对象上还有另外一些方法。</p>
+<span id="more"></span>
+<h1>Global</h1>
+<p>JavaScript 中的 Global 对象提供了许多全局属性和方法，这些属性和方法在任何 JavaScript 代码中都可以直接访问，无需导入或引用。</p>
+<h2 id="全局对象">全局对象</h2>
+<ol>
+<li>
+<p><code>Infinity</code>：表示正无穷大，超出了 JavaScript 能表示的最大数值范围。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Infinity</span>); <span class="comment">// 输出: Infinity</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span> / <span class="number">0</span>); <span class="comment">// 输出: Infinity</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>NaN</code>：表示一个非数字值，通常用于表示无法计算的数值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">NaN</span>); <span class="comment">// 输出: NaN</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span> / <span class="number">0</span>); <span class="comment">// 输出: NaN</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>undefined</code>：表示一个未定义的值，通常用于尚未赋值的变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 输出: undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="全局函数">全局函数</h2>
+<ol>
+<li>
+<p><code>isFinite()</code>：检查传入的值是否为有限数值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">isFinite</span>(<span class="number">10</span>)); <span class="comment">// 输出: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">isFinite</span>(<span class="title class_">Infinity</span>)); <span class="comment">// 输出: false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>isNaN()</code>：检查传入的值是否为 <code>NaN</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">isNaN</span>(<span class="title class_">NaN</span>)); <span class="comment">// 输出: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">isNaN</span>(<span class="number">10</span>)); <span class="comment">// 输出: false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>parseFloat()</code>：将一个字符串解析为浮点数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">parseFloat</span>(<span class="string">&quot;10.5&quot;</span>)); <span class="comment">// 输出: 10.5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">parseFloat</span>(<span class="string">&quot;10&quot;</span>)); <span class="comment">// 输出: 10</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>parseInt()</code>：将一个字符串解析为整数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">parseInt</span>(<span class="string">&quot;10.5&quot;</span>)); <span class="comment">// 输出: 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>)); <span class="comment">// 输出: 10</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>encodeURI()</code>：用于对整个 URI 进行编码，不会编码属于 URL 组件的特殊字符，比如冒号、斜杠、问号、 井号</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uri = <span class="string">&quot;https://www.example.com/?key=value with spaces&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> encodedUri = <span class="built_in">encodeURI</span>(uri);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(encodedUri); <span class="comment">// 输出: https://www.example.com/?key=value%20with%20spaces</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>decodeURI()</code>：只对使用 <code>encodeURI()</code>编码过的字符解码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uri = <span class="string">&quot;https://www.example.com/?key=value with spaces&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> encodedUri = <span class="built_in">encodeURI</span>(uri);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(encodedUri); <span class="comment">// 输出: https://www.example.com/?key=value%20with%20spaces</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> decodedUri = <span class="built_in">decodeURI</span>(encodedUri);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(decodedUri); <span class="comment">// 输出: https://www.example.com/?key=value with spaces</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>encodeURIComponent()</code>：会编码它发现的所有非标准字符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uri = <span class="string">&quot;http://www.example.com/#start&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> encodedUriComponent = <span class="built_in">encodeURIComponent</span>(uri);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(encodedUriComponent); <span class="comment">// &quot;http%3A%2F%2Fwww.example.com%2F%23start&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>decodeURIComponent()</code>：解码所有 被 <code>encodeURIComponent()</code>编码的字符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uri = <span class="string">&quot;http://www.example.com/#start&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> encodedUriComponent = <span class="built_in">encodeURIComponent</span>(uri);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(encodedUriComponent); <span class="comment">// &quot;http%3A%2F%2Fwww.example.com%2F%23start&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> decodedUriComponent = <span class="built_in">decodeURIComponent</span>(encodedUriComponent);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(decodedUriComponent); <span class="comment">// &quot;http://www.example.com/#start&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>eval()</code>：将传入的字符串作为 JavaScript 代码执行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> code = <span class="string">&#x27;console.log(&quot;Hello, World!&quot;)&#x27;</span>;</span><br><span class="line"><span class="built_in">eval</span>(code); <span class="comment">// 输出: Hello, World!</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
                 
               </div>
             
@@ -270,6 +331,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS/" class="print-no-link">#JS</a>
+      
+    </div>
   
 </div>
 
@@ -285,8 +374,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/28/JS%E5%AD%A6%E4%B9%A0(15)-Symbol/" title="JS学习(15)-Symbol">
-                        <span class="hidden-mobile">JS学习(15)-Symbol</span>
+                      <a href="/2024/07/29/JS%E5%AD%A6%E4%B9%A0(16)-BigInt/" title="JS学习(16)-BigInt">
+                        <span class="hidden-mobile">JS学习(16)-BigInt</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
