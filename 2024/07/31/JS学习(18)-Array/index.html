@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaScript 中数组是一组有序的数据，数组中每个槽位可以存储任意类型的数据。数组也是动态大小的，会随着数据添加而自动增长。JavaScript 中数组的索引是从 0 开始，数组的复制操作是浅拷贝。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS学习(18)-Array">
+<meta property="og:url" content="https://zzstriker.github.io/2024/07/31/JS%E5%AD%A6%E4%B9%A0(18)-Array/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="JavaScript 中数组是一组有序的数据，数组中每个槽位可以存储任意类型的数据。数组也是动态大小的，会随着数据添加而自动增长。JavaScript 中数组的索引是从 0 开始，数组的复制操作是浅拷贝。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-31T07:29:12.000Z">
+<meta property="article:modified_time" content="2024-07-31T11:21:38.064Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JS学习(18)-Array - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS学习(18)-Array"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-31 15:29" pubdate>
+          2024年7月31日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JS学习(18)-Array</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>JavaScript 中数组是一组有序的数据，数组中每个槽位可以存储任意类型的数据。数组也是动态大小的，会随着数据添加而自动增长。JavaScript 中数组的索引是从 0 开始，数组的复制操作是浅拷贝。</p>
+<span id="more"></span>
+<h1>Array</h1>
+<p>JavaScript中的<code>Array</code>对象是一个用于创建和操作数组的全局对象。数组是一种高阶的数据结构，可以存储多个值并按索引进行访问。</p>
+<h2 id="数组字面量">数组字面量</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<h2 id="构造函数">构造函数</h2>
+<p><code>Array()</code> 构造函数用于创建 Array 对象，调用 <code>Array()</code> 时可以使用或不使用 new都会创建一个新的 <code>Array</code> 实例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Array</span>()</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Array</span>(element0)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Array</span>(element0, element1, … , elementN)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Array</span>(arrayLength)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Array</span>()</span><br><span class="line"><span class="title class_">Array</span>(element0)</span><br><span class="line"><span class="title class_">Array</span>(element0, element1,  … , elementN)</span><br><span class="line"><span class="title class_">Array</span>(arrayLength)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><strong>elementN</strong>：根据给定的元素创建数组，但是当仅有一个参数且为数字时除外</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arrayOfOne = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="string">&quot;2&quot;</span>); </span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arrayOfOne.<span class="property">length</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arrayOfOne); <span class="comment">// [&#x27;2&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>arrayLength</strong>：创建该属性设置的长度的空数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arrayEmpty = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arrayEmpty.<span class="property">length</span>); <span class="comment">// 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arrayEmpty); <span class="comment">// [empty × 2]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="静态方法">静态方法</h2>
+<ol>
+<li>
+<p><code>Array.from()</code>：用于将类数组结构转换为数组实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 要转换成数组的类数组或可迭代对象</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="string">&#x27;foo&#x27;</span>)); <span class="comment">// [&#x27;f&#x27;, &#x27;o&#x27;, &#x27;o&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个参数为可选的映射函数，函数中第一个参数是数组当前处理的元素，第二个参数为数组索引</span></span><br><span class="line"><span class="keyword">const</span> a1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">const</span> a2 = <span class="title class_">Array</span>.<span class="title function_">from</span>(a1, <span class="function"><span class="params">x</span> =&gt;</span> x**<span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a2); <span class="comment">// [1, 4, 9, 16]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三个参数为映射函数中this的值，在箭头函数中不适用</span></span><br><span class="line"><span class="keyword">const</span> a3 = <span class="title class_">Array</span>.<span class="title function_">from</span>(a1, <span class="keyword">function</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x**<span class="variable language_">this</span>.<span class="property">exponent</span>&#125;, &#123;<span class="attr">exponent</span>: <span class="number">2</span>&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a3); <span class="comment">// [1, 4, 9, 16] </span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Array.fromAsync()</code>：与<code>from()</code>方法类似，但是可以操作异步可迭代对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> asyncIterable = (<span class="keyword">async</span> <span class="keyword">function</span>* () &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">10</span> * i));</span><br><span class="line">    <span class="keyword">yield</span> i;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="title class_">Array</span>.<span class="title function_">fromAsync</span>(asyncIterable).<span class="title function_">then</span>(<span class="function">(<span class="params">array</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(array)); <span class="comment">// [0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Array.isArray()</code>：用于确定传递的值是否是一个数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="title function_">isArray</span>([<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>])); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="title function_">isArray</span>(<span class="string">&#x27;[]&#x27;</span>)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Array.of()</code>：通过可变数量的参数创建一个新的 <code>Array</code> 实例，而不考虑参数的数量或类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="title function_">of</span>(<span class="string">&#x27;foo&#x27;</span>, <span class="number">2</span>, <span class="string">&#x27;bar&#x27;</span>, <span class="literal">true</span>)); <span class="comment">// [&#x27;foo&#x27;, 2, &#x27;bar&#x27;, true]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="title function_">of</span>()); <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="实例属性">实例属性</h2>
+<ol>
+<li>
+<p><strong>length</strong>：表示该数组中元素的个数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="property">length</span>); <span class="comment">// 输出: 3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="实例方法">实例方法</h2>
+<h3 id="迭代器方法">迭代器方法</h3>
+<ol>
+<li>
+<p><code>keys()</code>：返回数组索引的迭代器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>, <span class="string">&quot;baz&quot;</span>, <span class="string">&quot;qux&quot;</span>]; </span><br><span class="line"><span class="keyword">const</span> aKeys = <span class="title class_">Array</span>.<span class="title function_">from</span>(a.<span class="title function_">keys</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(aKeys); <span class="comment">// [0, 1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>values()</code>：返回数组元素的迭代器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>, <span class="string">&quot;baz&quot;</span>, <span class="string">&quot;qux&quot;</span>]; </span><br><span class="line"><span class="keyword">const</span> aValues = <span class="title class_">Array</span>.<span class="title function_">from</span>(a.<span class="title function_">values</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(aValues); <span class="comment">//  [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;, &quot;qux&quot;] </span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>entries()</code>：返回索引/值对的迭代器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>, <span class="string">&quot;baz&quot;</span>, <span class="string">&quot;qux&quot;</span>]; </span><br><span class="line"><span class="keyword">const</span> aEntries = <span class="title class_">Array</span>.<span class="title function_">from</span>(a.<span class="title function_">entries</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(aEntries); <span class="comment">//   [[0, &quot;foo&quot;], [1, &quot;bar&quot;], [2, &quot;baz&quot;], [3, &quot;qux&quot;]]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="复制填充方法">复制填充方法</h3>
+<ol>
+<li>
+<p><code>fill()</code>：向一个已有的数组中插入全部或部分相同的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fill</span>(value) <span class="comment">// 全部填充</span></span><br><span class="line"><span class="title function_">fill</span>(value, start) <span class="comment">// 全部填充</span></span><br><span class="line"><span class="title function_">fill</span>(value, start, end) <span class="comment">// 填充 start 到 end 位置</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> array1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array1.<span class="title function_">fill</span>(<span class="number">6</span>)); <span class="comment">// [6, 6, 6, 6]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array1.<span class="title function_">fill</span>(<span class="number">5</span>, <span class="number">1</span>)); <span class="comment">// [6, 5, 5, 5]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array1.<span class="title function_">fill</span>(<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>)); <span class="comment">// [6, 5, 0, 0]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>copyWithin()</code>：</p>
+</li>
+</ol>
+<h3 id="转换方法">转换方法</h3>
+<ol>
+<li></li>
+<li><code>at()</code>：</li>
+<li><code>flat()</code>：</li>
+<li><code>flatMap()</code>：</li>
+<li><code>join()</code>：</li>
+<li><code>toReversed()</code>：</li>
+<li><code>toSorted()</code>：</li>
+<li><code>toSpliced()</code>：</li>
+<li><code>with()</code>：</li>
+<li></li>
+<li><code>reduce()</code>：</li>
+<li><code>reduceRight()</code>：</li>
+<li></li>
+<li><code>every()</code>：</li>
+<li><code>filter()</code>：</li>
+<li><code>forEach()</code>：</li>
+<li><code>map()</code>：</li>
+<li><code>some()</code>：</li>
+<li></li>
+<li><code>indexOf()</code>：</li>
+<li><code>lastIndexOf()</code>：</li>
+<li><code>includes()</code>：</li>
+<li><code>find()</code>：</li>
+<li><code>findIndex()</code>：</li>
+<li><code>findLast()</code>：</li>
+<li><code>findLastIndex()</code>：</li>
+<li></li>
+<li><code>concat()</code>：</li>
+<li><code>slice()</code>：</li>
+<li><code>splice()</code>：</li>
+<li></li>
+<li><code>reverse()</code>：</li>
+<li><code>sort()</code>：</li>
+<li></li>
+<li><code>shift()</code>：</li>
+<li><code>unshift()</code>：</li>
+<li></li>
+<li><code>pop()</code>：</li>
+<li><code>push()</code>：</li>
+<li></li>
+<li><code>toLocaleString()</code>：</li>
+<li><code>toString()</code>：</li>
+<li><code>valueOf()</code>：</li>
+<li></li>
+<li></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS/" class="print-no-link">#JS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/30/JS%E5%AD%A6%E4%B9%A0(17)-Global/" title="JS学习(17)-Global">
+                        <span class="hidden-mobile">JS学习(17)-Global</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
