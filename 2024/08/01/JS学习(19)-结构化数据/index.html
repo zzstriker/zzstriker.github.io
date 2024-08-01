@@ -1,0 +1,876 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ArrayBuffer 和 SharedArrayBuffer 对象表示一段二进制数据，用来模拟内存里面的数据。通过这个对象，JavaScript 可以读写二进制数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS学习(19)-结构化数据">
+<meta property="og:url" content="https://zzstriker.github.io/2024/08/01/JS%E5%AD%A6%E4%B9%A0(19)-%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="ArrayBuffer 和 SharedArrayBuffer 对象表示一段二进制数据，用来模拟内存里面的数据。通过这个对象，JavaScript 可以读写二进制数据。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-01T02:36:52.000Z">
+<meta property="article:modified_time" content="2024-08-01T11:35:04.881Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JS学习(19)-结构化数据 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS学习(19)-结构化数据"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-01 10:36" pubdate>
+          2024年8月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JS学习(19)-结构化数据</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>ArrayBuffer 和 SharedArrayBuffer 对象表示一段二进制数据，用来模拟内存里面的数据。通过这个对象，JavaScript 可以读写二进制数据。</p>
+<span id="more"></span>
+<h1>结构化数据</h1>
+<h2 id="ArrayBuffer">ArrayBuffer</h2>
+<p><code>ArrayBuffer</code>表示通用的原始二进制数据缓冲区，它是一个字节数组。不能直接操作 <code>ArrayBuffer</code> 中的内容，需要通过<code>TypedArray</code>或<code>DataView</code>对象来操作。</p>
+<h3 id="构造函数">构造函数</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(length, options)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>length</code>：要创建的数组缓冲区的大小（以字节为单位）</li>
+<li><code>options</code>（可选）：一个对象，可以包含<strong>maxByteLength</strong>属性，表示数据缓冲区可以调整的最大大小，以字节为单位</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">8</span>, &#123; <span class="attr">maxByteLength</span>: <span class="number">16</span> &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="静态方法">静态方法</h3>
+<ol>
+<li>
+<p><code>isView()</code>：判断传入值是否是 <code>ArrayBuffer</code> 视图之一</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 ArrayBuffer</span></span><br><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">16</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建各种 TypedArray 视图</span></span><br><span class="line"><span class="keyword">const</span> int8View = <span class="keyword">new</span> <span class="title class_">Int8Array</span>(buffer);</span><br><span class="line"><span class="keyword">const</span> float32View = <span class="keyword">new</span> <span class="title class_">Float32Array</span>(buffer);</span><br><span class="line"><span class="keyword">const</span> dataView = <span class="keyword">new</span> <span class="title class_">DataView</span>(buffer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个普通对象</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查视图和普通对象</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">ArrayBuffer</span>.<span class="title function_">isView</span>(int8View));   <span class="comment">// 输出: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">ArrayBuffer</span>.<span class="title function_">isView</span>(float32View)); <span class="comment">// 输出: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">ArrayBuffer</span>.<span class="title function_">isView</span>(dataView));   <span class="comment">// 输出: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">ArrayBuffer</span>.<span class="title function_">isView</span>(obj));        <span class="comment">// 输出: false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="实例属性">实例属性</h3>
+<ol>
+<li>
+<p><strong>byteLength</strong>：返回该数组缓冲区的长度（以字节为单位）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">16</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">byteLength</span>); <span class="comment">// 16</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>maxByteLength</strong>：返回该数组缓冲区可调整到的最大长度（以字节为单位）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">8</span>, &#123; <span class="attr">maxByteLength</span>: <span class="number">16</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">byteLength</span>); <span class="comment">// 8</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">maxByteLength</span>); <span class="comment">// 16</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>resizable</strong>：返回此数组缓冲区是否可以调整大小</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer1 = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">8</span>, &#123; <span class="attr">maxByteLength</span>: <span class="number">16</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> buffer2 = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer1.<span class="property">resizable</span>); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer2.<span class="property">resizable</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="实例方法">实例方法</h3>
+<ol>
+<li>
+<p><code>resize()</code>：将 <code>ArrayBuffer</code> 调整为指定的大小，以字节为单位</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">8</span>, &#123; <span class="attr">maxByteLength</span>: <span class="number">16</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">byteLength</span>); <span class="comment">// 8</span></span><br><span class="line">buffer.<span class="title function_">resize</span>(<span class="number">12</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">byteLength</span>); <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>slice()</code>：返回一个新的 <code>ArrayBuffer</code>，包含原 <code>ArrayBuffer</code> 实例中从 <code>begin</code>（包含）到 <code>end</code>（不含）的所有字节的副本</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">16</span>);</span><br><span class="line"><span class="keyword">const</span> view = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(buffer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向 ArrayBuffer 中写入数据</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i++) &#123;</span><br><span class="line">  view[i] = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新 ArrayBuffer，包含原始缓冲区的一部分</span></span><br><span class="line"><span class="keyword">const</span> newBuffer = buffer.<span class="title function_">slice</span>(<span class="number">4</span>, <span class="number">12</span>);</span><br><span class="line"><span class="keyword">const</span> newView = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(newBuffer);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view); <span class="comment">// 输出: Uint8Array(16) [ 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30 ]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newView); <span class="comment">// 输出: Uint8Array(8) [ 8, 10, 12, 14, 16, 18, 20, 22 ]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="视图">视图</h2>
+<h3 id="TypedArray">TypedArray</h3>
+<ol>
+<li>
+<p><code>Int8Array</code>：表示 8 位带符号整数的数组，每个元素占用 1 字节，范围从 -128 到 127。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> int8Array = <span class="keyword">new</span> <span class="title class_">Int8Array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, -<span class="number">4</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int8Array); <span class="comment">// 输出: Int8Array(4) [1, 2, 3, -4]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Uint8Array</code>：表示 8 位无符号整数的数组，每个元素占用 1 字节，范围从 0 到 255。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> uint8Array = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">255</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(uint8Array); <span class="comment">// 输出: Uint8Array(4) [1, 2, 3, 255]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Uint8ClampedArray</code>：表示 8 位无符号整数的数组，每个元素占用 1 字节，范围从 0 到 255，超出范围的值会被裁剪。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> uint8ClampedArray = <span class="keyword">new</span> <span class="title class_">Uint8ClampedArray</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">300</span>, -<span class="number">10</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(uint8ClampedArray); <span class="comment">// 输出: Uint8ClampedArray(4) [1, 2, 255, 0]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Int16Array</code>：表示 16 位带符号整数的数组，每个元素占用 2 字节，范围从 -32768 到 32767。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> int16Array = <span class="keyword">new</span> <span class="title class_">Int16Array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, -<span class="number">32768</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int16Array); <span class="comment">// 输出: Int16Array(4) [1, 2, 3, -32768]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Uint16Array</code>：表示 16 位无符号整数的数组，每个元素占用 2 字节，范围从 0 到 65535。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> uint16Array = <span class="keyword">new</span> <span class="title class_">Uint16Array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">65535</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(uint16Array); <span class="comment">// 输出: Uint16Array(4) [1, 2, 3, 65535]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Int32Array</code>：表示 32 位带符号整数的数组，每个元素占用 4 字节，范围从 -2,147,483,648 到 2,147,483,647。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> int32Array = <span class="keyword">new</span> <span class="title class_">Int32Array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, -<span class="number">2147483648</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32Array); <span class="comment">// 输出: Int32Array(4) [1, 2, 3, -2147483648]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Uint32Array</code>：表示 32 位无符号整数的数组，每个元素占用 4 字节，范围从 0 到 4,294,967,295。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> uint32Array = <span class="keyword">new</span> <span class="title class_">Uint32Array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4294967295</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(uint32Array); <span class="comment">// 输出: Uint32Array(4) [1, 2, 3, 4294967295]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Float32Array</code>：表示 32 位浮点数的数组，每个元素占用 4 字节，精度约为 7 位十进制数字。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> float32Array = <span class="keyword">new</span> <span class="title class_">Float32Array</span>([<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>, -<span class="number">4.4</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(float32Array); <span class="comment">// 输出: Float32Array(4) [1.1, 2.2, 3.3, -4.4]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Float64Array</code>：表示 64 位浮点数的数组，每个元素占用 8 字节，精度约为 15 位十进制数字。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> float64Array = <span class="keyword">new</span> <span class="title class_">Float64Array</span>([<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>, -<span class="number">4.4</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(float64Array); <span class="comment">// 输出: Float64Array(4) [1.1, 2.2, 3.3, -4.4]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>BigInt64Array</code>：表示 64 位带符号大整数的数组，每个元素占用 8 字节，范围从 $ -2^{63} $ 到  $ 2^{63} - 1 $​​。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bigInt64Array = <span class="keyword">new</span> <span class="title class_">BigInt64Array</span>([<span class="title class_">BigInt</span>(<span class="number">1</span>), <span class="title class_">BigInt</span>(<span class="number">2</span>), <span class="title class_">BigInt</span>(-<span class="number">3</span>)]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(bigInt64Array); <span class="comment">// 输出: BigInt64Array(3) [1n, 2n, -3n]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>BigUint64Array</code>：表示 64 位无符号大整数的数组，每个元素占用 8 字节，范围从 0 到  $ 2^{64} - 1 $​。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bigUint64Array = <span class="keyword">new</span> <span class="title class_">BigUint64Array</span>([<span class="title class_">BigInt</span>(<span class="number">1</span>), <span class="title class_">BigInt</span>(<span class="number">2</span>), <span class="title class_">BigInt</span>(<span class="number">3</span>)]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(bigUint64Array); <span class="comment">// 输出: BigUint64Array(3) [1n, 2n, 3n]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="DataView">DataView</h3>
+<h4 id="构造函数-2">构造函数</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">DataView</span>(buffer, byteOffset, byteLength)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>buffer</code>： 要创建视图的 <code>ArrayBuffer</code> 对象。这个缓冲区是 <code>DataView</code> 将用于读取和写入数据的基础</li>
+<li><code>byteOffset</code>（可选）：从 <code>ArrayBuffer</code> 的哪个字节偏移量开始创建 <code>DataView</code>。默认值是 <code>0</code></li>
+<li><code>byteLength</code>（可选）：字节数组中的元素数。如果未指定，则视图的长度将与缓冲区的长度匹配。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">16</span>); <span class="comment">// 创建一个长度为 16 字节的 ArrayBuffer</span></span><br><span class="line"><span class="keyword">const</span> view = <span class="keyword">new</span> <span class="title class_">DataView</span>(buffer); <span class="comment">// 创建一个 DataView，覆盖整个 ArrayBuffer</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view.<span class="property">byteLength</span>); <span class="comment">// 输出: 16</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">16</span>); <span class="comment">// 创建一个长度为 16 字节的 ArrayBuffer</span></span><br><span class="line"><span class="keyword">const</span> view = <span class="keyword">new</span> <span class="title class_">DataView</span>(buffer, <span class="number">4</span>, <span class="number">8</span>); <span class="comment">// 从偏移量 4 开始创建 DataView，长度为 8 字节</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view.<span class="property">byteLength</span>); <span class="comment">// 输出: 8</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view.<span class="property">byteOffset</span>); <span class="comment">// 输出: 4</span></span><br></pre></td></tr></table></figure>
+<h4 id="实例方法-2">实例方法</h4>
+<ol>
+<li><code>get/setInt8</code>：读取/写入指定偏移量的 8 位带符号整数</li>
+<li><code>get/setUint8</code>：读取/写入指定偏移量的 8 位无符号整数</li>
+<li><code>get/setInt16</code>：读取/写入指定偏移量的 16 位带符号整数</li>
+<li><code>get/setUint16</code>：读取/写入指定偏移量的 16 位无符号整数</li>
+<li><code>get/setInt32</code>：读取/写入指定偏移量的 32 位带符号整数</li>
+<li><code>get/setUint32</code>：读取/写入指定偏移量的 32 位无符号整数</li>
+<li><code>get/setFloat16</code>：读取/写入指定偏移量的 16 位浮点数</li>
+<li><code>get/setFloat32</code>：读取/写入指定偏移量的 32 位浮点数</li>
+<li><code>get/setFloat64</code>：读取/写入指定偏移量的 64 位浮点数</li>
+<li><code>get/setBigInt64</code>：读取/写入指定偏移量的 64 位带符号大整数</li>
+<li><code>get/setBigUint64</code>：读取/写入指定偏移量的 64 位无符号大整数</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 ArrayBuffer 和 DataView</span></span><br><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">16</span>); <span class="comment">// 创建一个长度为 16 字节的 ArrayBuffer</span></span><br><span class="line"><span class="keyword">const</span> view = <span class="keyword">new</span> <span class="title class_">DataView</span>(buffer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写入数据</span></span><br><span class="line">view.<span class="title function_">setUint8</span>(<span class="number">0</span>, <span class="number">255</span>);           <span class="comment">// 在偏移量 0 处写入 8 位无符号整数 255</span></span><br><span class="line">view.<span class="title function_">setInt16</span>(<span class="number">1</span>, -<span class="number">12345</span>, <span class="literal">true</span>);  <span class="comment">// 在偏移量 1 处写入 16 位带符号整数 -12345，使用小端序</span></span><br><span class="line">view.<span class="title function_">setFloat32</span>(<span class="number">3</span>, <span class="number">3.14</span>, <span class="literal">false</span>); <span class="comment">// 在偏移量 3 处写入 32 位浮点数 3.14，使用大端序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取数据</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view.<span class="title function_">getUint8</span>(<span class="number">0</span>));        <span class="comment">// 输出: 255</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view.<span class="title function_">getInt16</span>(<span class="number">1</span>, <span class="literal">true</span>));  <span class="comment">// 输出: -12345</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(view.<span class="title function_">getFloat32</span>(<span class="number">3</span>, <span class="literal">false</span>)); <span class="comment">// 输出: 3.140000104904175</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>
+<p><code>get()</code>有两个参数：第一个参数表示偏移量，第二个参数表示字节序；<code>set()</code>有三个参数：第一个参数表示偏移量，第二个参数表示要设置的值，第三个参数表示数据以什么字节序格式来存储</p>
+</li>
+<li>
+<p><code>Int8</code>和<code>Uint8</code>没有字节序，因此<code>get()</code>只有一个参数，<code>set()</code>有两个参数</p>
+</li>
+<li>
+<p>字节序指的是在存储多字节数据时，字节的顺序排列方式。通常用布尔值表示，<code>true</code>表示小端序，<code>false</code>表示大端序</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">假设我们有一个 <span class="number">32</span> 位（<span class="number">4</span> 字节）整数 <span class="number">0x12345678</span>。</span><br><span class="line">大端序：<span class="number">0x12</span> <span class="number">0x34</span> <span class="number">0x56</span> <span class="number">0x78</span></span><br><span class="line">小端序：<span class="number">0x78</span> <span class="number">0x56</span> <span class="number">0x34</span> <span class="number">0x12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="SharedArrayBuffer">SharedArrayBuffer</h2>
+<p><code>SharedArrayBuffer</code>表示通用的原始二进制数据缓冲区，类似于 <code>ArrayBuffer</code> 对象，需要通过<code>TypedArray</code>或<code>DataView</code>对象来操作。、</p>
+<h3 id="构造函数-3">构造函数</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(length, options)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>length</code>：要创建的数组缓冲区的大小（以字节为单位）</li>
+<li><code>options</code>（可选）：一个对象，可以包含<strong>maxByteLength</strong>属性，表示数据缓冲区可以调整的最大大小，以字节为单位</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">8</span>, &#123; <span class="attr">maxByteLength</span>: <span class="number">16</span> &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="实例属性-2">实例属性</h3>
+<ol>
+<li>
+<p><strong>byteLength</strong>：返回该数组缓冲区的长度（以字节为单位）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">16</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">byteLength</span>); <span class="comment">// 16</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>maxByteLength</strong>：返回该数组缓冲区可调整到的最大长度（以字节为单位）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">8</span>, &#123; <span class="attr">maxByteLength</span>: <span class="number">16</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">byteLength</span>); <span class="comment">// 8</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(buffer.<span class="property">maxByteLength</span>); <span class="comment">// 16</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="实例方法-3">实例方法</h3>
+<ol>
+<li>
+<p><code>slice()</code>：返回一个新的 <code>SharedArrayBuffer</code>，包含原 <code>ArrayBuffer</code> 实例中从 <code>begin</code>（包含）到 <code>end</code>（不含）的所有字节的副本</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 SharedArrayBuffer</span></span><br><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">16</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 Int32Array 视图</span></span><br><span class="line"><span class="keyword">const</span> view = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 slice 获取部分缓冲区</span></span><br><span class="line"><span class="keyword">const</span> partialBuffer = sharedBuffer.<span class="title function_">slice</span>(<span class="number">4</span>, <span class="number">12</span>); <span class="comment">// 这里的偏移量和长度以字节为单位</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建新的视图</span></span><br><span class="line"><span class="keyword">const</span> partialView = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(partialBuffer);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(partialView.<span class="property">byteLength</span>); <span class="comment">// 输出: 8（从字节 4 到 12 是 8 字节）</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="ArrayBuffer与SharedArrayBuffer区别">ArrayBuffer与SharedArrayBuffer区别</h2>
+<ol>
+<li>创建和大小
+<ul>
+<li><code>ArrayBuffer</code>：通过 <code>new ArrayBuffer(size)</code> 创建，其中<code>size</code>是缓冲区的字节大小，一旦创建，<code>ArrayBuffer</code> 的大小不可更改</li>
+<li><code>SharedArrayBuffer</code>：通过 <code>new SharedArrayBuffer(size)</code> 创建，其中 <code>size</code> 是缓冲区的字节大小，<code>SharedArrayBuffer</code> 的大小在创建时固定，无法动态调整</li>
+</ul>
+</li>
+<li>并发和内存共享
+<ul>
+<li><code>ArrayBuffer</code>：单线程环境中使用的固定大小的内存缓冲区。它不支持直接在多个线程之间共享数据</li>
+<li><code>SharedArrayBuffer</code>：可以在多个线程之间共享内存。它允许不同线程访问相同的内存区域</li>
+</ul>
+</li>
+<li>安全和兼容性
+<ul>
+<li><code>ArrayBuffer</code>：在所有现代浏览器中都被广泛支持，不受特别的安全限制</li>
+<li><code>SharedArrayBuffer</code>：<code>SharedArrayBuffer</code> 在某些浏览器中可能会由于安全性问题被禁用。需要设置特定的 HTTP 头部（<code>Cross-Origin-Opener-Policy</code> 和 <code>Cross-Origin-Embedder-Policy</code>）才能启用。浏览器可能需要在一些环境中进行额外的配置。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Atomics">Atomics</h2>
+<p><code>Atomics</code> 提供了一组原子操作的方法，用于在多线程环境中操作共享内存。这些操作可以在 <code>SharedArrayBuffer</code> 上执行，以确保数据的一致性和正确性。</p>
+<ol>
+<li>
+<p><code>Atomics.load()</code>：从 <code>typedArray</code> 的指定 <code>index</code> 位置读取值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">42</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Atomics</span>.<span class="title function_">load</span>(int32View, <span class="number">0</span>)); <span class="comment">// 输出: 42</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.store(typedArray, index, value)</code>：将 <code>value</code> 存储到 <code>typedArray</code> 的指定 <code>index</code> 位置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">42</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 42</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.add(typedArray, index, value)</code>：将 <code>value</code> 加到 <code>typedArray</code> 的指定 <code>index</code> 位置的当前值，并返回旧值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">const</span> oldValue = <span class="title class_">Atomics</span>.<span class="title function_">add</span>(int32View, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(oldValue); <span class="comment">// 输出: 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 15</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.sub(typedArray, index, value)</code>：从 <code>typedArray</code> 的指定 <code>index</code> 位置的当前值中减去 <code>value</code>，并返回旧值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">const</span> oldValue = <span class="title class_">Atomics</span>.<span class="title function_">sub</span>(int32View, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(oldValue); <span class="comment">// 输出: 20</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 15</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.and(typedArray, index, value)</code>：对 <code>typedArray</code> 的指定 <code>index</code> 位置的当前值进行位与操作（<code>&amp;</code>），并返回旧值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">15</span>); <span class="comment">// 1111 in binary</span></span><br><span class="line"><span class="keyword">const</span> oldValue = <span class="title class_">Atomics</span>.<span class="title function_">and</span>(int32View, <span class="number">0</span>, <span class="number">7</span>); <span class="comment">// 0111 in binary</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(oldValue); <span class="comment">// 输出: 15</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 7</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.or(typedArray, index, value)</code>：对 <code>typedArray</code> 的指定 <code>index</code> 位置的当前值进行位或操作（<code>|</code>），并返回旧值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">10</span>); <span class="comment">// 1010 in binary</span></span><br><span class="line"><span class="keyword">const</span> oldValue = <span class="title class_">Atomics</span>.<span class="title function_">or</span>(int32View, <span class="number">0</span>, <span class="number">3</span>); <span class="comment">// 0011 in binary</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(oldValue); <span class="comment">// 输出: 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 11</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.xor(typedArray, index, value)</code>：对 <code>typedArray</code> 的指定 <code>index</code> 位置的当前值进行位异或操作（<code>^</code>），并返回旧值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">10</span>); <span class="comment">// 1010 in binary</span></span><br><span class="line"><span class="keyword">const</span> oldValue = <span class="title class_">Atomics</span>.<span class="title function_">xor</span>(int32View, <span class="number">0</span>, <span class="number">3</span>); <span class="comment">// 0011 in binary</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(oldValue); <span class="comment">// 输出: 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 9</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.exchange(typedArray, index, value)</code>：将 <code>typedArray</code> 的指定 <code>index</code> 位置的值替换为 <code>value</code>，并返回旧值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">const</span> oldValue = <span class="title class_">Atomics</span>.<span class="title function_">exchange</span>(int32View, <span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(oldValue); <span class="comment">// 输出: 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 20</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.compareExchange(typedArray, index, expectedValue, newValue)</code>：将 <code>typedArray</code> 的指定 <code>index</code> 位置的值替换为 <code>newValue</code>，当且仅当当前位置的值等于 <code>expectedValue</code>。返回当前值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">const</span> currentValue = <span class="title class_">Atomics</span>.<span class="title function_">compareExchange</span>(int32View, <span class="number">0</span>, <span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(currentValue); <span class="comment">// 输出: 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(int32View[<span class="number">0</span>]); <span class="comment">// 输出: 20</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.wait(typedArray, index, value, timeout)</code>：阻塞当前线程，直到 <code>typedArray</code> 的指定 <code>index</code> 位置的值变为 <code>value</code>，或者超时（如果指定了 <code>timeout</code>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在另一个线程中：</span></span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">wait</span>(int32View, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1000</span>); <span class="comment">// 等待直到值变为 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.waitAsync(typedArray, index, value, timeout)</code>：异步等待，直到 <code>typedArray</code> 的指定 <code>index</code> 位置的值变为 <code>value</code>，或者超时（如果指定了 <code>timeout</code>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个共享内存缓冲区</span></span><br><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 存储初始值</span></span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 异步函数，使用 Atomics.waitAsync() 等待值变化</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">waitForValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Waiting for value to change...&#x27;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> <span class="title class_">Atomics</span>.<span class="title function_">waitAsync</span>(int32View, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5000</span>); <span class="comment">// 最多等待 5 秒</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Value changed to:&#x27;</span>, <span class="title class_">Atomics</span>.<span class="title function_">load</span>(int32View, <span class="number">0</span>));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Error or timeout:&#x27;</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用异步函数</span></span><br><span class="line"><span class="title function_">waitForValue</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟值变化</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">1</span>); <span class="comment">// 修改共享内存中的值</span></span><br><span class="line">    <span class="title class_">Atomics</span>.<span class="title function_">notify</span>(int32View, <span class="number">0</span>); <span class="comment">// 唤醒等待中的线程</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Value updated and waiting thread notified&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.isLockFree(size)</code>：检测当前平台是否能够在不使用锁的情况下执行<code>size</code>大小的原子操作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Atomics</span>.<span class="title function_">isLockFree</span>(<span class="number">1</span>)); <span class="comment">// 检查是否支持 8 位的原子操作</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Atomics</span>.<span class="title function_">isLockFree</span>(<span class="number">2</span>)); <span class="comment">// 检查是否支持 16 位的原子操作</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Atomics</span>.<span class="title function_">isLockFree</span>(<span class="number">4</span>)); <span class="comment">// 检查是否支持 32 位的原子操作</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Atomics</span>.<span class="title function_">isLockFree</span>(<span class="number">8</span>)); <span class="comment">// 检查是否支持 64 位的原子操作</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>Atomics.notify(typedArray, index, count)</code>：唤醒在共享内存中的某个位置上等待的线程。这个方法与 <code>Atomics.wait()</code> 配合使用，用于在多线程环境中管理线程间的同步</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个共享内存缓冲区</span></span><br><span class="line"><span class="keyword">const</span> sharedBuffer = <span class="keyword">new</span> <span class="title class_">SharedArrayBuffer</span>(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">const</span> int32View = <span class="keyword">new</span> <span class="title class_">Int32Array</span>(sharedBuffer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 存储初始值</span></span><br><span class="line"><span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在另一个线程中，线程 A 等待共享内存中的值变为 1</span></span><br><span class="line"><span class="keyword">const</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;worker.js&#x27;</span>); <span class="comment">// 假设有一个 worker.js 文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// worker.js 内容示例</span></span><br><span class="line">self.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="title class_">Atomics</span>.<span class="title function_">wait</span>(int32View, <span class="number">0</span>, <span class="number">0</span>); <span class="comment">// 等待直到值变为 1</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Worker: Value changed to&#x27;</span>, <span class="title class_">Atomics</span>.<span class="title function_">load</span>(int32View, <span class="number">0</span>));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在主线程中，设置一个超时，模拟对共享内存的更改</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title class_">Atomics</span>.<span class="title function_">store</span>(int32View, <span class="number">0</span>, <span class="number">1</span>); <span class="comment">// 修改共享内存中的值</span></span><br><span class="line">    <span class="title class_">Atomics</span>.<span class="title function_">notify</span>(int32View, <span class="number">0</span>); <span class="comment">// 唤醒等待中的线程</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Main thread: Value updated and worker notified&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="JSON">JSON</h2>
+<p>JSON 是一种语法，用来序列化对象、数组、数值、字符串、布尔值和 null。基于 JavaScript 语法，但与之不同</p>
+<h3 id="基本语法">基本语法</h3>
+<ol>
+<li>数据以键值对形式出现
+<ul>
+<li>键（key）是字符串</li>
+<li>值（value）可以是字符串、数字、布尔值、<code>null</code>、对象（JSON 对象）、数组（JSON 数组）</li>
+</ul>
+</li>
+<li>键值之间以冒号分隔</li>
+<li>每个键值对之间用逗号分隔</li>
+<li>JSON 数据使用大括号 <code>&#123;&#125;</code> 表示对象，使用方括号 <code>[]</code> 表示数组</li>
+</ol>
+<h3 id="静态方法-2">静态方法</h3>
+<ol>
+<li>
+<p><code>JSON.stringify()</code>：将 JavaScript 对象或数组转换为 JSON 字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;Alice&quot;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">25</span>,</span><br><span class="line">  <span class="attr">courses</span>: [<span class="string">&quot;Math&quot;</span>, <span class="string">&quot;Science&quot;</span>]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> jsonString = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(jsonString);</span><br><span class="line"><span class="comment">// 输出: &#123;&quot;name&quot;:&quot;Alice&quot;,&quot;age&quot;:25,&quot;courses&quot;:[&quot;Math&quot;,&quot;Science&quot;]&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>JSON.parse()</code>：将 JSON 字符串转换为 JavaScript 对象或数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jsonString = <span class="string">&#x27;&#123;&quot;name&quot;:&quot;Alice&quot;,&quot;age&quot;:25,&quot;courses&quot;:[&quot;Math&quot;,&quot;Science&quot;]&#125;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(jsonString);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);</span><br><span class="line"><span class="comment">// 输出: &#123; name: &#x27;Alice&#x27;, age: 25, courses: [ &#x27;Math&#x27;, &#x27;Science&#x27; ] &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS/" class="print-no-link">#JS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/31/JS%E5%AD%A6%E4%B9%A0(18)-Array/" title="JS学习(18)-Array">
+                        <span class="hidden-mobile">JS学习(18)-Array</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
