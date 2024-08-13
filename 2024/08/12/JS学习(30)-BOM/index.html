@@ -24,7 +24,7 @@
 <meta property="og:description" content="虽然 ECMAScript 把浏览器对象模型（BOM，Browser Object Model）描述为 JavaScript 的核心，但实际上 BOM 是使用 JavaScript 开发 Web 应用程序的核心。BOM 提供了与网页无关的浏览器功能对象。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-08-12T10:08:24.000Z">
-<meta property="article:modified_time" content="2024-08-12T10:43:31.267Z">
+<meta property="article:modified_time" content="2024-08-13T06:43:46.298Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="JS">
 <meta name="twitter:card" content="summary_large_image">
@@ -308,6 +308,7 @@
 <li><code>setInterval()</code>：接收两个参数：要执行的代码和下一次执行定时代码的任务添加到队列要等待的时间（毫秒）。</li>
 <li><code>clearInterval()</code>：取消定时</li>
 </ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置超时任务</span></span><br><span class="line"><span class="keyword">let</span> timeoutId = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello world!&quot;</span>), <span class="number">1000</span>);</span><br><span class="line"><span class="comment">// 取消超时任务</span></span><br><span class="line"><span class="built_in">clearTimeout</span>(timeoutId);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">0</span>, intervalId = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> max = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> incrementNumber = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    num++;</span><br><span class="line">    <span class="comment">// 如果达到最大值，则取消所有未执行的任务</span></span><br><span class="line">    <span class="keyword">if</span> (num == max) &#123;</span><br><span class="line">        <span class="built_in">clearInterval</span>(intervalId);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Done&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">intervalId = <span class="built_in">setInterval</span>(incrementNumber, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="系统对话框">系统对话框</h3>
 <ol>
 <li><code>alert()</code>：显示一个警告框，包含一段文本和一个确认按钮。</li>
@@ -315,9 +316,130 @@
 <li><code>prompt()</code>：显示一个输入对话框，用户可以在对话框中输入文本。返回用户输入的文本，如果用户取消输入，则返回 <code>null</code>。</li>
 </ol>
 <h2 id="location对象">location对象</h2>
+<p>location 提供了当前窗口中加载文档的信息，以及通常的导航功能。它既是 window 的属性，也是 document 的属性，window.location 和 document.location 指向同一个对象。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>location.hash</td>
+<td>“#contents”</td>
+<td>URL 散列值（井号后跟零或多个字符），如果没有则为空字符串</td>
+</tr>
+<tr>
+<td>location.host</td>
+<td>“<a target="_blank" rel="noopener" href="http://www.wrox.com:80">www.wrox.com:80</a>”</td>
+<td>服务器名及端口号</td>
+</tr>
+<tr>
+<td>location.hostname</td>
+<td>“<a target="_blank" rel="noopener" href="http://www.wrox.com">www.wrox.com</a>”</td>
+<td>服务器名</td>
+</tr>
+<tr>
+<td>location.href</td>
+<td>“<a target="_blank" rel="noopener" href="http://www.wrox.com:80/WileyCDA/">http://www.wrox.com:80/WileyCDA/</a> ?q=javascript#contents”</td>
+<td>当前加载页面的完整 URL</td>
+</tr>
+<tr>
+<td>location.pathname</td>
+<td>“/WileyCDA/”</td>
+<td>URL 中的路径和文件名</td>
+</tr>
+<tr>
+<td>location.port</td>
+<td>“80”</td>
+<td>请求的端口。如果 URL中没有端口，则返回空字符串</td>
+</tr>
+<tr>
+<td>location.protocol</td>
+<td>“http:”</td>
+<td>页面使用的协议。通常是&quot;http:“或&quot;https:”</td>
+</tr>
+<tr>
+<td>location.search</td>
+<td>“?q=javascript”</td>
+<td>URL 的查询字符串。这个字符串以问号开头</td>
+</tr>
+<tr>
+<td>location.username</td>
+<td>“foouser”</td>
+<td>域名前指定的用户名</td>
+</tr>
+<tr>
+<td>location.password</td>
+<td>“barpassword”</td>
+<td>域名前指定的密码</td>
+</tr>
+<tr>
+<td>location.origin</td>
+<td>“<a target="_blank" rel="noopener" href="http://www.wrox.com">http://www.wrox.com</a>”</td>
+<td>URL 的源地址。只读</td>
+</tr>
+</tbody>
+</table>
 <h2 id="navigator对象">navigator对象</h2>
+<p>navigator 对象用来表示浏览器状态和身份的对象，它提供了有关浏览器的信息。</p>
+<ol>
+<li><code>navigator.userAgent</code>：返回当前浏览器的用户代理字符串</li>
+<li><code>navigator.language</code>：返回一个字符串，表示用户的首选语言</li>
+<li><code>navigator.onLine</code>：返回布尔值，表示浏览器是否连接到网络</li>
+<li><code>navigator.geolocation</code>：允许网页访问用户的地理位置信息</li>
+<li><code>navigator.cookieEnabled</code>：返回布尔值，表示是否启用了 cookie</li>
+<li><code>navigator.hardwareConcurrency</code>：返回用户计算机上可用于运行线程的逻辑处理器数量</li>
+<li><code>navigator.mediaDevices</code>：返回一个对象，提供与用户媒体输入设备</li>
+<li><code>navigator.clipboard</code>：提供对系统剪贴板的访问功能</li>
+<li><code>navigator.permissions</code>：允许查询和请求用户的权限状态</li>
+<li><code>navigator.storage</code>：访问存储管理 API 的功能，用于检查存储的持久性和使用情况</li>
+</ol>
 <h2 id="history对象">history对象</h2>
+<p>history 对象表示当前窗口首次使用以来用户的导航历史记录。history 是 window 的属性， 所以每个 window 都有自己的 history 对象。history 不会暴露用户访问过的 URL， 但可以通过它在不知道实际 URL 的情况下前进和后退。</p>
+<ol>
+<li>
+<p><code>history.go()</code>：在用户历史记录中沿任何方向导航，可以前进也可以后退。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后退一页</span></span><br><span class="line">history.<span class="title function_">go</span>(-<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 前进一页</span></span><br><span class="line">history.<span class="title function_">go</span>(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 前进两页</span></span><br><span class="line">history.<span class="title function_">go</span>(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>history.back()</code>：用于模仿浏览器的后退按钮</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后退一页</span></span><br><span class="line">history.<span class="title function_">back</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>history.forward()</code>：用于模仿浏览器的前进按钮</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前进一页</span></span><br><span class="line">history.<span class="title function_">forward</span>(); </span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>history.pushState()</code>：向当前浏览记录栈中添加一条新的历史记录，添加后页面不会重新加载。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history.<span class="title function_">pushState</span>(state, title, url);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>state：<strong>用于存储该 URL 对应的状态对象</strong>。该对象可通过 <code>history.state</code> 或 <code>popstate</code> 事件回调中的 event 对象获取。如果不需要这个对象，此处可以填 null。</li>
+<li>title：<strong>新页面的标题</strong></li>
+<li>url：<strong>URL 地址</strong>，不允许跨域。</li>
+</ul>
+</li>
+<li>
+<p><code>history.replaceState()</code>：向当前浏览记录栈中<strong>将当前历史记录替换掉</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history.<span class="title function_">replaceState</span>(state, title, url);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>state：<strong>用于存储该 URL 对应的状态对象</strong>。该对象可通过 <code>history.state</code> 或 <code>popstate</code> 事件回调中的 event 对象获取。如果不需要这个对象，此处可以填 null。</li>
+<li>title：<strong>新页面的标题</strong></li>
+<li>url：<strong>URL 地址</strong>，不允许跨域。</li>
+</ul>
+</li>
+</ol>
 <h2 id="screen对象">screen对象</h2>
+<p>screen 对象表示一个屏幕窗口，往往指的是当前正在被渲染的 window 对象，可以使用 <code>window.screen</code> 获取它。</p>
+<ol>
+<li><code>screen.width</code> 和 <code>screen.height</code>：<code>screen.width</code> 返回屏幕的宽度，<code>screen.height</code> 返回屏幕的高度，单位是像素。这两个属性表示整个屏幕的分辨率。</li>
+<li><code>screen.availWidth</code> 和 <code>screen.availHeight</code>：<code>screen.availWidth</code> 返回屏幕可用的宽度，<code>screen.availHeight</code> 返回屏幕可用的高度。这两个属性减去了操作系统中那些占用屏幕空间的元素（如任务栏或 Dock），表示实际可以用来显示内容的区域。</li>
+<li><code>screen.colorDepth</code>：<code>colorDepth</code> 返回显示屏的颜色深度，以位为单位。颜色深度表示显示设备能够支持的每个像素的颜色位数。</li>
+<li><code>screen.pixelDepth</code>：<code>pixelDepth</code> 返回屏幕的像素深度，通常与 <code>colorDepth</code> 相同。这是每个像素可以显示的位数。</li>
+<li><code>screen.orientation</code>：<code>orientation</code> 返回一个 <code>ScreenOrientation</code> 对象，表示屏幕的当前方向（横向或纵向）以及锁定状态。它包含属性和方法来检查和更改屏幕方向。</li>
+</ol>
 
                 
               </div>
@@ -364,6 +486,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/08/13/JS%E5%AD%A6%E4%B9%A0(31)-DOM/" title="JS学习(31)-DOM">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JS学习(31)-DOM</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

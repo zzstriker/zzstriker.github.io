@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="DOM（Document Object Model）是浏览器解析 HTML 或 XML 文档时生成的一种编程接口，通过它，开发者可以访问和操作文档的结构、内容和样式。DOM 将文档表示为一个结构化的树形节点，允许使用脚本语言（如 JavaScript）动态地更改文档内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS学习(31)-DOM">
+<meta property="og:url" content="https://zzstriker.github.io/2024/08/13/JS%E5%AD%A6%E4%B9%A0(31)-DOM/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="DOM（Document Object Model）是浏览器解析 HTML 或 XML 文档时生成的一种编程接口，通过它，开发者可以访问和操作文档的结构、内容和样式。DOM 将文档表示为一个结构化的树形节点，允许使用脚本语言（如 JavaScript）动态地更改文档内容。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-13T05:54:05.000Z">
+<meta property="article:modified_time" content="2024-08-13T10:31:08.206Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JS学习(31)-DOM - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS学习(31)-DOM"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-13 13:54" pubdate>
+          2024年8月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JS学习(31)-DOM</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>DOM</strong>（Document Object Model）是浏览器解析 HTML 或 XML 文档时生成的一种编程接口，通过它，开发者可以访问和操作文档的结构、内容和样式。DOM 将文档表示为一个结构化的树形节点，允许使用脚本语言（如 JavaScript）动态地更改文档内容。</p>
+<span id="more"></span>
+<h1>DOM</h1>
+<p>任何 HTML 或 XML 文档都可以用 DOM 表示为一个由节点构成的层级结构。document 节点表示每个文档的根节点，，根节点的唯一子节点是元素，我们称之为文档元素（documentElement）。文档元素是文档最外层的元素，所有其他元素都存在于这个元素之内。每个文档只能有一个文档元素。</p>
+<h2 id="Node-类型">Node 类型</h2>
+<p><code>Node</code> 是 DOM 中的基本类型，代表文档树中的所有节点类型。DOM 树是由各种类型的节点组成的层次结构，每个节点都继承自 <code>Node</code> 对象。<code>Node</code> 类型定义了一些通用的属性和方法，这些属性和方法可以被文档中的不同节点类型共享。</p>
+<h3 id="属性">属性</h3>
+<ol>
+<li>
+<p><code>nodeType</code>：返回节点的类型，通常用来确定节点的类型。</p>
+<ul>
+<li>
+<p>Node.ELEMENT_NODE</p>
+</li>
+<li>
+<p>Node.ATTRIBUTE_NODE</p>
+</li>
+<li>
+<p>Node.TEXT_NODE</p>
+</li>
+<li>
+<p>Node.CDATA_SECTION_NODE</p>
+</li>
+<li>
+<p>Node.ENTITY_REFERENCE_NODE</p>
+</li>
+<li>
+<p>Node.ENTITY_NODE</p>
+</li>
+<li>
+<p>Node.PROCESSING_INSTRUCTION_NODE</p>
+</li>
+<li>
+<p>Node.COMMENT_NODE</p>
+</li>
+<li>
+<p>Node.DOCUMENT_NODE</p>
+</li>
+<li>
+<p>Node.DOCUMENT_TYPE_NODE</p>
+</li>
+<li>
+<p>Node.DOCUMENT_FRAGMENT_NODE</p>
+</li>
+<li>
+<p>Node.NOTATION_NODE</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>nodeName</code>：返回节点的名称，对于元素节点，它是标签名；对于属性节点，它是属性名；对于文本节点，它是 <code>#text</code>。</p>
+</li>
+<li>
+<p><code>nodeValue</code>：返回或设置节点的值，适用于文本节点、注释节点和属性节点。</p>
+</li>
+<li>
+<p><code>parentNode</code>：返回当前节点的父节点</p>
+</li>
+<li>
+<p><code>childNodes</code>：返回包含当前节点所有子节点的 <code>NodeList</code>，包括元素、文本和注释节点</p>
+</li>
+<li>
+<p><code>firstChild</code>和<code>lastChild</code>：返回第一个和最后一个子节点</p>
+</li>
+</ol>
+<h3 id="方法">方法</h3>
+<ol>
+<li><code>appendChild(node)</code>：将指定的节点添加为当前节点的最后一个子节点</li>
+<li><code>insertBefore(newNode, referenceNode)</code>：在指定的参考节点之前插入新的子节点</li>
+<li><code>removeChild(node)</code>：从当前节点的子节点列表中移除指定的子节点</li>
+<li><code>replaceChild(newNode, oldNode)</code>：使用新的节点替换现有的子节点</li>
+<li><code>cloneNode(deep)</code>：接收一个布尔值参数，表示是否深复制。在传入 true 参数时，会进行深复制， 即复制节点及其整个子 DOM 树。如果传入 false，则只会复制调用该方法的节点。</li>
+</ol>
+<h2 id="Document-类型">Document 类型</h2>
+<p>Document 类型是 JavaScript 中表示文档节点的类型。在浏览器中，文档对象 document 是 HTMLDocument 的实例（HTMLDocument 继承 Document），表示整个 HTML 页面。document 是 window 对象的属性，因此是一个全局对象。</p>
+<h3 id="文档子节点">文档子节点</h3>
+<ol>
+<li><code>document.documentElement</code>：访问文档的根元素，即 <code>&lt;html&gt;</code> 标签。</li>
+<li><code>document.head</code>：访问文档的 <code>&lt;head&gt;</code> 元素。</li>
+<li><code>document.body</code>：访问文档的 <code>&lt;body&gt;</code> 元素。</li>
+</ol>
+<h3 id="文档信息">文档信息</h3>
+<ol>
+<li><code>document.title</code>：获取或设置文档的标题（位于 <code>&lt;title&gt;</code> 标签中）。</li>
+<li><code>document.URL</code>：当前页面的完整 URL</li>
+<li><code>document.domain</code>：获取或设置页面的域名。</li>
+<li><code>document.referrer</code>：链接到当前页面的那个页面的 URL</li>
+</ol>
+<h3 id="定位元素">定位元素</h3>
+<ol>
+<li><code>document.getElementById()</code>：通过元素的 <code>id</code> 属性获取特定元素</li>
+<li><code>document.getElementsByTagName()</code>：获取指定标签名的所有元素，返回一个 HTMLCollection 对象</li>
+<li><code>document.getElementsByName()</code>：根据元素的 <code>name</code> 属性值查找文档中的所有匹配元素，返回一个 HTMLCollection 对象</li>
+</ol>
+<h3 id="文档写入">文档写入</h3>
+<ol>
+<li><code>document.write()</code>：接收一个字符串参数，将内容写入文档流</li>
+<li><code>document.writeln()</code>：接收一个字符串参数，将内容写入文档流，还会在字符串末尾追加一个换行符 （\n）。</li>
+<li><code>document.open()</code>：开始对文档的写操作</li>
+<li><code>document.close()</code>：结束对文档的写操作</li>
+</ol>
+<h2 id="Element-类型">Element 类型</h2>
+<p>Element 类型是 DOM 中表示 HTML 或 XML 文档中元素节点的基本类型。它继承自 <code>Node</code> 类型，是所有具体元素节点的基类，每个 HTML 标签在 DOM 中都对应一个 <code>Element</code> 对象。</p>
+<h3 id="HTML-元素">HTML 元素</h3>
+<p>所有 HTML 元素都通过 HTMLElement 类型表示，包括其直接实例和间接实例。另外，HTMLElement 直接继承 Element 并增加了一些属性。</p>
+<ol>
+<li>id：元素在文档中的唯一标识符</li>
+<li>title：包含元素的额外信息</li>
+<li>lang：元素内容的语言代码</li>
+<li>dir：语言的书写方向（&quot;ltr&quot;表示从左到右，&quot;rtl&quot;表示从右到左）</li>
+<li>className：相当于 class 属性，用于指定元素的 CSS 类</li>
+</ol>
+<h3 id=""></h3>
+<h2 id="Text-类型">Text 类型</h2>
+<h2 id="Comment-类型">Comment 类型</h2>
+<h2 id="Attribute-类型">Attribute 类型</h2>
+<h2 id="DocumentType-类型">DocumentType 类型</h2>
+<h2 id="DocumentFragment-类型">DocumentFragment 类型</h2>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS/" class="print-no-link">#JS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/12/JS%E5%AD%A6%E4%B9%A0(30)-BOM/" title="JS学习(30)-BOM">
+                        <span class="hidden-mobile">JS学习(30)-BOM</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
