@@ -24,7 +24,7 @@
 <meta property="og:description" content="在 JavaScript 中，网络请求用于与服务器进行通信，获取或发送数据。常见的网络请求方法包括使用 XMLHttpRequest、Fetch API、以及一些第三方库如 Axios">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-08-18T12:49:59.000Z">
-<meta property="article:modified_time" content="2024-08-18T12:50:24.550Z">
+<meta property="article:modified_time" content="2024-08-19T07:14:57.055Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="JS">
 <meta name="twitter:card" content="summary_large_image">
@@ -340,7 +340,50 @@
 <h2 id="跨源资源共享">跨源资源共享</h2>
 <p>XHR 只能访问与发起请求的页面在同一个域内的资源。这个安全限制可以防止某些恶意行为。不过，浏览器也需要支持合法跨源访问的能力。跨源资源共享（CORS，Cross-Origin Resource Sharing）定义了浏览器与服务器如何实现跨源通信。</p>
 <h3 id="预检请求">预检请求</h3>
-<p>CORS 通过预检请求的服务器验证机制，允许使用自定义头部、除 GET 和 POST 之外的方法，以及不同请求体内容类型。</p>
+<p>预检请求是浏览器为了安全起见，在进行跨域资源共享（CORS）请求之前，自动发出的一个 HTTP 请求。预检请求用于询问目标服务器是否允许实际的跨域请求。当浏览器检测到一个跨域请求可能会对服务器有潜在影响时，它会首先发起一个 <code>OPTIONS</code> 请求，这个请求就叫做<strong>预检请求</strong>。</p>
+<h2 id="Fetch-API">Fetch API</h2>
+<p><code>Fetch API</code> 是用于发起网络请求的一种接口，它提供了一种更简单、更灵活的方式来获取资源。相比于传统的 <code>XMLHttpRequest</code>，<code>Fetch API</code> 更加直观，并且基于 <code>Promise</code>，更适合异步操作和链式调用。</p>
+<h3 id="基本用法">基本用法</h3>
+<p><code>Fetch API</code> 通常是通过调用全局的 <code>fetch()</code> 函数来发起请求。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(url, options)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>URL</strong>：要请求的资源地址</li>
+<li><strong>options</strong>（可选）：一个包含自定义设置的对象，如请求方法、头部信息、请求体等
+<ul>
+<li><strong>method</strong>：请求方法（如 <code>GET</code>、<code>POST</code>、<code>PUT</code>、<code>DELETE</code> 等）。</li>
+<li><strong>headers</strong>：包含请求头的对象，如 <code>Content-Type</code>、<code>Authorization</code> 等。</li>
+<li><strong>body</strong>：请求体，通常用于 <code>POST</code> 或 <code>PUT</code> 请求，可以是字符串、<code>FormData</code>、<code>Blob</code>、<code>ArrayBuffer</code> 等。</li>
+<li><strong>mode</strong>：请求模式，常见值为 <code>cors</code>、<code>no-cors</code>、<code>same-origin</code>，用于确定请求的跨域策略。</li>
+<li><strong>credentials</strong>：包含 <code>include</code>、<code>same-origin</code>、<code>omit</code>，用于控制是否发送凭据（如 cookies）。</li>
+<li><strong>cache</strong>：控制缓存模式，如 <code>default</code>、<code>no-store</code>、<code>reload</code>、<code>no-cache</code>、<code>force-cache</code>、<code>only-if-cached</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="响应处理">响应处理</h3>
+<p><code>fetch()</code> 返回一个 <code>Promise</code>，解析为一个 <code>Response</code> 对象。这个对象包含了对响应的描述，可以用于进一步处理。</p>
+<ol>
+<li><strong><code>response.json()</code></strong>：解析并返回 JSON 对象。</li>
+<li><strong><code>response.text()</code></strong>：解析并返回字符串形式的数据。</li>
+<li><strong><code>response.blob()</code></strong>：解析并返回 <code>Blob</code> 对象，用于处理二进制数据。</li>
+<li><strong><code>response.formData()</code></strong>：解析并返回 <code>FormData</code> 对象。</li>
+<li><strong><code>response.arrayBuffer()</code></strong>：解析并返回 <code>ArrayBuffer</code> 对象。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://api.example.com/submit&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;</span><br><span class="line">    	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;John Doe&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">30</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(data))</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error));</span><br></pre></td></tr></table></figure>
+<h2 id="Web-Socket">Web Socket</h2>
+<p>Web Socket通过一个长时连接实现与服务器全双工、双向的通信。创建 Web Socket 时，一个 HTTP 请求会发送到服务器以初始化连接。服务器响应后，连接使用 HTTP 的 Upgrade 头部从 HTTP 协议切换到 Web Socket 协议。Web Socket使用了自定义协议，所以 URL方案要使用 ws://和 wss://。前者是不安全的连接，后者是安全连接。</p>
+<h3 id="初始化">初始化</h3>
+<p>创建一个新的 Web Socket，就要实例化一个 WebSocket 对象并传入提供连接的 URL</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&quot;ws://www.example.com/server.php&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="发送和接收数据">发送和接收数据</h3>
+<p>使用<code>send()</code>方法可以连接发送数据，服务器向客户端发送消息时，WebSocket 对象上会触发 message 事件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&quot;ws://www.example.com/server.php&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> stringData = <span class="string">&quot;Hello world!&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> arrayBufferData = <span class="title class_">Uint8Array</span>.<span class="title function_">from</span>([<span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;o&#x27;</span>]);</span><br><span class="line"><span class="keyword">let</span> blobData = <span class="keyword">new</span> <span class="title class_">Blob</span>([<span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;o&#x27;</span>]);</span><br><span class="line">socket.<span class="title function_">send</span>(stringData);</span><br><span class="line">socket.<span class="title function_">send</span>(arrayBufferData.<span class="property">buffer</span>);</span><br><span class="line">socket.<span class="title function_">send</span>(blobData); </span><br><span class="line"></span><br><span class="line">socket.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> data = event.<span class="property">data</span>;</span><br><span class="line">    <span class="comment">// 对数据执行某些操作</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="事件">事件</h3>
+<ol>
+<li>open：在连接成功建立时触发</li>
+<li>error：在发生错误时触发。连接无法存续</li>
+<li>close：在连接关闭时触发</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&quot;ws://www.example.com/server.php&quot;</span>);</span><br><span class="line">socket.<span class="property">onopen</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Connection established.&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line">socket.<span class="property">onerror</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Connection error.&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line">socket.<span class="property">onclose</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Connection closed.&quot;</span>);</span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
 
                 
               </div>
@@ -387,6 +430,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/08/19/JS%E5%AD%A6%E4%B9%A0(37)-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8/" title="JS学习(37)-客户端存储">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JS学习(37)-客户端存储</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

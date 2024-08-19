@@ -1,0 +1,698 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="客户端存储指的是在用户的浏览器中存储数据的各种方法。这些技术允许Web应用程序在客户端持久化数据，从而在无需与服务器交互的情况下访问和使用这些数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS学习(37)-客户端存储">
+<meta property="og:url" content="https://zzstriker.github.io/2024/08/19/JS%E5%AD%A6%E4%B9%A0(37)-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="客户端存储指的是在用户的浏览器中存储数据的各种方法。这些技术允许Web应用程序在客户端持久化数据，从而在无需与服务器交互的情况下访问和使用这些数据。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-19T06:16:21.000Z">
+<meta property="article:modified_time" content="2024-08-19T10:09:32.658Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JS学习(37)-客户端存储 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS学习(37)-客户端存储"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-19 14:16" pubdate>
+          2024年8月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JS学习(37)-客户端存储</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>客户端存储指的是在用户的浏览器中存储数据的各种方法。这些技术允许Web应用程序在客户端持久化数据，从而在无需与服务器交互的情况下访问和使用这些数据。</p>
+<span id="more"></span>
+<h1>客户端存储</h1>
+<h2 id="cookie">cookie</h2>
+<p>cookie最初用于在客户端存储会话信息，服务器在响应 HTTP 请求时，通过发送 Set-Cookie HTTP 头部包含会话信息，浏览器会存储这些会话信息，并在之后的每个请求中都会通过 HTTP 头部 cookie 再将它们发回服务器。</p>
+<ol>
+<li>每个 cookie 的大小限制为约 4KB</li>
+<li>每个域名下的 cookie 数量有限，一般最多 20-50 个</li>
+</ol>
+<h3 id="cookie-的构成">cookie 的构成</h3>
+<ol>
+<li>名称：唯一标识 cookie 的名称。cookie 名不区分大小写</li>
+<li>值：存储在 cookie 里的字符串值</li>
+<li>域：cookie 有效的域。发送到这个域的所有请求都会包含对应的 cookie</li>
+<li>路径：请求 URL 中包含这个路径才会把 cookie 发送到服务器</li>
+<li>过期时间：表示何时删除 cookie 的时间戳。默认情况下， 浏览器会话结束后会删除所有 cookie。</li>
+<li>安全标志：设置之后，只在使用 SSL 安全连接的情况下才会把 cookie 发送到服务器。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Set</span>-<span class="title class_">Cookie</span>: username=<span class="title class_">JohnDoe</span>; <span class="title class_">Expires</span>=<span class="title class_">Wed</span>, <span class="number">13</span> <span class="title class_">Aug</span> <span class="number">2025</span> <span class="number">07</span>:<span class="number">28</span>:<span class="number">00</span> <span class="variable constant_">GMT</span>; <span class="title class_">Path</span>=/; secure</span><br></pre></td></tr></table></figure>
+<h2 id="Web-Storage">Web Storage</h2>
+<p>Web Storage 是一种浏览器提供的客户端存储机制，用于在用户的浏览器中存储数据。提供了更大的存储空间和更简单的 API，且数据不会自动随 HTTP 请求发送到服务器。Web Storage 包含两种存储方式：<code>localStorage</code> 和 <code>sessionStorage</code>。</p>
+<h3 id="Storage类型">Storage类型</h3>
+<p>Storage 类型用于保存名/值对数据，直至存储空间上限。</p>
+<ol>
+<li>clear()：删除所有值；</li>
+<li>getItem(name)：取给定 name 的值</li>
+<li>key(index)：取给定数值位置的名称</li>
+<li>removeItem(name)：删除给定 name 的键值对</li>
+<li>setItem(name, value)：设置给定 name 的值</li>
+</ol>
+<h3 id="sessionStorage">sessionStorage</h3>
+<p><code>sessionStorage</code> 用于持久化存储数据，但数据仅在当前浏览器会话期间有效。当用户关闭浏览器标签页或窗口时，存储的数据会被删除。</p>
+<ol>
+<li><strong>会话性</strong>：数据只在当前会话（即浏览器窗口或标签页）中有效，关闭会话后数据将被清除</li>
+<li><strong>独立性</strong>：每个标签页或窗口有各自独立的 <code>sessionStorage</code> 数据，即使在同一域名下，标签页间的数据也不共享</li>
+<li><strong>存储空间</strong>：通常每个域名约 5MB</li>
+</ol>
+<h3 id="localStorage">localStorage</h3>
+<p><code>localStorage</code> 用于持久化存储数据，除非被显式删除，否则数据不会过期。即使用户关闭浏览器或计算机，数据仍然会保留。</p>
+<ol>
+<li><strong>持久性</strong>：数据在浏览器会话之间持久保存，除非用户清除浏览器数据或通过代码删除。</li>
+<li><strong>存储空间</strong>：通常每个域名可以存储约 5MB 数据</li>
+<li><strong>数据类型</strong>：只能存储字符串，其他类型需要序列化为字符串后才能存储</li>
+</ol>
+<h2 id="IndexedDB">IndexedDB</h2>
+<p>IndexedDB 是一种在用户的浏览器中存储大量结构化数据的客户端数据库技术。用于在Web应用程序中本地存储数据。IndexedDB支持事务性存储，它允许你存储几乎任何类型的数据，包括文件、blob、数组、对象等等，且容量较大（通常为几百MB或更多），可以用于离线存储和缓存。</p>
+<ol>
+<li><strong>键值对存储</strong>：IndexedDB是一个基于对象存储(Object Store)的键值对数据库，每个数据库可以包含多个对象存储。</li>
+<li><strong>异步操作</strong>：IndexedDB 的所有操作都是异步的，这意味着你需要使用回调函数或 <code>Promise</code> 来处理查询结果。</li>
+<li><strong>事务支持</strong>：所有的读写操作都必须在事务内进行，事务确保了操作的原子性和一致性。</li>
+<li><strong>查询索引</strong>：IndexedDB支持为对象存储中的字段创建索引，从而可以加快查询速度。</li>
+</ol>
+<h3 id="对象存储">对象存储</h3>
+<ol>
+<li>
+<p><code>open()</code>：传入一个要打开的数据库名称。如果给定名称的数据库已存在，则会发送一个打开它的请求；如果不存在，则会发送创建并打开这个数据库的请求。这个方法会返回 IDBRequest 的实例，可以在这个实例上添加 onerror 和 onsuccess 事件处理程序。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> db, request, version = <span class="number">1</span>;</span><br><span class="line">request = indexedDB.<span class="title function_">open</span>(<span class="string">&quot;admin&quot;</span>, version);</span><br><span class="line">request.<span class="property">onerror</span> = <span class="function">(<span class="params">event</span>) =&gt;</span></span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Failed to open: <span class="subst">$&#123;event.target.errorCode&#125;</span>`</span>);</span><br><span class="line">request.<span class="property">onsuccess</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">	db = event.<span class="property">target</span>.<span class="property">result</span>;</span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>createObjectStore()</code>：<code>open()</code>操作会创建一个新数据库，然后触发 upgradeneeded 事件。可以为这个事件设置处理程序，并在处理程序中创建数据库模式。如果数据库存在，而你指定了一个升级版的版本号，则会立即触发 upgradeneeded 事件，因而可以在事件处理程序中更新数据库模式。</p>
+</li>
+<li>
+<p><code>deleteObjectStore()</code>：用于在数据库模式升级时删除不再需要的对象存储（Object Store）。这个操作通常在 <code>onupgradeneeded</code> 事件中执行，当你需要删除某个对象存储以便更新数据库结构时使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">request.<span class="property">onupgradeneeded</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> db = event.<span class="property">target</span>.<span class="property">result</span>;</span><br><span class="line">    <span class="keyword">if</span> (db.<span class="property">objectStoreNames</span>.<span class="title function_">contains</span>(<span class="string">&quot;users&quot;</span>)) &#123;</span><br><span class="line">    	db.<span class="title function_">deleteObjectStore</span>(<span class="string">&quot;users&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    db.<span class="title function_">createObjectStore</span>(<span class="string">&quot;users&quot;</span>, &#123; <span class="attr">keyPath</span>: <span class="string">&quot;username&quot;</span> &#125;);</span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="事务">事务</h3>
+<p>事务通过调用数据库对象的<code>transaction()</code>方法创建。任何时候，只要想要读取或修改数据，都要通过事务来操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果不指定参数，则对数据库中所有的对象存储有只读权限</span></span><br><span class="line"><span class="keyword">let</span> transaction = db.<span class="title function_">transaction</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定一个要访问的对象存储的名称</span></span><br><span class="line"><span class="keyword">let</span> transaction = db.<span class="title function_">transaction</span>(<span class="string">&quot;users&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问多个对象存储，可以给第一个参数传入一个字符串数组</span></span><br><span class="line"><span class="keyword">let</span> transaction = db.<span class="title function_">transaction</span>([<span class="string">&quot;users&quot;</span>, <span class="string">&quot;anotherStore&quot;</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 每个事务都以只读方式访问数据。要修改访问模式，可以传入第二个参数。&quot;readonly&quot;、&quot;readwrite&quot;或&quot;versionchange&quot;</span></span><br><span class="line"><span class="keyword">let</span> transaction = db.<span class="title function_">transaction</span>(<span class="string">&quot;users&quot;</span>, <span class="string">&quot;readwrite&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="操作对象">操作对象</h3>
+<ol>
+<li><code>get()</code>：获取对象</li>
+<li><code>add()</code>：添加对象</li>
+<li><code>put()</code>：更新对象</li>
+<li><code>delete()</code>：删除对象</li>
+<li><code>clear()</code>：删除所有对象</li>
+</ol>
+<h3 id="游标">游标</h3>
+<p>使用事务可以通过一个已知键取得一条记录。如果想取得多条数据，则需要在事务中创建一个游标。 游标是一个指向结果集的指针。需要在对象存储上调用<code>openCursor()</code>方法创建游标。<code>openCursor()</code>方法也返回一个请求，须添加 onsuccess 和 onerror 事件处理程序。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="索引">索引</h3>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS/" class="print-no-link">#JS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/18/JS%E5%AD%A6%E4%B9%A0(36)-%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" title="JS学习(36)-网络请求">
+                        <span class="hidden-mobile">JS学习(36)-网络请求</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
