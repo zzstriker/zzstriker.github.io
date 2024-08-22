@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="zzstriker blogs">
 <meta property="og:description" content="除了使用SVG绘制矢量图形，我们也可以使用canvas在浏览器绘制2D图形。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas.png">
-<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas_arc.gif">
-<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas_translate.png">
-<meta property="og:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas_rotate.png">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas.png">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas_arc.gif">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas_translate.png">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/HTML/canvas_rotate.png">
 <meta property="article:published_time" content="2024-06-20T01:26:08.000Z">
-<meta property="article:modified_time" content="2024-06-20T07:52:29.009Z">
+<meta property="article:modified_time" content="2024-08-22T07:57:23.208Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zzstriker.github.io/2024/06/20/HTML%E5%AD%A6%E4%B9%A0(15)-Canvas/imgs/HTML/canvas.png">
+<meta name="twitter:image" content="https://zzstriker.github.io/imgs/HTML/canvas.png">
   
   
   
@@ -282,7 +282,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span> <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="坐标定位">坐标定位</h2>
 <p>canvas使用的坐标系统与SVG一致，以页面的左上角为(0, 0)坐标点为顶点，坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下。</p>
-<p><img src="./imgs/HTML/canvas.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/imgs/HTML/canvas.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <h2 id="基本用法">基本用法</h2>
 <p><code>&lt;canvas&gt;</code>元素创造了一个固定大小的画布，可以用来绘制和处理要展示的内容。<code>&lt;canvas&gt;</code>起初是空白的。为了展示，首先脚本需要找到渲染上下文，然后在它的上面绘制。<code>&lt;canvas&gt;</code>元素通过<code>getContext()</code>方法获得渲染上下文和它的绘画功能。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span><br></pre></td></tr></table></figure>
@@ -351,7 +351,7 @@
 <li><strong>anticlockwise</strong>：如果为 <code>true</code>，逆时针绘制圆弧，反之，顺时针绘制。</li>
 </ol>
 <p>圆弧起止点示意图如下：</p>
-<p><img src="./imgs/HTML/canvas_arc.gif" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/imgs/HTML/canvas_arc.gif" srcset="/img/loading.gif" lazyload alt=""></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">ctx.<span class="title function_">arc</span>(<span class="number">150</span>, <span class="number">150</span>, <span class="number">150</span>, <span class="number">0</span>, <span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">2</span>, <span class="literal">false</span>);</span><br><span class="line">ctx.<span class="title function_">closePath</span>();</span><br><span class="line">ctx.<span class="title function_">stroke</span>();</span><br></pre></td></tr></table></figure>
 <h3 id="rect">rect</h3>
 <p>创建矩形路径</p>
@@ -544,7 +544,7 @@
 <h2 id="变形">变形</h2>
 <h3 id="translate">translate</h3>
 <p>将 canvas 按原始 x 点的水平方向、原始 y 点的垂直方向进行<strong>平移变换</strong></p>
-<p><img src="./imgs/HTML/canvas_translate.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/imgs/HTML/canvas_translate.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>x</strong>：水平方向的移动距离</li>
@@ -553,7 +553,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;grey&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">80</span>);</span><br><span class="line">ctx.<span class="title function_">translate</span>(<span class="number">110</span>, <span class="number">30</span>);</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">80</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="rotate">rotate</h3>
 <p>将 canvas 按其起始点旋转</p>
-<p><img src="./imgs/HTML/canvas_rotate.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/imgs/HTML/canvas_rotate.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>参数</strong>：</p>
 <ol>
 <li><strong>angle</strong>：顺时针旋转的弧度，可以使用公式：<code>degree * Math.PI / 180</code></li>
