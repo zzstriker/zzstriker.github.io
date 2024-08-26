@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>JS学习(41)-闭包</title>
+    <link href="/2024/08/23/JS%E5%AD%A6%E4%B9%A0(41)-%E9%97%AD%E5%8C%85/"/>
+    <url>/2024/08/23/JS%E5%AD%A6%E4%B9%A0(41)-%E9%97%AD%E5%8C%85/</url>
+    
+    <content type="html"><![CDATA[<p>作用域是指程序中变量、函数和对象的可访问区域。作用域决定了代码中哪些部分可以访问哪些变量，防止不同部分的代码相互干扰。</p><span id="more"></span><h1>闭包</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>JS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JS学习(40)-作用域</title>
     <link href="/2024/08/22/JS%E5%AD%A6%E4%B9%A0(40)-%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
     <url>/2024/08/22/JS%E5%AD%A6%E4%B9%A0(40)-%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
