@@ -16,18 +16,20 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="层叠样式表-----Cascading Style Sheets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。">
+    <meta name="description" content="选择排序（Selection Sort）是一种简单直观的排序算法。它的基本思想是每一轮从未排序的部分中找到最小（或最大）的元素，并将其与当前轮的起始元素交换位置，直到整个数组有序。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="排序-选择排序">
 <meta property="og:url" content="https://zzstriker.github.io/2024/09/10/%E6%8E%92%E5%BA%8F-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="层叠样式表-----Cascading Style Sheets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。">
+<meta property="og:description" content="选择排序（Selection Sort）是一种简单直观的排序算法。它的基本思想是每一轮从未排序的部分中找到最小（或最大）的元素，并将其与当前轮的起始元素交换位置，直到整个数组有序。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/algorithm/selection_sort.gif">
 <meta property="article:published_time" content="2024-09-10T07:14:35.000Z">
-<meta property="article:modified_time" content="2024-09-10T10:22:36.547Z">
+<meta property="article:modified_time" content="2024-09-11T09:54:47.017Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zzstriker.github.io/imgs/algorithm/selection_sort.gif">
   
   
   
@@ -265,9 +267,33 @@
             
               <div class="markdown-body">
                 
-                <p>层叠样式表-----<strong>C</strong>ascading <strong>S</strong>tyle <strong>S</strong>heets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。</p>
+                <p>选择排序（Selection Sort）是一种简单直观的排序算法。它的基本思想是每一轮从未排序的部分中找到最小（或最大）的元素，并将其与当前轮的起始元素交换位置，直到整个数组有序。</p>
 <span id="more"></span>
 <h1>选择排序</h1>
+<h2 id="选择排序步骤">选择排序步骤</h2>
+<ol>
+<li>从数组中找到最小的元素。</li>
+<li>将这个最小元素与数组的第一个元素交换位置。</li>
+<li>从剩下的未排序部分中继续寻找最小的元素，将它与未排序部分的第一个元素交换位置。</li>
+<li>重复以上步骤，直到整个数组排序完成。</li>
+</ol>
+<p><img src="/imgs/algorithm/selection_sort.gif" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="代码实现">代码实现</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">selectionSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> minIndex = i;  <span class="comment">// 假设当前位置的元素是最小的</span></span><br><span class="line">        <span class="comment">// 从i+1开始查找剩余部分中最小的元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">                minIndex = j;  <span class="comment">// 更新最小值的位置</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 交换当前元素和找到的最小元素的位置</span></span><br><span class="line">        <span class="keyword">if</span> (minIndex !== i) &#123;</span><br><span class="line">            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">64</span>, <span class="number">25</span>, <span class="number">12</span>, <span class="number">22</span>, <span class="number">11</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">selectionSort</span>(array));  <span class="comment">// 输出: [11, 12, 22, 25, 64]</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>外层循环</strong>：<code>for (let i = 0; i &lt; len - 1; i++)</code> 控制每一轮的排序过程。每一轮中，选择最小的元素并将它放在当前轮的起始位置。</li>
+<li><strong>内层循环</strong>：<code>for (let j = i + 1; j &lt; len; j++)</code> 从未排序的部分（即从 <code>i + 1</code> 开始）寻找最小值。如果找到了比当前最小值还小的元素，更新 <code>minIndex</code>。</li>
+<li><strong>交换元素</strong>：在找到最小值后，如果它不在当前轮的起始位置（即 <code>minIndex !== i</code>），就交换它和当前元素的位置。</li>
+</ol>
+<h2 id="代码优化">代码优化</h2>
+<p>选择排序可以在某些情况下优化。例如，可以同时找到未排序部分的最小值和最大值，一次遍历将最小值放到前面、最大值放到后面，从而减少一半的遍历次数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">selectionSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> len = arr.<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">let</span> left = <span class="number">0</span>;        <span class="comment">// 未排序部分的起始位置</span></span><br><span class="line">    <span class="keyword">let</span> right = len - <span class="number">1</span>; <span class="comment">// 未排序部分的结束位置</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">let</span> minIndex = left;</span><br><span class="line">        <span class="keyword">let</span> maxIndex = left;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在未排序部分同时查找最小值和最大值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = left; i &lt;= right; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] &lt; arr[minIndex]) &#123;</span><br><span class="line">                minIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] &gt; arr[maxIndex]) &#123;</span><br><span class="line">                maxIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将最小值交换到最前面</span></span><br><span class="line">        [arr[left], arr[minIndex]] = [arr[minIndex], arr[left]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果最大值正好在起始位置（被交换走了），需要更新它的位置</span></span><br><span class="line">        <span class="keyword">if</span> (maxIndex === left) &#123;</span><br><span class="line">            maxIndex = minIndex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将最大值交换到最后面</span></span><br><span class="line">        [arr[right], arr[maxIndex]] = [arr[maxIndex], arr[right]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 缩小未排序部分的范围</span></span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">64</span>, <span class="number">25</span>, <span class="number">12</span>, <span class="number">22</span>, <span class="number">11</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">selectionSort</span>(array));  <span class="comment">// 输出: [11, 12, 22, 25, 64]</span></span><br></pre></td></tr></table></figure>
+<h2 id="时间复杂度">时间复杂度</h2>
+<ol>
+<li><strong>最坏情况时间复杂度</strong>：<code>O(n^2)</code>，即使数组已经有序，依然需要两层嵌套循环来比较每个元素。</li>
+<li><strong>最优情况时间复杂度</strong>：<code>O(n^2)</code>，即使数组已经有序，仍需要比较所有元素。</li>
+<li><strong>空间复杂度</strong>：<code>O(1)</code>，选择排序是原地排序算法，不需要额外的内存空间。</li>
+</ol>
 
                 
               </div>

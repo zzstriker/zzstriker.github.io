@@ -16,18 +16,20 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="层叠样式表-----Cascading Style Sheets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。">
+    <meta name="description" content="插入排序（Insertion Sort）是一种简单的排序算法，它会将数组分为已排序部分和未排序部分，然后从未排序部分取出元素，插入到已排序部分的正确位置，直到整个数组有序。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="排序-插入排序">
 <meta property="og:url" content="https://zzstriker.github.io/2024/09/11/%E6%8E%92%E5%BA%8F-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="层叠样式表-----Cascading Style Sheets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。">
+<meta property="og:description" content="插入排序（Insertion Sort）是一种简单的排序算法，它会将数组分为已排序部分和未排序部分，然后从未排序部分取出元素，插入到已排序部分的正确位置，直到整个数组有序。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzstriker.github.io/imgs/algorithm/insertion_sort.gif">
 <meta property="article:published_time" content="2024-09-11T02:28:56.000Z">
-<meta property="article:modified_time" content="2024-09-11T02:29:29.082Z">
+<meta property="article:modified_time" content="2024-09-11T10:14:17.244Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zzstriker.github.io/imgs/algorithm/insertion_sort.gif">
   
   
   
@@ -265,9 +267,34 @@
             
               <div class="markdown-body">
                 
-                <p>层叠样式表-----<strong>C</strong>ascading <strong>S</strong>tyle <strong>S</strong>heets，CSS用来指定文档如何展示给用户的一门语言——如网页的样式、布局、等等。</p>
+                <p>插入排序（Insertion Sort）是一种简单的排序算法，它会将数组分为已排序部分和未排序部分，然后从未排序部分取出元素，插入到已排序部分的正确位置，直到整个数组有序。</p>
 <span id="more"></span>
 <h1>插入排序</h1>
+<h2 id="插入排序步骤">插入排序步骤</h2>
+<ol>
+<li>从第二个元素开始，将它与前面的已排序部分的元素进行比较。</li>
+<li>如果前面的元素大于当前元素，就将前面的元素后移，直到找到当前元素的正确位置。</li>
+<li>将当前元素插入到合适的位置。</li>
+<li>重复这个过程，直到所有元素都插入到正确位置。</li>
+</ol>
+<p><img src="/imgs/algorithm/insertion_sort.gif" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="代码实现">代码实现</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">insertionSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> current = arr[i];</span><br><span class="line">        <span class="keyword">let</span> j = i - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将当前元素与前面的已排序部分进行比较，并后移已排序元素</span></span><br><span class="line">        <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; current) &#123;</span><br><span class="line">            arr[j + <span class="number">1</span>] = arr[j];  <span class="comment">// 将较大的元素向后移动</span></span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 插入当前元素到合适的位置</span></span><br><span class="line">        arr[j + <span class="number">1</span>] = current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">12</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">insertionSort</span>(array));  <span class="comment">// 输出: [5, 6, 11, 12, 13]</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>外层循环</strong>：从数组的第二个元素开始遍历 (<code>for (let i = 1; i &lt; len; i++)</code>)，因为第一个元素可以视为初始的已排序部分。</li>
+<li><strong>内层循环</strong>：<code>while (j &gt;= 0 &amp;&amp; arr[j] &gt; current)</code>，对于每一个当前元素（<code>current</code>），与前面的已排序元素逐个比较，直到找到比 <code>current</code> 小或相等的元素位置。</li>
+<li><strong>元素后移</strong>：在找到当前元素的合适位置前，所有比它大的元素都会被后移一位 (<code>arr[j + 1] = arr[j]</code>)。</li>
+<li><strong>插入元素</strong>：在找到位置后，将 <code>current</code> 插入到该位置 (<code>arr[j + 1] = current</code>)。</li>
+</ol>
+<h2 id="代码优化">代码优化</h2>
+<p>可以使用二分查找来找到插入位置，从而减少比较次数。虽然这不会减少整体的时间复杂度（依然是 <code>O(n^2)</code>），但可以优化比较的部分。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二分查找，找到待插入元素的正确位置</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">binarySearch</span>(<span class="params">arr, value, start, end</span>) &#123;</span><br><span class="line">    <span class="keyword">while</span> (start &lt;= end) &#123;</span><br><span class="line">        <span class="keyword">let</span> mid = <span class="title class_">Math</span>.<span class="title function_">floor</span>((start + end) / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">if</span> (arr[mid] === value) &#123;</span><br><span class="line">            <span class="keyword">return</span> mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[mid] &lt; value) &#123;</span><br><span class="line">            start = mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            end = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 优化版插入排序：使用二分查找加速</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">insertionSortOptimized</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> current = arr[i];</span><br><span class="line">        <span class="keyword">let</span> j = i - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用二分查找来找到当前元素的插入位置</span></span><br><span class="line">        <span class="keyword">let</span> insertPos = <span class="title function_">binarySearch</span>(arr, current, <span class="number">0</span>, j);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将比当前元素大的部分后移一位</span></span><br><span class="line">        <span class="keyword">while</span> (j &gt;= insertPos) &#123;</span><br><span class="line">            arr[j + <span class="number">1</span>] = arr[j];</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 插入当前元素到正确位置</span></span><br><span class="line">        arr[insertPos] = current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">12</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">insertionSortOptimized</span>(array));  <span class="comment">// 输出: [5, 6, 11, 12, 13]</span></span><br></pre></td></tr></table></figure>
+<h2 id="时间复杂度">时间复杂度</h2>
+<ol>
+<li><strong>最坏情况时间复杂度</strong>：<code>O(n^2)</code>，当数组是逆序时，每插入一个元素，都需要与前面的所有元素进行比较。</li>
+<li><strong>最优情况时间复杂度</strong>：<code>O(n)</code>，当数组已经有序时，每个元素只需进行一次比较即可插入到正确位置。</li>
+<li><strong>空间复杂度</strong>：<code>O(1)</code>，插入排序是原地排序算法，不需要额外的存储空间。</li>
+</ol>
 
                 
               </div>
