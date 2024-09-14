@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="希尔排序是插入排序的一种改进版，通过比较相距较远的元素来提前进行局部排序，以减少后续需要进行的交换次数，从而提高效率。希尔排序的关键在于分组和间隔的选择。它通过逐步缩小间隔，最后进行标准的插入排序，使整体排序效率得以提升。">
+    <meta name="description" content="堆排序是一种基于堆数据结构的排序算法。堆是一棵完全二叉树，可以通过数组来实现。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="排序-希尔排序">
-<meta property="og:url" content="https://zzstriker.github.io/2024/09/13/%E6%8E%92%E5%BA%8F-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:title" content="排序-堆排序">
+<meta property="og:url" content="https://zzstriker.github.io/2024/09/14/%E6%8E%92%E5%BA%8F-%E5%A0%86%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="希尔排序是插入排序的一种改进版，通过比较相距较远的元素来提前进行局部排序，以减少后续需要进行的交换次数，从而提高效率。希尔排序的关键在于分组和间隔的选择。它通过逐步缩小间隔，最后进行标准的插入排序，使整体排序效率得以提升。">
+<meta property="og:description" content="堆排序是一种基于堆数据结构的排序算法。堆是一棵完全二叉树，可以通过数组来实现。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-13T10:08:03.000Z">
-<meta property="article:modified_time" content="2024-09-14T05:53:36.381Z">
+<meta property="article:published_time" content="2024-09-14T05:54:24.000Z">
+<meta property="article:modified_time" content="2024-09-14T05:59:25.359Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>排序-希尔排序 - zzstriker blogs</title>
+  <title>排序-堆排序 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="排序-希尔排序"></span>
+            <span id="subtitle" data-typed-text="排序-堆排序"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-13 18:08" pubdate>
-          2024年9月13日 晚上
+        <time datetime="2024-09-14 13:54" pubdate>
+          2024年9月14日 下午
         </time>
       </span>
     
@@ -260,33 +260,42 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">排序-希尔排序</h1>
+            <h1 id="seo-header">排序-堆排序</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>希尔排序</strong>是插入排序的一种改进版，通过比较相距较远的元素来提前进行局部排序，以减少后续需要进行的交换次数，从而提高效率。希尔排序的关键在于<strong>分组</strong>和<strong>间隔</strong>的选择。它通过逐步缩小间隔，最后进行标准的插入排序，使整体排序效率得以提升。</p>
+                <p><strong>堆排序</strong>是一种基于<strong>堆数据结构</strong>的排序算法。堆是一棵完全二叉树，可以通过数组来实现。</p>
 <span id="more"></span>
-<h1>希尔排序</h1>
-<h2 id="希尔排序步骤">希尔排序步骤</h2>
+<h1>堆排序</h1>
+<p>堆排序分为两个主要步骤：</p>
 <ol>
-<li><strong>分组排序</strong>：将数组按照一定的间隔（gap）分为若干个子数组，对每个子数组分别进行插入排序。</li>
-<li><strong>逐步缩小间隔</strong>：随着排序进行，逐渐缩小间隔，直到间隔为 1，即最后一次对整个数组进行标准的插入排序。</li>
-<li><strong>排序完成</strong>：当间隔缩小到 1 后，数组会基本有序，最后一次插入排序会很高效。</li>
+<li><strong>构建大顶堆</strong>：保证父节点总是大于等于子节点。</li>
+<li><strong>排序过程</strong>：将堆顶元素（最大值）与最后一个元素交换，然后对剩余元素重新调整为大顶堆，重复这一过程，直到排序完成。</li>
+</ol>
+<h2 id="堆排序步骤">堆排序步骤</h2>
+<ol>
+<li>将无序数组构建成<strong>大顶堆</strong>。</li>
+<li>每次将堆顶（最大值）与数组的最后一个元素交换，缩小堆的范围后，继续对剩余部分调整为大顶堆。</li>
+<li>重复该过程，直到堆中只有一个元素为止。</li>
 </ol>
 <h2 id="代码实现">代码实现</h2>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">shellSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> n = arr.<span class="property">length</span>;</span><br><span class="line">    <span class="comment">// 选择一个合适的初始间隔（一般从 n/2 开始）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> gap = <span class="title class_">Math</span>.<span class="title function_">floor</span>(n / <span class="number">2</span>); gap &gt; <span class="number">0</span>; gap = <span class="title class_">Math</span>.<span class="title function_">floor</span>(gap / <span class="number">2</span>)) &#123;</span><br><span class="line">        <span class="comment">// 从 gap 开始，对每个子数组进行插入排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = gap; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> temp = arr[i]; <span class="comment">// 保存当前元素</span></span><br><span class="line">            <span class="keyword">let</span> j;</span><br><span class="line">            <span class="comment">// 对当前元素进行插入排序</span></span><br><span class="line">            <span class="keyword">for</span> (j = i; j &gt;= gap &amp;&amp; arr[j - gap] &gt; temp; j -= gap) &#123;</span><br><span class="line">                arr[j] = arr[j - gap]; <span class="comment">// 元素右移</span></span><br><span class="line">            &#125;</span><br><span class="line">            arr[j] = temp; <span class="comment">// 插入当前元素</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">12</span>, <span class="number">34</span>, <span class="number">54</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">shellSort</span>(array));  <span class="comment">// 输出: [2, 3, 12, 34, 54]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将数组调整为大顶堆</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">heapify</span>(<span class="params">arr, n, i</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> largest = i;  <span class="comment">// 先假设父节点是最大的</span></span><br><span class="line">    <span class="keyword">let</span> left = <span class="number">2</span> * i + <span class="number">1</span>;  <span class="comment">// 左子节点</span></span><br><span class="line">    <span class="keyword">let</span> right = <span class="number">2</span> * i + <span class="number">2</span>;  <span class="comment">// 右子节点</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果左子节点存在且比父节点大，更新最大值索引</span></span><br><span class="line">    <span class="keyword">if</span> (left &lt; n &amp;&amp; arr[left] &gt; arr[largest]) &#123;</span><br><span class="line">        largest = left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果右子节点存在且比当前最大值大，更新最大值索引</span></span><br><span class="line">    <span class="keyword">if</span> (right &lt; n &amp;&amp; arr[right] &gt; arr[largest]) &#123;</span><br><span class="line">        largest = right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最大值不是父节点，交换它们</span></span><br><span class="line">    <span class="keyword">if</span> (largest !== i) &#123;</span><br><span class="line">        [arr[i], arr[largest]] = [arr[largest], arr[i]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 递归地调整受影响的子树</span></span><br><span class="line">        <span class="title function_">heapify</span>(arr, n, largest);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 堆排序主函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">heapSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> n = arr.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建大顶堆</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="title class_">Math</span>.<span class="title function_">floor</span>(n / <span class="number">2</span>) - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="title function_">heapify</span>(arr, n, i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 依次将堆顶元素与最后一个元素交换，并重新调整堆</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = n - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="comment">// 将当前最大值（堆顶）移到数组的最后</span></span><br><span class="line">        [arr[<span class="number">0</span>], arr[i]] = [arr[i], arr[<span class="number">0</span>]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调整剩余元素为大顶堆</span></span><br><span class="line">        <span class="title function_">heapify</span>(arr, i, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">12</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">heapSort</span>(array));  <span class="comment">// 输出: [5, 6, 7, 11, 12, 13]</span></span><br></pre></td></tr></table></figure>
 <ol>
-<li><strong><code>gap = Math.floor(n / 2)</code></strong>：选择初始间隔，一般从数组长度的一半开始。</li>
-<li><strong>逐步缩小间隔</strong>：每次 <code>gap</code> 取之前的一半，直到 <code>gap</code> 为 1。</li>
-<li><strong>插入排序</strong>：在每个间隔下，对子数组执行插入排序。</li>
-</ol>
-<h2 id="时间复杂度：">时间复杂度：</h2>
+<li><strong><code>heapify</code> 函数</strong>：调整数组为大顶堆。从父节点开始，将左右子节点与父节点进行比较，如果子节点比父节点大，则交换，并递归调整受影响的子树。</li>
+<li><strong><code>heapSort</code> 函数</strong>：
 <ul>
-<li>最好情况：O(n log n)</li>
-<li>最坏情况：O(n²)</li>
-<li>平均时间复杂度：O(n^(3/2))（根据间隔的选择）</li>
+<li>首先从数组的中间向前遍历，构建大顶堆（即调整每个非叶子节点）。</li>
+<li>然后依次将堆顶元素（最大值）移到数组的末尾，并缩小堆的范围，重复堆化操作，最终实现排序。</li>
 </ul>
+</li>
+</ol>
+<h2 id="时间复杂度">时间复杂度</h2>
+<ol>
+<li><strong>构建大顶堆</strong>：O(n)</li>
+<li><strong>调整堆</strong>：O(log n)（每次堆化操作的时间复杂度）</li>
+<li><strong>整体时间复杂度</strong>：O(n log n)</li>
+</ol>
 
                 
               </div>
@@ -334,18 +343,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/14/%E6%8E%92%E5%BA%8F-%E5%A0%86%E6%8E%92%E5%BA%8F/" title="排序-堆排序">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">排序-堆排序</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/12/%E6%8E%92%E5%BA%8F-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="排序-快速排序">
-                        <span class="hidden-mobile">排序-快速排序</span>
+                      <a href="/2024/09/13/%E6%8E%92%E5%BA%8F-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" title="排序-希尔排序">
+                        <span class="hidden-mobile">排序-希尔排序</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
