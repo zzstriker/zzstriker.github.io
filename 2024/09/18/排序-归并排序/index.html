@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="堆排序是一种基于堆数据结构的排序算法。堆是一棵完全二叉树，可以通过数组来实现。">
+    <meta name="description" content="归并排序是一种经典的分治算法，通过将数组递归地分成两半，分别排序后再合并，最终得到有序数组">
 <meta property="og:type" content="article">
-<meta property="og:title" content="排序-堆排序">
-<meta property="og:url" content="https://zzstriker.github.io/2024/09/14/%E6%8E%92%E5%BA%8F-%E5%A0%86%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:title" content="排序-归并排序">
+<meta property="og:url" content="https://zzstriker.github.io/2024/09/18/%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="堆排序是一种基于堆数据结构的排序算法。堆是一棵完全二叉树，可以通过数组来实现。">
+<meta property="og:description" content="归并排序是一种经典的分治算法，通过将数组递归地分成两半，分别排序后再合并，最终得到有序数组">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-14T05:54:24.000Z">
-<meta property="article:modified_time" content="2024-09-14T05:59:25.359Z">
+<meta property="article:published_time" content="2024-09-18T01:44:48.000Z">
+<meta property="article:modified_time" content="2024-09-18T01:44:48.973Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>排序-堆排序 - zzstriker blogs</title>
+  <title>排序-归并排序 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="排序-堆排序"></span>
+            <span id="subtitle" data-typed-text="排序-归并排序"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-14 13:54" pubdate>
-          2024年9月14日 下午
+        <time datetime="2024-09-18 09:44" pubdate>
+          2024年9月18日 上午
         </time>
       </span>
     
@@ -260,41 +260,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">排序-堆排序</h1>
+            <h1 id="seo-header">排序-归并排序</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>堆排序</strong>是一种基于<strong>堆数据结构</strong>的排序算法。堆是一棵完全二叉树，可以通过数组来实现。</p>
+                <p><strong>归并排序</strong>是一种经典的<strong>分治算法</strong>，通过将数组递归地分成两半，分别排序后再合并，最终得到有序数组</p>
 <span id="more"></span>
-<h1>堆排序</h1>
-<p>堆排序分为两个主要步骤：</p>
+<h1>归并排序</h1>
+<h2 id="归并排序步骤">归并排序步骤</h2>
 <ol>
-<li><strong>构建大顶堆</strong>：保证父节点总是大于等于子节点。</li>
-<li><strong>排序过程</strong>：将堆顶元素（最大值）与最后一个元素交换，然后对剩余元素重新调整为大顶堆，重复这一过程，直到排序完成。</li>
-</ol>
-<h2 id="堆排序步骤">堆排序步骤</h2>
-<ol>
-<li>将无序数组构建成<strong>大顶堆</strong>。</li>
-<li>每次将堆顶（最大值）与数组的最后一个元素交换，缩小堆的范围后，继续对剩余部分调整为大顶堆。</li>
-<li>重复该过程，直到堆中只有一个元素为止。</li>
+<li><strong>分割</strong>：将数组分成两半，递归地对每一半进行排序。</li>
+<li><strong>合并</strong>：将两个有序的子数组合并成一个有序的数组。</li>
 </ol>
 <h2 id="代码实现">代码实现</h2>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将数组调整为大顶堆</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">heapify</span>(<span class="params">arr, n, i</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> largest = i;  <span class="comment">// 先假设父节点是最大的</span></span><br><span class="line">    <span class="keyword">let</span> left = <span class="number">2</span> * i + <span class="number">1</span>;  <span class="comment">// 左子节点</span></span><br><span class="line">    <span class="keyword">let</span> right = <span class="number">2</span> * i + <span class="number">2</span>;  <span class="comment">// 右子节点</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果左子节点存在且比父节点大，更新最大值索引</span></span><br><span class="line">    <span class="keyword">if</span> (left &lt; n &amp;&amp; arr[left] &gt; arr[largest]) &#123;</span><br><span class="line">        largest = left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果右子节点存在且比当前最大值大，更新最大值索引</span></span><br><span class="line">    <span class="keyword">if</span> (right &lt; n &amp;&amp; arr[right] &gt; arr[largest]) &#123;</span><br><span class="line">        largest = right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最大值不是父节点，交换它们</span></span><br><span class="line">    <span class="keyword">if</span> (largest !== i) &#123;</span><br><span class="line">        [arr[i], arr[largest]] = [arr[largest], arr[i]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 递归地调整受影响的子树</span></span><br><span class="line">        <span class="title function_">heapify</span>(arr, n, largest);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 堆排序主函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">heapSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> n = arr.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建大顶堆</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="title class_">Math</span>.<span class="title function_">floor</span>(n / <span class="number">2</span>) - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="title function_">heapify</span>(arr, n, i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 依次将堆顶元素与最后一个元素交换，并重新调整堆</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = n - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="comment">// 将当前最大值（堆顶）移到数组的最后</span></span><br><span class="line">        [arr[<span class="number">0</span>], arr[i]] = [arr[i], arr[<span class="number">0</span>]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调整剩余元素为大顶堆</span></span><br><span class="line">        <span class="title function_">heapify</span>(arr, i, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">12</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">heapSort</span>(array));  <span class="comment">// 输出: [5, 6, 7, 11, 12, 13]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 合并两个有序数组</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">merge</span>(<span class="params">left, right</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> result = [];</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 比较两个数组中的元素，将较小的元素推入结果数组</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; left.<span class="property">length</span> &amp;&amp; j &lt; right.<span class="property">length</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (left[i] &lt; right[j]) &#123;</span><br><span class="line">            result.<span class="title function_">push</span>(left[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result.<span class="title function_">push</span>(right[j]);</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将剩余的元素添加到结果数组</span></span><br><span class="line">    <span class="keyword">return</span> result.<span class="title function_">concat</span>(left.<span class="title function_">slice</span>(i)).<span class="title function_">concat</span>(right.<span class="title function_">slice</span>(j));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 归并排序主函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">mergeSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="comment">// 基线条件：如果数组长度小于等于1，直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (arr.<span class="property">length</span> &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将数组分成两半</span></span><br><span class="line">    <span class="keyword">let</span> mid = <span class="title class_">Math</span>.<span class="title function_">floor</span>(arr.<span class="property">length</span> / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">let</span> left = arr.<span class="title function_">slice</span>(<span class="number">0</span>, mid);  <span class="comment">// 左半部分</span></span><br><span class="line">    <span class="keyword">let</span> right = arr.<span class="title function_">slice</span>(mid);  <span class="comment">// 右半部分</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 递归地排序左右两半并合并</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">merge</span>(<span class="title function_">mergeSort</span>(left), <span class="title function_">mergeSort</span>(right));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">12</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">mergeSort</span>(array));  <span class="comment">// 输出: [5, 6, 7, 11, 12, 13]</span></span><br></pre></td></tr></table></figure>
 <ol>
-<li><strong><code>heapify</code> 函数</strong>：调整数组为大顶堆。从父节点开始，将左右子节点与父节点进行比较，如果子节点比父节点大，则交换，并递归调整受影响的子树。</li>
-<li><strong><code>heapSort</code> 函数</strong>：
+<li>
+<p><strong><code>merge</code> 函数</strong>：负责将两个有序数组合并成一个有序数组。在合并过程中，依次比较两个数组的当前元素，将较小的元素推入结果数组，最后将剩余元素加入结果数组。</p>
+</li>
+<li>
+<p><strong><code>mergeSort</code> 函数</strong>：</p>
 <ul>
-<li>首先从数组的中间向前遍历，构建大顶堆（即调整每个非叶子节点）。</li>
-<li>然后依次将堆顶元素（最大值）移到数组的末尾，并缩小堆的范围，重复堆化操作，最终实现排序。</li>
+<li>
+<p>基线条件：当数组的长度为 0 或 1 时，直接返回该数组（已经是有序的）。</p>
+</li>
+<li>
+<p>将数组一分为二，分别对左右两部分递归调用 <code>mergeSort</code>。</p>
+</li>
+<li>
+<p>使用 <code>merge</code> 函数将两个排序后的子数组合并。</p>
+</li>
 </ul>
 </li>
 </ol>
 <h2 id="时间复杂度">时间复杂度</h2>
 <ol>
-<li><strong>构建大顶堆</strong>：O(n)</li>
-<li><strong>调整堆</strong>：O(log n)（每次堆化操作的时间复杂度）</li>
-<li><strong>整体时间复杂度</strong>：O(n log n)</li>
+<li><strong>分解阶段</strong>：每次将数组分成两半，最多需要进行 log n 次分割。</li>
+<li><strong>合并阶段</strong>：每次合并两个有序数组的时间复杂度为 O(n)。</li>
+<li><strong>总时间复杂度</strong>：O(n log n)</li>
+<li><strong>空间复杂度</strong>： O(n)</li>
 </ol>
 
                 
@@ -343,18 +348,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/18/%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="排序-归并排序">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">排序-归并排序</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/13/%E6%8E%92%E5%BA%8F-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" title="排序-希尔排序">
-                        <span class="hidden-mobile">排序-希尔排序</span>
+                      <a href="/2024/09/14/%E6%8E%92%E5%BA%8F-%E5%A0%86%E6%8E%92%E5%BA%8F/" title="排序-堆排序">
+                        <span class="hidden-mobile">排序-堆排序</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
