@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>排序-桶排序</title>
+    <link href="/2024/09/19/%E6%8E%92%E5%BA%8F-%E6%A1%B6%E6%8E%92%E5%BA%8F/"/>
+    <url>/2024/09/19/%E6%8E%92%E5%BA%8F-%E6%A1%B6%E6%8E%92%E5%BA%8F/</url>
+    
+    <content type="html"><![CDATA[<p><strong>桶排序</strong>是一种非比较型的排序算法，适用于均匀分布的浮点数。其基本思想是将数据分布到若干个桶中，然后对每个桶内的数据进行排序，最后将所有桶中的数据合并得到最终的排序结果。桶排序通常结合其他排序算法（如插入排序）对桶内的数据进行排序。</p><span id="more"></span><h1>桶排序</h1><h2 id="桶排序步骤">桶排序步骤</h2><ol><li><strong>创建桶</strong>：根据数据的范围和数量创建若干个桶。每个桶可以存储数据的一个范围。</li><li><strong>分配数据到桶</strong>：将输入数据分配到对应的桶中。</li><li><strong>对每个桶内的数据进行排序</strong>：可以使用其他排序算法（如插入排序）对每个桶内的数据进行排序。</li><li><strong>合并桶中的数据</strong>：将所有桶中的数据按顺序合并到一个结果数组中。</li></ol><h2 id="代码实现">代码实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">bucketSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.<span class="property">length</span> &lt;= <span class="number">1</span>) <span class="keyword">return</span> arr;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 创建桶</span></span><br><span class="line">    <span class="keyword">let</span> bucketCount = <span class="number">10</span>; <span class="comment">// 可以根据数据范围调整桶的数量</span></span><br><span class="line">    <span class="keyword">let</span> buckets = <span class="title class_">Array</span>.<span class="title function_">from</span>(&#123; <span class="attr">length</span>: bucketCount &#125;, <span class="function">() =&gt;</span> []);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 分配数据到桶</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> num <span class="keyword">of</span> arr) &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="title class_">Math</span>.<span class="title function_">floor</span>(num * bucketCount);</span><br><span class="line">        buckets[index].<span class="title function_">push</span>(num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 对每个桶内的数据进行排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> bucket <span class="keyword">of</span> buckets) &#123;</span><br><span class="line">        bucket.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 合并桶中的数据</span></span><br><span class="line">    <span class="keyword">return</span> buckets.<span class="title function_">flat</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">0.78</span>, <span class="number">0.17</span>, <span class="number">0.39</span>, <span class="number">0.26</span>, <span class="number">0.72</span>, <span class="number">0.94</span>, <span class="number">0.21</span>, <span class="number">0.12</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bucketSort</span>(array));  <span class="comment">// 输出: [0.12, 0.17, 0.21, 0.26, 0.39, 0.72, 0.78, 0.94]</span></span><br></pre></td></tr></table></figure><ol><li><strong>创建桶</strong>：创建一个桶的数组，每个桶初始化为空数组。桶的数量可以根据数据的分布进行调整。</li><li><strong>分配数据到桶</strong>：根据数据值将每个数据放入相应的桶中。这里通过将数据乘以桶的数量并取整来确定桶的索引。</li><li><strong>排序桶内的数据</strong>：对每个桶内的数据进行排序。这里使用了 JavaScript 的内置排序函数。</li><li><strong>合并数据</strong>：将所有桶中的数据合并到一个数组中。<code>flat()</code> 方法用于将二维数组（桶的数组）扁平化为一维数组。</li></ol><h2 id="时间复杂度">时间复杂度</h2><ol><li><strong>最佳情况</strong>：O(n + k)，其中 n 是数组的长度，k 是桶的数量。最佳情况发生在数据均匀分布时，每个桶的元素数目大致相同。</li><li><strong>最坏情况</strong>：O(n^2)，在极端情况下（例如所有数据都落在同一个桶中），桶内排序可能退化为O(n^2)。</li><li><strong>平均情况</strong>：O(n + n log n)，假设数据均匀分布，桶内排序使用的排序算法的时间复杂度为O(n log n)。</li><li><strong>空间复杂度</strong>：O(n + k)，需要额外的空间来存储桶和每个桶中的数据。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>排序-归并排序</title>
     <link href="/2024/09/18/%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"/>
     <url>/2024/09/18/%E6%8E%92%E5%BA%8F-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
