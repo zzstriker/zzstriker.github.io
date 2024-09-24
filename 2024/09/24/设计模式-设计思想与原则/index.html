@@ -1,0 +1,695 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="设计模式是一套经过验证的解决方案，用于解决软件设计中的常见问题。其核心思想是通过总结和提炼开发过程中反复出现的设计问题，提供可以复用的解决方案，从而提高代码的可维护性、可复用性和扩展性。设计模式的思想和原则旨在确保软件系统能够随着需求的变化保持灵活性和稳定性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-设计思想与原则">
+<meta property="og:url" content="https://zzstriker.github.io/2024/09/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%E4%B8%8E%E5%8E%9F%E5%88%99/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="设计模式是一套经过验证的解决方案，用于解决软件设计中的常见问题。其核心思想是通过总结和提炼开发过程中反复出现的设计问题，提供可以复用的解决方案，从而提高代码的可维护性、可复用性和扩展性。设计模式的思想和原则旨在确保软件系统能够随着需求的变化保持灵活性和稳定性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-24T01:29:30.000Z">
+<meta property="article:modified_time" content="2024-09-24T01:29:30.988Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>设计模式-设计思想与原则 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="设计模式-设计思想与原则"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-24 09:29" pubdate>
+          2024年9月24日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">设计模式-设计思想与原则</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>设计模式是一套经过验证的解决方案，用于解决软件设计中的常见问题。其核心思想是通过总结和提炼开发过程中反复出现的设计问题，提供可以复用的解决方案，从而提高代码的可维护性、可复用性和扩展性。设计模式的思想和原则旨在确保软件系统能够随着需求的变化保持灵活性和稳定性。</p>
+<span id="more"></span>
+<h1>设计思想与原则</h1>
+<h2 id="设计模式思想">设计模式思想</h2>
+<ol>
+<li><strong>复用代码</strong>：通过使用模式来解决常见问题，减少代码的重复，提升开发效率。</li>
+<li><strong>降低耦合</strong>：设计模式鼓励将模块间的依赖降到最低，从而减少变化带来的影响，使系统更加健壮。</li>
+<li><strong>提高扩展性</strong>：通过模式的应用，系统能够更好地适应变化，例如通过接口或抽象类扩展新的功能。</li>
+<li><strong>代码可维护性</strong>：使用设计模式编写的代码通常更加清晰、易于理解，团队合作时更易于维护。</li>
+<li><strong>提高灵活性</strong>：设计模式鼓励使用面向对象编程中的抽象和多态，使系统更灵活，应对需求变更时不需要大幅度修改代码。</li>
+</ol>
+<h2 id="设计模型原则">设计模型原则</h2>
+<p>SOLID 是一个面向对象设计和编程中的五个基本原则的缩写，它们旨在帮助开发者设计更加灵活、可维护和可扩展的软件系统。</p>
+<ol>
+<li>单一职责原则（Single Responsibility Principle，SRP）</li>
+<li>开放/封闭原则（Open/Closed Principle，OCP）</li>
+<li>里氏替换原则（Liskov Substitution Principle，LSP）</li>
+<li>接口隔离原则（Interface Segregation Principle，ISP）</li>
+<li>依赖倒置原则（Dependency Inversion Principle，DIP）</li>
+</ol>
+<h3 id="单一职责原则">单一职责原则</h3>
+<p>一个类（函数）应该只有一个引起变化的原因。每个类（函数）应该只负责一项单一的职责。这样可以提高代码的可维护性和可测试性。</p>
+<h4 id="场景">场景</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">    <span class="title function_">validateUser</span>(<span class="params">user</span>) &#123;</span><br><span class="line">    	<span class="comment">// 用户验证逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">saveUser</span>(<span class="params">user</span>) &#123;</span><br><span class="line">    	<span class="comment">// 保存用户数据逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">logUserAction</span>(<span class="params">action</span>) &#123;</span><br><span class="line">    	<span class="comment">// 记录用户行为日志逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，一个 <code>UserService</code> 类同时负责用户的验证、保存和日志记录。<code>UserService</code> 类违反了单一职责原则，它负责多个职责：验证、保存和日志记录。如果日志记录逻辑变化，整个类都需要修改。</p>
+<h4 id="解决方案">解决方案</h4>
+<p>将每个职责拆分到不同的类中，从而遵循单一职责原则。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserValidator</span> &#123;</span><br><span class="line">    <span class="title function_">validate</span>(<span class="params">user</span>) &#123;</span><br><span class="line">    	<span class="comment">// 用户验证逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserRepository</span> &#123;</span><br><span class="line">    <span class="title function_">save</span>(<span class="params">user</span>) &#123;</span><br><span class="line">    	<span class="comment">// 保存用户数据逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserLogger</span> &#123;</span><br><span class="line">    <span class="title function_">log</span>(<span class="params">action</span>) &#123;</span><br><span class="line">    	<span class="comment">// 记录用户行为日志逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 高层逻辑类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">validator, repository, logger</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">validator</span> = validator;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">repository</span> = repository;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">logger</span> = logger;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">register</span>(<span class="params">user</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">validator</span>.<span class="title function_">validate</span>(user);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">repository</span>.<span class="title function_">save</span>(user);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">logger</span>.<span class="title function_">log</span>(<span class="string">&#x27;User registered&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="开放-封闭原则">开放/封闭原则</h3>
+<p>软件实体（类、模块、函数等）应该对扩展开放，对修改关闭。即在不修改现有代码的前提下扩展系统的行为。</p>
+<h4 id="场景-2">场景</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PaymentService</span> &#123;</span><br><span class="line">    <span class="title function_">processPayment</span>(<span class="params">paymentMethod</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (paymentMethod === <span class="string">&#x27;CreditCard&#x27;</span>) &#123;</span><br><span class="line">        	<span class="comment">// 处理信用卡支付</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (paymentMethod === <span class="string">&#x27;PayPal&#x27;</span>) &#123;</span><br><span class="line">        	<span class="comment">// 处理 PayPal 支付</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 每新增支付方式都需要修改这里</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，系统中有多个支付方式（如信用卡、PayPal），而每次增加一种新的支付方式时都需要修改原有的支付逻辑。此设计违反了开放-关闭原则，因为每次增加新的支付方式时，我们都需要修改 <code>PaymentService</code> 的代码。</p>
+<h4 id="解决方案-2">解决方案</h4>
+<p>通过扩展新支付类而不是修改原有代码来遵循 OCP。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PaymentService</span> &#123;</span><br><span class="line">    <span class="title function_">processPayment</span>(<span class="params">payment</span>) &#123;</span><br><span class="line">        payment.<span class="title function_">process</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CreditCardPayment</span> &#123;</span><br><span class="line">    <span class="title function_">process</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 处理信用卡支付</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PayPalPayment</span> &#123;</span><br><span class="line">    <span class="title function_">process</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 处理 PayPal 支付</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增支付方式</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ApplePayPayment</span> &#123;</span><br><span class="line">    <span class="title function_">process</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 处理 ApplePay 支付</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> paymentService = <span class="keyword">new</span> <span class="title class_">PaymentService</span>();</span><br><span class="line">paymentService.<span class="title function_">processPayment</span>(<span class="keyword">new</span> <span class="title class_">CreditCardPayment</span>());</span><br><span class="line">paymentService.<span class="title function_">processPayment</span>(<span class="keyword">new</span> <span class="title class_">ApplePayPayment</span>());  <span class="comment">// 无需修改原有代码</span></span><br></pre></td></tr></table></figure>
+<h3 id="里氏替换原则">里氏替换原则</h3>
+<p>子类对象应该能够替换父类对象，而不改变系统的正确性。子类应当完整实现父类的所有行为。</p>
+<h4 id="场景-3">场景</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="title function_">setWidth</span>(<span class="params">width</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span> = width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">setHeight</span>(<span class="params">height</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span> = height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getArea</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">width</span> * <span class="variable language_">this</span>.<span class="property">height</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Shape</span> &#123;&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Shape</span> &#123;</span><br><span class="line">    <span class="title function_">setWidth</span>(<span class="params">width</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span> = width;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span> = width;  <span class="comment">// 正方形宽高相等</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">setHeight</span>(<span class="params">height</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span> = height;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span> = height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，有一个基本的形状类 <code>Shape</code> 和一个子类 <code>Rectangle</code>（矩形），后续还计划引入 <code>Square</code>（正方形）。<code>Square</code> 类违背了里氏替换原则，它修改了父类的行为。<code>Rectangle</code> 和 <code>Square</code> 类的行为不一致，当将 <code>Square</code> 代替 <code>Rectangle</code> 时，<code>getArea()</code> 的行为会出错。</p>
+<h4 id="解决方案-3">解决方案</h4>
+<p>为每种形状创建单独的类，而不尝试让 <code>Square</code> 继承 <code>Rectangle</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">width, height</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span> = width;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span> = height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getArea</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">width</span> * <span class="variable language_">this</span>.<span class="property">height</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">side</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">side</span> = side;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getArea</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">side</span> * <span class="variable language_">this</span>.<span class="property">side</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接口隔离原则">接口隔离原则</h3>
+<p>客户端不应该依赖于它不需要的接口，即为不同的客户端提供专用的接口，而不是使用一个通用的接口。</p>
+<h4 id="场景-4">场景</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Worker</span> &#123;</span><br><span class="line">    <span class="title function_">eat</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Robot</span> implements <span class="title class_">Worker</span> &#123;</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 机器人工作逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">eat</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;机器人不需要吃饭&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，一个 <code>Worker</code> 接口有多个方法，如 <code>eat()</code> 和 <code>work()</code>，但有些类并不需要所有方法。<code>Robot</code> 实现了不需要的 <code>eat</code> 方法，违反了接口隔离原则。</p>
+<h4 id="解决方案-4">解决方案</h4>
+<p>将接口拆分为更小的、专门化的接口。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Eater</span> &#123;</span><br><span class="line">    <span class="title function_">eat</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Worker</span> &#123;</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Human</span> implements <span class="title class_">Eater</span>, <span class="title class_">Worker</span> &#123;</span><br><span class="line">    <span class="title function_">eat</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 人类吃饭逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 人类工作逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Robot</span> implements <span class="title class_">Worker</span> &#123;</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 机器人工作逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="依赖倒置原则">依赖倒置原则</h3>
+<p>高层模块不应该依赖于低层模块，而两者都应该依赖于抽象。抽象不应该依赖于细节，细节应该依赖于抽象。简而言之，依赖反转原则倡导通过抽象来解耦高层和低层模块之间的依赖关系。</p>
+<h4 id="场景-5">场景</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MySQLDatabase</span> &#123;</span><br><span class="line">    <span class="title function_">connect</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// MySQL 连接逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DatabaseService</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">db</span> = <span class="keyword">new</span> <span class="title class_">MySQLDatabase</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getData</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">db</span>.<span class="title function_">connect</span>();</span><br><span class="line">        <span class="comment">// 其他数据库操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，<code>DatabaseService</code> 直接依赖具体的数据库实现，如 <code>MySQLDatabase</code>。<code>DatabaseService</code> 高层模块直接依赖于 <code>MySQLDatabase</code> 低层模块，这违反了依赖倒置原则。如果我们想换成 <code>MongoDB</code> 或 <code>PostgreSQL</code>，需要修改 <code>DatabaseService</code>。</p>
+<h4 id="解决方案-5">解决方案</h4>
+<p>使用接口（抽象层）来解除具体实现的依赖。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Database</span> &#123;</span><br><span class="line">    <span class="title function_">connect</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MySQLDatabase</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Database</span> &#123;</span><br><span class="line">    <span class="title function_">connect</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// MySQL 连接逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MongoDBDatabase</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Database</span> &#123;</span><br><span class="line">    <span class="title function_">connect</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// MongoDB 连接逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DatabaseService</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">database</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">db</span> = database;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getData</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">db</span>.<span class="title function_">connect</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> service = <span class="keyword">new</span> <span class="title class_">DatabaseService</span>(<span class="keyword">new</span> <span class="title class_">MySQLDatabase</span>());</span><br><span class="line">service.<span class="title function_">getData</span>();  <span class="comment">// 使用 MySQL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> service2 = <span class="keyword">new</span> <span class="title class_">DatabaseService</span>(<span class="keyword">new</span> <span class="title class_">MongoDBDatabase</span>());</span><br><span class="line">service2.<span class="title function_">getData</span>();  <span class="comment">// 使用 MongoDB</span></span><br></pre></td></tr></table></figure>
+<h2 id="设计模式分类">设计模式分类</h2>
+<ol>
+<li><strong>创建型模式</strong>：主要解决对象的创建问题，使系统独立于对象的创建过程。
+<ul>
+<li>常见模式：单例模式、工厂模式、抽象工厂模式、建造者模式、原型模式。</li>
+</ul>
+</li>
+<li><strong>结构型模式</strong>：关注对象间的组合，通过合理地组合对象来实现新的功能。
+<ul>
+<li>常见模式：适配器模式、装饰者模式、代理模式、外观模式、桥接模式、组合模式、享元模式。</li>
+</ul>
+</li>
+<li><strong>行为型模式</strong>：关注对象之间的通信与职责划分，帮助管理复杂的对象交互。
+<ul>
+<li>常见模式：观察者模式、状态模式、策略模式、命令模式、责任链模式、中介者模式、迭代器模式、模板方法模式、备忘录模式、解释器模式、访问者模式。</li>
+</ul>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="print-no-link">#设计模式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/23/%E6%8E%92%E5%BA%8F-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/" title="排序-基数排序">
+                        <span class="hidden-mobile">排序-基数排序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
