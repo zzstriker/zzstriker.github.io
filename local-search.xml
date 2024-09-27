@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>设计模式-原型模式</title>
+    <link href="/2024/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2024/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<p><strong>原型模式</strong>是一种创建型设计模式，它允许通过复制现有对象来创建新对象，而不是通过实例化类来创建对象。通过原型模式，可以避免重复创建相似的对象，尤其是当对象的创建成本较高时，复制已有对象的效率更高。在 JavaScript 中，由于它的原型继承特性，原型模式可以非常自然地实现。</p><span id="more"></span><h1>原型模式</h1><h2 id="组成">组成</h2><ol><li><strong>原型接口（Prototype）</strong>：定义一个可以被克隆的接口，通常提供 <code>clone()</code> 方法，用于复制自身。</li><li><strong>具体原型（Concrete Prototype）</strong>：实现原型接口的具体对象，负责复制自身。</li><li><strong>客户端（Client）</strong>：通过调用原型对象的 <code>clone()</code> 方法来创建新的对象，而不是直接使用 <code>new</code> 操作符。</li></ol><h2 id="代码实现">代码实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基础原型对象</span></span><br><span class="line"><span class="keyword">const</span> personPrototype = &#123;</span><br><span class="line">    <span class="title function_">init</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">greet</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello, my name is <span class="subst">$&#123;<span class="variable language_">this</span>.name&#125;</span> and I am <span class="subst">$&#123;<span class="variable language_">this</span>.age&#125;</span> years old.`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新对象，基于personPrototype</span></span><br><span class="line"><span class="keyword">const</span> person1 = <span class="title class_">Object</span>.<span class="title function_">create</span>(personPrototype);</span><br><span class="line">person1.<span class="title function_">init</span>(<span class="string">&#x27;John&#x27;</span>, <span class="number">25</span>);</span><br><span class="line">person1.<span class="title function_">greet</span>(); <span class="comment">// Hello, my name is John and I am 25 years old.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 克隆一个新的对象</span></span><br><span class="line"><span class="keyword">const</span> person2 = <span class="title class_">Object</span>.<span class="title function_">create</span>(personPrototype);</span><br><span class="line">person2.<span class="title function_">init</span>(<span class="string">&#x27;Jane&#x27;</span>, <span class="number">30</span>);</span><br><span class="line">person2.<span class="title function_">greet</span>(); <span class="comment">// Hello, my name is Jane and I am 30 years old.</span></span><br></pre></td></tr></table></figure><p><strong>说明</strong></p><ol><li><strong>原型对象 (<code>personPrototype</code>)</strong>：这是一个带有初始化和行为方法的原型对象，所有基于这个原型创建的对象都会继承这些方法。</li><li><strong><code>Object.create()</code></strong>：JavaScript 的内置方法，用来基于给定的原型对象创建一个新对象。新对象会继承原型对象的属性和方法。</li><li><strong><code>init()</code> 方法</strong>：每个克隆对象都会调用 <code>init()</code> 方法进行初始化。这相当于一个构造函数，初始化对象的 <code>name</code> 和 <code>age</code> 属性。</li><li><strong>克隆</strong>：<code>person1</code> 和 <code>person2</code> 是两个独立的对象，它们基于相同的原型创建，并且分别通过 <code>init</code> 方法初始化了不同的状态。</li></ol><h2 id="优点">优点</h2><ol><li><strong>减少对象创建的开销</strong>：特别是对于复杂对象，克隆比重新创建成本更低。</li><li><strong>动态创建对象</strong>：在运行时动态创建对象，不需要提前知道具体的类型。</li><li><strong>避免复杂类的创建</strong>：对于那些需要经过复杂初始化的对象，可以通过克隆快速得到一个已初始化的副本。</li></ol><h2 id="缺点">缺点</h2><ol><li><strong>深拷贝问题</strong>：如果对象中有嵌套对象，浅拷贝可能会带来副作用，需要手动处理深拷贝。</li><li><strong>实现复杂性</strong>：在一些编程语言中，实现深拷贝可能比较复杂，尤其是当对象包含引用其他对象时。</li></ol><h2 id="与其他模式的对比">与其他模式的对比</h2><ol><li><strong>原型模式 vs 工厂模式</strong>：原型模式通过复制现有对象来创建新对象，而工厂模式是通过调用工厂方法来实例化对象。原型模式适用于需要克隆的场景，而工厂模式适用于控制对象创建的场景。</li><li><strong>原型模式 vs 单例模式</strong>：单例模式只允许一个实例，而原型模式允许通过克隆创建多个类似的对象。两者的目标不同，单例模式强调唯一性，而原型模式强调高效的对象创建。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>JS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>设计模式-工厂模式</title>
     <link href="/2024/09/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
     <url>/2024/09/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
