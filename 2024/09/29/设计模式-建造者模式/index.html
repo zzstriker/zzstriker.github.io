@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原型模式（Prototype Pattern）是一种创建型设计模式，它允许通过复制现有对象来创建新对象，而不是通过实例化类来创建对象。通过原型模式，可以避免重复创建相似的对象，尤其是当对象的创建成本较高时，复制已有对象的效率更高。在 JavaScript 中，由于它的原型继承特性，原型模式可以非常自然地实现。">
+    <meta name="description" content="建造者模式（Builder Pattern）是一种创建型设计模式，主要用于构建复杂对象的过程。它通过使用多个简单的对象一步步构建成一个复杂的对象，允许以相同的构建过程创建不同类型的对象。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-原型模式">
-<meta property="og:url" content="https://zzstriker.github.io/2024/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="设计模式-建造者模式">
+<meta property="og:url" content="https://zzstriker.github.io/2024/09/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="原型模式（Prototype Pattern）是一种创建型设计模式，它允许通过复制现有对象来创建新对象，而不是通过实例化类来创建对象。通过原型模式，可以避免重复创建相似的对象，尤其是当对象的创建成本较高时，复制已有对象的效率更高。在 JavaScript 中，由于它的原型继承特性，原型模式可以非常自然地实现。">
+<meta property="og:description" content="建造者模式（Builder Pattern）是一种创建型设计模式，主要用于构建复杂对象的过程。它通过使用多个简单的对象一步步构建成一个复杂的对象，允许以相同的构建过程创建不同类型的对象。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-27T02:04:45.000Z">
-<meta property="article:modified_time" content="2024-09-27T02:15:07.860Z">
+<meta property="article:published_time" content="2024-09-29T01:26:42.000Z">
+<meta property="article:modified_time" content="2024-09-29T01:26:42.284Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>设计模式-原型模式 - zzstriker blogs</title>
+  <title>设计模式-建造者模式 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="设计模式-原型模式"></span>
+            <span id="subtitle" data-typed-text="设计模式-建造者模式"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-27 10:04" pubdate>
-          2024年9月27日 上午
+        <time datetime="2024-09-29 09:26" pubdate>
+          2024年9月29日 上午
         </time>
       </span>
     
@@ -260,44 +260,41 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">设计模式-原型模式</h1>
+            <h1 id="seo-header">设计模式-建造者模式</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>原型模式</strong>（Prototype Pattern）是一种创建型设计模式，它允许通过复制现有对象来创建新对象，而不是通过实例化类来创建对象。通过原型模式，可以避免重复创建相似的对象，尤其是当对象的创建成本较高时，复制已有对象的效率更高。在 JavaScript 中，由于它的原型继承特性，原型模式可以非常自然地实现。</p>
+                <p><strong>建造者模式</strong>（Builder Pattern）是一种创建型设计模式，主要用于构建复杂对象的过程。它通过使用多个简单的对象一步步构建成一个复杂的对象，允许以相同的构建过程创建不同类型的对象。</p>
 <span id="more"></span>
-<h1>原型模式</h1>
+<h1>建造者模式</h1>
 <h2 id="组成">组成</h2>
 <ol>
-<li><strong>原型接口（Prototype）</strong>：定义一个可以被克隆的接口，通常提供 <code>clone()</code> 方法，用于复制自身。</li>
-<li><strong>具体原型（Concrete Prototype）</strong>：实现原型接口的具体对象，负责复制自身。</li>
-<li><strong>客户端（Client）</strong>：通过调用原型对象的 <code>clone()</code> 方法来创建新的对象，而不是直接使用 <code>new</code> 操作符。</li>
+<li><strong>产品（Product）</strong>：要构建的复杂对象。</li>
+<li><strong>建造者（Builder）</strong>：定义创建产品的抽象接口，提供用于组装产品的各种方法。</li>
+<li><strong>具体建造者（ConcreteBuilder）</strong>：实现建造者接口，构建并装配各个部件，最终返回产品。</li>
+<li><strong>指挥者（Director）</strong>：负责控制建造过程，使用建造者接口构建产品。</li>
 </ol>
 <h2 id="代码实现">代码实现</h2>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基础原型对象</span></span><br><span class="line"><span class="keyword">const</span> personPrototype = &#123;</span><br><span class="line">    <span class="title function_">init</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">greet</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello, my name is <span class="subst">$&#123;<span class="variable language_">this</span>.name&#125;</span> and I am <span class="subst">$&#123;<span class="variable language_">this</span>.age&#125;</span> years old.`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新对象，基于personPrototype</span></span><br><span class="line"><span class="keyword">const</span> person1 = <span class="title class_">Object</span>.<span class="title function_">create</span>(personPrototype);</span><br><span class="line">person1.<span class="title function_">init</span>(<span class="string">&#x27;John&#x27;</span>, <span class="number">25</span>);</span><br><span class="line">person1.<span class="title function_">greet</span>(); <span class="comment">// Hello, my name is John and I am 25 years old.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 克隆一个新的对象</span></span><br><span class="line"><span class="keyword">const</span> person2 = <span class="title class_">Object</span>.<span class="title function_">create</span>(personPrototype);</span><br><span class="line">person2.<span class="title function_">init</span>(<span class="string">&#x27;Jane&#x27;</span>, <span class="number">30</span>);</span><br><span class="line">person2.<span class="title function_">greet</span>(); <span class="comment">// Hello, my name is Jane and I am 30 years old.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 产品类：计算机</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Computer</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">cpu</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">memory</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hardDrive</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">specs</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`Computer with CPU: <span class="subst">$&#123;<span class="variable language_">this</span>.cpu&#125;</span>, Memory: <span class="subst">$&#123;<span class="variable language_">this</span>.memory&#125;</span>, Hard Drive: <span class="subst">$&#123;<span class="variable language_">this</span>.hardDrive&#125;</span>`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建造者接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ComputerBuilder</span> &#123;</span><br><span class="line">    <span class="title function_">buildCPU</span>(<span class="params">cpu</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method must be overwritten!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">buildMemory</span>(<span class="params">memory</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method must be overwritten!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">buildHardDrive</span>(<span class="params">hardDrive</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method must be overwritten!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getComputer</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method must be overwritten!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体建造者</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GamingComputerBuilder</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ComputerBuilder</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">computer</span> = <span class="keyword">new</span> <span class="title class_">Computer</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">buildCPU</span>(<span class="params">cpu</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">computer</span>.<span class="property">cpu</span> = cpu;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">buildMemory</span>(<span class="params">memory</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">computer</span>.<span class="property">memory</span> = memory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">buildHardDrive</span>(<span class="params">hardDrive</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">computer</span>.<span class="property">hardDrive</span> = hardDrive;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getComputer</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">computer</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指挥者类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ComputerDirector</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">builder</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">builder</span> = builder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">constructGamingComputer</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">builder</span>.<span class="title function_">buildCPU</span>(<span class="string">&quot;Intel i9&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">builder</span>.<span class="title function_">buildMemory</span>(<span class="string">&quot;32GB&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">builder</span>.<span class="title function_">buildHardDrive</span>(<span class="string">&quot;1TB SSD&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端</span></span><br><span class="line"><span class="keyword">const</span> gamingBuilder = <span class="keyword">new</span> <span class="title class_">GamingComputerBuilder</span>();</span><br><span class="line"><span class="keyword">const</span> director = <span class="keyword">new</span> <span class="title class_">ComputerDirector</span>(gamingBuilder);</span><br><span class="line">director.<span class="title function_">constructGamingComputer</span>();</span><br><span class="line"><span class="keyword">const</span> gamingComputer = gamingBuilder.<span class="title function_">getComputer</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(gamingComputer.<span class="title function_">specs</span>());</span><br><span class="line"><span class="comment">// Computer with CPU: Intel i9, Memory: 32GB, Hard Drive: 1TB SSD</span></span><br></pre></td></tr></table></figure>
 <p><strong>说明</strong></p>
 <ol>
-<li><strong>原型对象 (<code>personPrototype</code>)</strong>：这是一个带有初始化和行为方法的原型对象，所有基于这个原型创建的对象都会继承这些方法。</li>
-<li><strong><code>Object.create()</code></strong>：JavaScript 的内置方法，用来基于给定的原型对象创建一个新对象。新对象会继承原型对象的属性和方法。</li>
-<li><strong><code>init()</code> 方法</strong>：每个克隆对象都会调用 <code>init()</code> 方法进行初始化。这相当于一个构造函数，初始化对象的 <code>name</code> 和 <code>age</code> 属性。</li>
-<li><strong>克隆</strong>：<code>person1</code> 和 <code>person2</code> 是两个独立的对象，它们基于相同的原型创建，并且分别通过 <code>init</code> 方法初始化了不同的状态。</li>
+<li><strong>产品类 <code>Computer</code></strong>：表示要构建的复杂对象，具有 <code>CPU</code>、<code>Memory</code> 和 <code>HardDrive</code> 属性，并提供了一个 <code>specs()</code> 方法用于输出配置。</li>
+<li><strong>建造者接口 <code>ComputerBuilder</code></strong>：定义了构建计算机的接口，提供了构建各个部件的方法和获取产品的方法。</li>
+<li><strong>具体建造者 <code>GamingComputerBuilder</code></strong>：实现了建造者接口，负责具体的产品构建过程，创建并返回一个 <code>Computer</code> 对象。</li>
+<li><strong>指挥者类 <code>ComputerDirector</code></strong>：使用具体建造者的方法来构建一个完整的计算机。这里的 <code>constructGamingComputer()</code> 方法负责设定构建过程。</li>
+<li><strong>客户端</strong>：创建一个 <code>GamingComputerBuilder</code> 实例和 <code>ComputerDirector</code> 实例，调用指挥者的构建方法，最后获取构建完成的 <code>Computer</code> 对象。</li>
 </ol>
 <h2 id="优点">优点</h2>
 <ol>
-<li><strong>减少对象创建的开销</strong>：特别是对于复杂对象，克隆比重新创建成本更低。</li>
-<li><strong>动态创建对象</strong>：在运行时动态创建对象，不需要提前知道具体的类型。</li>
-<li><strong>避免复杂类的创建</strong>：对于那些需要经过复杂初始化的对象，可以通过克隆快速得到一个已初始化的副本。</li>
+<li><strong>解耦</strong>：将对象的构建与表示分离，便于管理和维护。</li>
+<li><strong>灵活性</strong>：可以通过不同的建造者创建不同类型的产品，构建过程灵活可变。</li>
+<li><strong>便于扩展</strong>：增加新的产品类型或建造者只需扩展，现有代码不需修改。</li>
 </ol>
 <h2 id="缺点">缺点</h2>
 <ol>
-<li><strong>深拷贝问题</strong>：如果对象中有嵌套对象，浅拷贝可能会带来副作用，需要手动处理深拷贝。</li>
-<li><strong>实现复杂性</strong>：在一些编程语言中，实现深拷贝可能比较复杂，尤其是当对象包含引用其他对象时。</li>
-</ol>
-<h2 id="与其他模式的对比">与其他模式的对比</h2>
-<ol>
-<li><strong>原型模式 vs 工厂模式</strong>：原型模式通过复制现有对象来创建新对象，而工厂模式是通过调用工厂方法来实例化对象。原型模式适用于需要克隆的场景，而工厂模式适用于控制对象创建的场景。</li>
-<li><strong>原型模式 vs 单例模式</strong>：单例模式只允许一个实例，而原型模式允许通过克隆创建多个类似的对象。两者的目标不同，单例模式强调唯一性，而原型模式强调高效的对象创建。</li>
+<li><strong>复杂性</strong>：由于需要引入多个类，增加了系统的复杂度。</li>
+<li><strong>产品多样性过多</strong>：如果产品种类很多，可能导致建造者类数目急剧增加。</li>
 </ol>
 
                 
@@ -346,18 +343,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="设计模式-建造者模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">设计模式-建造者模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="设计模式-工厂模式">
-                        <span class="hidden-mobile">设计模式-工厂模式</span>
+                      <a href="/2024/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" title="设计模式-原型模式">
+                        <span class="hidden-mobile">设计模式-原型模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
