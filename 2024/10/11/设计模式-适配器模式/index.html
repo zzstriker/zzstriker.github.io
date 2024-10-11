@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="适配器模式（Adapter Pattern）是一种结构型设计模式，它允许将一个类的接口转换为客户端期望的另一个接口。适配器模式的主要目的是解决接口不兼容的问题，使得原本无法直接交互的类能够协作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-适配器模式">
+<meta property="og:url" content="https://zzstriker.github.io/2024/10/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="适配器模式（Adapter Pattern）是一种结构型设计模式，它允许将一个类的接口转换为客户端期望的另一个接口。适配器模式的主要目的是解决接口不兼容的问题，使得原本无法直接交互的类能够协作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-11T01:30:47.000Z">
+<meta property="article:modified_time" content="2024-10-11T01:30:47.379Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>设计模式-适配器模式 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="设计模式-适配器模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-11 09:30" pubdate>
+          2024年10月11日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">设计模式-适配器模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>适配器模式</strong>（Adapter Pattern）是一种结构型设计模式，它允许将一个类的接口转换为客户端期望的另一个接口。适配器模式的主要目的是解决接口不兼容的问题，使得原本无法直接交互的类能够协作。</p>
+<span id="more"></span>
+<h1>适配器模式</h1>
+<h2 id="组成">组成</h2>
+<ol>
+<li><strong>目标接口（Target）</strong>：定义客户端期望的接口，适配器类需要实现这个接口。</li>
+<li><strong>适配器（Adapter）</strong>：实现目标接口，并将适配后的请求委托给适配者。</li>
+<li><strong>适配者（Adaptee）</strong>：需要被适配的类，它的接口不符合目标接口，但提供了客户端需要的功能。</li>
+<li><strong>客户端（Client）</strong>：通过目标接口与适配器交互。</li>
+</ol>
+<h2 id="代码实现">代码实现</h2>
+<p>适配器模式主要有两种形式：类适配器和对象适配器。</p>
+<h3 id="类适配器">类适配器</h3>
+<p>通过继承的方式，使适配器类同时拥有目标接口和适配者的接口</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 适配者类：老式支付系统</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">OldPaymentSystem</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">amount</span> = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">makePayment</span>(<span class="params">amount</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">amount</span> = amount;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Payment of $<span class="subst">$&#123;amount&#125;</span> made through Old Payment System.`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标接口：新的支付接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NewPaymentSystem</span> &#123;</span><br><span class="line">    <span class="title function_">processPayment</span>(<span class="params">amount</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method should be overwritten!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 适配器类：将老式支付系统适配到新的支付接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PaymentAdapter</span> <span class="keyword">extends</span> <span class="title class_ inherited__">NewPaymentSystem</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">oldPaymentSystem</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">oldPaymentSystem</span> = oldPaymentSystem;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">processPayment</span>(<span class="params">amount</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">oldPaymentSystem</span>.<span class="title function_">makePayment</span>(amount); <span class="comment">// 委托给老系统的 makePayment 方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码</span></span><br><span class="line"><span class="keyword">const</span> oldSystem = <span class="keyword">new</span> <span class="title class_">OldPaymentSystem</span>();</span><br><span class="line"><span class="keyword">const</span> paymentAdapter = <span class="keyword">new</span> <span class="title class_">PaymentAdapter</span>(oldSystem);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用适配器调用新接口</span></span><br><span class="line">paymentAdapter.<span class="title function_">processPayment</span>(<span class="number">100</span>); </span><br><span class="line"><span class="comment">// 输出: Payment of $100 made through Old Payment System.</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong></p>
+<ol>
+<li><strong>适配者类 <code>OldPaymentSystem</code></strong>：代表旧的支付系统，它的接口 <code>makePayment()</code> 不符合新的支付接口。</li>
+<li><strong>目标接口 <code>NewPaymentSystem</code></strong>：定义新的支付接口，要求实现 <code>processPayment()</code> 方法。</li>
+<li><strong>适配器类 <code>PaymentAdapter</code></strong>：继承自新的支付接口 <code>NewPaymentSystem</code>，并在内部组合了 <code>OldPaymentSystem</code>。通过 <code>processPayment()</code> 方法，适配器将请求委托给旧支付系统的 <code>makePayment()</code> 方法。</li>
+<li><strong>客户端代码</strong>：创建一个 <code>PaymentAdapter</code> 实例，使客户端能够通过新的接口与旧系统交互。</li>
+</ol>
+<h3 id="对象适配器">对象适配器</h3>
+<p>对象适配器中，适配器类持有一个被适配者对象的实例，并实现了目标接口。通过委托，适配器将客户端的请求传递给被适配者。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 目标接口：新的媒体播放器接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MediaPlayer</span> &#123;</span><br><span class="line">    <span class="title function_">play</span>(<span class="params">fileType, fileName</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method should be overwritten!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 适配者类：只能播放 mp3 的旧版媒体播放器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Mp3Player</span> &#123;</span><br><span class="line">    <span class="title function_">playMp3</span>(<span class="params">fileName</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Playing mp3 file: <span class="subst">$&#123;fileName&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Mp4Player</span> &#123;</span><br><span class="line">    <span class="title function_">playMp4</span>(<span class="params">fileName</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Playing mp4 file: <span class="subst">$&#123;fileName&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AviPlayer</span> &#123;</span><br><span class="line">    <span class="title function_">playAvi</span>(<span class="params">fileName</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Playing avi file: <span class="subst">$&#123;fileName&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 适配器类：适配 Mp3Player 使其兼容新的 MediaPlayer 接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MediaAdapter</span> <span class="keyword">extends</span> <span class="title class_ inherited__">MediaPlayer</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">fileType</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="keyword">if</span> (fileType === <span class="string">&quot;mp3&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">advancedPlayer</span> = <span class="keyword">new</span> <span class="title class_">Mp3Player</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fileType === <span class="string">&quot;mp4&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">advancedPlayer</span> = <span class="keyword">new</span> <span class="title class_">Mp4Player</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fileType === <span class="string">&quot;avi&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">advancedPlayer</span> = <span class="keyword">new</span> <span class="title class_">AviPlayer</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">play</span>(<span class="params">fileType, fileName</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (fileType === <span class="string">&quot;mp3&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">advancedPlayer</span>.<span class="title function_">playMp3</span>(fileName);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fileType === <span class="string">&quot;mp4&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">advancedPlayer</span>.<span class="title function_">playMp4</span>(fileName);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fileType === <span class="string">&quot;avi&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">advancedPlayer</span>.<span class="title function_">playAvi</span>(fileName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端类：通过适配器播放不同格式的文件</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AudioPlayer</span> <span class="keyword">extends</span> <span class="title class_ inherited__">MediaPlayer</span> &#123;</span><br><span class="line">    <span class="title function_">play</span>(<span class="params">fileType, fileName</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (fileType === <span class="string">&quot;mp3&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Directly playing mp3 file: <span class="subst">$&#123;fileName&#125;</span>`</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fileType === <span class="string">&quot;mp4&quot;</span> || fileType === <span class="string">&quot;avi&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> adapter = <span class="keyword">new</span> <span class="title class_">MediaAdapter</span>(fileType);</span><br><span class="line">            adapter.<span class="title function_">play</span>(fileType, fileName);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Invalid media. Cannot play.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码</span></span><br><span class="line"><span class="keyword">const</span> audioPlayer = <span class="keyword">new</span> <span class="title class_">AudioPlayer</span>();</span><br><span class="line">audioPlayer.<span class="title function_">play</span>(<span class="string">&quot;mp3&quot;</span>, <span class="string">&quot;song.mp3&quot;</span>); <span class="comment">// 输出: Directly playing mp3 file: song.mp3</span></span><br><span class="line">audioPlayer.<span class="title function_">play</span>(<span class="string">&quot;mp4&quot;</span>, <span class="string">&quot;video.mp4&quot;</span>); <span class="comment">// 输出: Playing mp4 file: video.mp4</span></span><br><span class="line">audioPlayer.<span class="title function_">play</span>(<span class="string">&quot;avi&quot;</span>, <span class="string">&quot;movie.avi&quot;</span>); <span class="comment">// 输出: Playing avi file: movie.avi</span></span><br><span class="line">audioPlayer.<span class="title function_">play</span>(<span class="string">&quot;mkv&quot;</span>, <span class="string">&quot;series.mkv&quot;</span>); <span class="comment">// 输出: Invalid media. Cannot play.</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong></p>
+<ol>
+<li><strong>目标接口 <code>MediaPlayer</code></strong>：定义了客户端期望的媒体播放器接口，要求实现 <code>play()</code> 方法。</li>
+<li><strong>适配者类 <code>Mp3Player</code></strong>：它是旧版的播放器，只支持播放 <code>.mp3</code> 格式，通过 <code>playMp3()</code> 方法播放文件。</li>
+<li><strong>适配器类 <code>MediaAdapter</code></strong>：适配器将 <code>MediaPlayer</code> 接口与适配者 <code>Mp3Player</code>、<code>Mp4Player</code> 和 <code>AviPlayer</code> 连接起来。它根据文件类型创建不同的播放器，并将请求委托给适配者的相应方法。</li>
+<li><strong>客户端类 <code>AudioPlayer</code></strong>：这是客户端直接使用的类。它通过适配器适配不同的文件格式，支持 <code>.mp3</code>、<code>.mp4</code> 和 <code>.avi</code> 文件。如果遇到不支持的格式，它会输出相应的错误信息。</li>
+<li><strong>客户端代码</strong>：创建一个 <code>AudioPlayer</code> 实例，并通过它播放不同格式的文件。<code>.mp3</code> 文件通过旧版播放器直接播放，<code>.mp4</code> 和 <code>.avi</code> 文件通过适配器播放。</li>
+</ol>
+<h2 id="优点">优点</h2>
+<ol>
+<li><strong>提高代码复用</strong>：可以将现有的类适配到新的接口，而无需修改原有代码。</li>
+<li><strong>解耦代码</strong>：客户端不需要知道适配者的内部实现，只需通过适配器与其交互，降低了耦合度。</li>
+<li><strong>灵活性高</strong>：可以在运行时根据需要使用不同的适配器。</li>
+</ol>
+<h2 id="缺点">缺点</h2>
+<ol>
+<li><strong>增加系统复杂性</strong>：如果过度使用适配器，系统可能变得复杂且难以维护。</li>
+<li><strong>性能开销</strong>：适配器需要额外的处理，可能会带来一些性能开销，特别是在适配过程中涉及大量对象转换时。</li>
+</ol>
+<h2 id="与其他模式的对比">与其他模式的对比</h2>
+<ol>
+<li><strong>适配器模式 vs 代理模式</strong>
+<ul>
+<li><strong>适配器模式：</strong> 提供一个不一样的接口，由于原来的接口格式<strong>不能用了</strong>，提供新的接口以满足新场景下的需求。</li>
+<li><strong>代理模式：</strong> 提供一模一样的接口，由于不能直接访问目标对象，找个代理来帮忙访问，使用者可以就像访问目标对象一样来访问代理对象。</li>
+</ul>
+</li>
+<li><strong>适配器模式 vs 观察者模式 vs 装饰模式</strong>
+<ul>
+<li><strong>适配器模式</strong>：主要用于接口不兼容时，通过适配器使两个接口能够相互配合。</li>
+<li><strong>观察者模式</strong>：用于实现一对多的通知机制，当一个对象状态发生变化时，自动通知依赖它的对象。</li>
+<li><strong>装饰模式</strong>：用于动态地为对象添加新功能，而不改变其原始结构。</li>
+</ul>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="print-no-link">#设计模式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" title="设计模式-外观模式">
+                        <span class="hidden-mobile">设计模式-外观模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
