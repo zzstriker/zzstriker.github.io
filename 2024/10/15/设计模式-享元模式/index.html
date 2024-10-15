@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="享元模式（Flyweight Pattern）是一种结构型设计模式，旨在通过共享对象来减少内存的使用，以便在大量对象需要被创建、渲染或存储的情况下，优化内存消耗。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-享元模式">
+<meta property="og:url" content="https://zzstriker.github.io/2024/10/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="享元模式（Flyweight Pattern）是一种结构型设计模式，旨在通过共享对象来减少内存的使用，以便在大量对象需要被创建、渲染或存储的情况下，优化内存消耗。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-15T01:30:19.000Z">
+<meta property="article:modified_time" content="2024-10-15T01:30:19.032Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>设计模式-享元模式 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="设计模式-享元模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-15 09:30" pubdate>
+          2024年10月15日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">设计模式-享元模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>享元模式</strong>（Flyweight Pattern）是一种结构型设计模式，旨在通过<strong>共享对象</strong>来减少内存的使用，以便在大量对象需要被创建、渲染或存储的情况下，优化内存消耗。</p>
+<span id="more"></span>
+<h1>享元模式</h1>
+<p>享元模式通过将对象的<strong>内在状态</strong>（共享部分）和<strong>外在状态</strong>（不共享部分）分离，将内在状态存储在共享对象中，从而减少内存消耗。每个对象的外在状态在使用时可以动态提供，不需要与对象本身存储在一起。</p>
+<ol>
+<li><strong>内在状态</strong>：对象中可以共享的部分，通常是不变的，存储在享元对象中。</li>
+<li><strong>外在状态</strong>：对象的非共享部分，通常是变化的，在每次使用时传递给享元对象。</li>
+</ol>
+<h2 id="组成">组成</h2>
+<ol>
+<li><strong>享元接口（Flyweight）</strong>：定义了享元对象的基本行为。通常包含操作方法和设置外在状态的方法。</li>
+<li><strong>具体享元类（Concrete Flyweight）</strong>：实现享元接口，存储享元对象的内在状态，并提供处理外在状态的方法。</li>
+<li><strong>享元工厂类（Flyweight Factory）</strong>：负责管理享元对象的创建和共享逻辑。工厂类确保客户端获取的享元对象是共享的。</li>
+<li><strong>客户端（Client）</strong>：客户端会持有外在状态，并在需要时与享元对象配合使用。客户端负责将外在状态传递给享元对象。</li>
+</ol>
+<h2 id="代码实现">代码实现</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 享元接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CharacterFlyweight</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">fontFamily, fontSize, color</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">fontFamily</span> = fontFamily;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">fontSize</span> = fontSize;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">color</span> = color; <span class="comment">// 内在状态</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">render</span>(<span class="params">character, positionX, positionY</span>) &#123;</span><br><span class="line">        <span class="comment">// 外在状态：字符内容（character）和位置（positionX, positionY）</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`渲染字符 &#x27;<span class="subst">$&#123;character&#125;</span>&#x27;，字体: <span class="subst">$&#123;<span class="variable language_">this</span>.fontFamily&#125;</span>, 大小: <span class="subst">$&#123;<span class="variable language_">this</span>.fontSize&#125;</span>px, 颜色: <span class="subst">$&#123;<span class="variable language_">this</span>.color&#125;</span>，位置: (<span class="subst">$&#123;positionX&#125;</span>, <span class="subst">$&#123;positionY&#125;</span>)`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 享元工厂类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FlyweightFactory</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">flyweights</span> = &#123;&#125;; <span class="comment">// 存储共享的享元对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getFlyweight</span>(<span class="params">fontFamily, fontSize, color</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> key = <span class="string">`<span class="subst">$&#123;fontFamily&#125;</span>_<span class="subst">$&#123;fontSize&#125;</span>_<span class="subst">$&#123;color&#125;</span>`</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">flyweights</span>[key]) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">flyweights</span>[key] = <span class="keyword">new</span> <span class="title class_">CharacterFlyweight</span>(fontFamily, fontSize, color);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">flyweights</span>[key];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getFlyweightCount</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">this</span>.<span class="property">flyweights</span>).<span class="property">length</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DocumentEditor</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">characters</span> = []; <span class="comment">// 存储字符及其外在状态</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">factory</span> = <span class="keyword">new</span> <span class="title class_">FlyweightFactory</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">addCharacter</span>(<span class="params">char, fontFamily, fontSize, color, positionX, positionY</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> flyweight = <span class="variable language_">this</span>.<span class="property">factory</span>.<span class="title function_">getFlyweight</span>(fontFamily, fontSize, color);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">characters</span>.<span class="title function_">push</span>(&#123; flyweight, char, positionX, positionY &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">renderDocument</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">characters</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">entry</span> =&gt;</span> &#123;</span><br><span class="line">            entry.<span class="property">flyweight</span>.<span class="title function_">render</span>(entry.<span class="property">char</span>, entry.<span class="property">positionX</span>, entry.<span class="property">positionY</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端使用</span></span><br><span class="line"><span class="keyword">const</span> editor = <span class="keyword">new</span> <span class="title class_">DocumentEditor</span>();</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;H&#x27;</span>, <span class="string">&#x27;Arial&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;black&#x27;</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;Arial&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;black&#x27;</span>, <span class="number">10</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;Arial&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;black&#x27;</span>, <span class="number">20</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;Arial&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;black&#x27;</span>, <span class="number">30</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;Arial&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;black&#x27;</span>, <span class="number">40</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用不同的字体样式</span></span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;W&#x27;</span>, <span class="string">&#x27;Times New Roman&#x27;</span>, <span class="number">14</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="number">50</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;Times New Roman&#x27;</span>, <span class="number">14</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="number">60</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;Times New Roman&#x27;</span>, <span class="number">14</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="number">70</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;Times New Roman&#x27;</span>, <span class="number">14</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="number">80</span>, <span class="number">0</span>);</span><br><span class="line">editor.<span class="title function_">addCharacter</span>(<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;Times New Roman&#x27;</span>, <span class="number">14</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="number">90</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染文档</span></span><br><span class="line">editor.<span class="title function_">renderDocument</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`享元对象数量: <span class="subst">$&#123;editor.factory.getFlyweightCount()&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;H&#x27;，字体: Arial, 大小: 12px, 颜色: black，位置: (0, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;e&#x27;，字体: Arial, 大小: 12px, 颜色: black，位置: (10, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;l&#x27;，字体: Arial, 大小: 12px, 颜色: black，位置: (20, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;l&#x27;，字体: Arial, 大小: 12px, 颜色: black，位置: (30, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;o&#x27;，字体: Arial, 大小: 12px, 颜色: black，位置: (40, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;W&#x27;，字体: Times New Roman, 大小: 14px, 颜色: blue，位置: (50, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;o&#x27;，字体: Times New Roman, 大小: 14px, 颜色: blue，位置: (60, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;r&#x27;，字体: Times New Roman, 大小: 14px, 颜色: blue，位置: (70, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;l&#x27;，字体: Times New Roman, 大小: 14px, 颜色: blue，位置: (80, 0)</span></span><br><span class="line"><span class="comment">// 渲染字符 &#x27;d&#x27;，字体: Times New Roman, 大小: 14px, 颜色: blue，位置: (90, 0)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 享元对象数量: 2</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong></p>
+<ol>
+<li><strong>享元类 <code>CharacterFlyweight</code></strong>：这个类代表了一个字符的共享部分，即字体、字号和颜色。它实现了 <code>render()</code> 方法来渲染字符，外在状态（字符内容和位置）是在每次渲染时提供的。</li>
+<li><strong>享元工厂类 <code>FlyweightFactory</code></strong>：享元工厂负责创建和管理共享的享元对象。工厂通过字体、字号和颜色生成一个唯一的键，并根据这个键来缓存并复用共享对象。</li>
+<li><strong>客户端 <code>DocumentEditor</code></strong>：客户端负责维护字符对象的外在状态（如字符内容和位置）。当需要添加字符时，它会从工厂获取享元对象，并存储外在状态。</li>
+<li><strong>享元对象的复用</strong>：从输出结果可以看到，多个相同样式的字符（如 <code>H</code>, <code>e</code>, <code>l</code>, <code>o</code> 等）使用了相同的享元对象，而不同样式的字符（如 <code>W</code>, <code>o</code>, <code>r</code>, <code>l</code>, <code>d</code> 等）使用了另一个享元对象。</li>
+</ol>
+<h2 id="优点">优点</h2>
+<ol>
+<li><strong>减少内存消耗</strong>：通过共享大量相同的对象，避免创建重复的对象，极大降低了内存使用。</li>
+<li><strong>提升性能</strong>：在对象重复率较高的情况下，享元模式通过共享相同的对象，减少了对象的创建开销，提高了系统的性能。</li>
+</ol>
+<h2 id="缺点">缺点</h2>
+<ol>
+<li><strong>系统复杂性增加</strong>：由于需要区分内在状态和外在状态，并通过享元工厂管理对象的共享，增加了系统的设计和实现复杂性。</li>
+<li><strong>需要精确分析</strong>：享元模式的效果依赖于共享对象的高重复率。如果对象的种类过多，享元模式的内存节约效果会减弱。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="print-no-link">#设计模式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" title="设计模式-组合模式">
+                        <span class="hidden-mobile">设计模式-组合模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
