@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>设计模式-策略模式</title>
+    <link href="/2024/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2024/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<p><strong>策略模式</strong>（Strategy Pattern）是一种<strong>行为型设计模式</strong>，它定义了一系列算法，并将每种算法封装起来，使得它们可以互相替换使用。策略模式允许算法独立于使用它的客户端变化，从而提高了系统的灵活性。</p><span id="more"></span><h1>策略模式</h1><p>策略模式的核心思想是<strong>将不同的算法或行为封装到独立的策略类中</strong>，并且让这些策略类可以互换。客户端代码无需关心具体的策略实现，只需要与抽象策略接口交互。</p><h2 id="组成">组成</h2><ol><li><strong>策略接口（Strategy）</strong>：定义算法的通用接口。</li><li><strong>具体策略（Concrete Strategy）</strong>：实现策略接口的不同算法。</li><li><strong>上下文（Context）</strong>：持有对某个策略的引用，并且客户端通过上下文来调用具体的策略算法。</li></ol><h2 id="代码实现">代码实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 具体策略函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">creditCardPayment</span> = (<span class="params">amount</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Paying <span class="subst">$&#123;amount&#125;</span> using Credit Card`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">payPalPayment</span> = (<span class="params">amount</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Paying <span class="subst">$&#123;amount&#125;</span> using PayPal`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上下文函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">processPayment</span> = (<span class="params">strategy, amount</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> strategy === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">        <span class="title function_">strategy</span>(amount);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Invalid payment strategy&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用策略模式</span></span><br><span class="line"><span class="title function_">processPayment</span>(creditCardPayment, <span class="number">100</span>);  <span class="comment">// Paying 100 using Credit Card</span></span><br><span class="line"><span class="title function_">processPayment</span>(payPalPayment, <span class="number">200</span>);       <span class="comment">// Paying 200 using PayPal</span></span><br></pre></td></tr></table></figure><p><strong>说明</strong></p><ol><li><strong>策略函数</strong>：每个支付方式定义为一个普通函数，接收金额作为参数。</li><li><strong>上下文函数</strong>：<code>processPayment</code> 函数接收一个策略函数和金额，如果传入的策略是有效的函数，则调用它。</li><li><strong>简单调用</strong>：直接调用 <code>processPayment</code>，传入所需的策略和参数，无需实例化任何类。</li></ol><h2 id="优点">优点</h2><ol><li><strong>解耦算法与客户端</strong>：策略对象与调用逻辑解耦，客户端只需要知道如何使用策略对象即可。</li><li><strong>易于扩展</strong>：新增策略类时，无需修改现有代码，只需实现新的策略接口。</li><li><strong>可复用性</strong>：策略对象可以在不同的场景中被复用，避免了重复编写相似的代码。</li><li><strong>遵循开闭原则</strong>：支持设计模式 “开发-封闭原则“ ，算法封装在独立的 Strategy 中，易于维护和扩展。</li></ol><h2 id="缺点">缺点</h2><ol><li><strong>类的数量增加</strong>：每个策略都需要定义为一个独立的类，当策略数量多时，类的数量也会增多。</li><li><strong>客户端需要了解策略</strong>：客户端需要了解可用的策略，以便选择合适的策略。</li></ol><h2 id="与其他模式的对比">与其他模式的对比</h2><ol><li><strong>策略模式 vs 状态模式</strong>：两者的结构相似，但策略模式关注的是算法的选择，而状态模式关注的是对象的状态变化。策略模式中的策略可以在运行时自由切换，而状态模式则是在对象状态变化时，自动切换相关行为。</li><li><strong>策略模式 vs 模板方法模式</strong>：模板方法模式定义了一个算法的骨架，而将某些步骤留给子类实现；策略模式则是完全将算法分离，使得策略类之间可以互换。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>JS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>设计模式-享元模式</title>
     <link href="/2024/10/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/"/>
     <url>/2024/10/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</url>
