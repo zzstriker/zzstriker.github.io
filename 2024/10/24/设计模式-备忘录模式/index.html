@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="命令模式（Command Pattern）是一种行为型设计模式，它将请求（操作）封装成对象，从而使你可以用不同的请求对客户端进行参数化。命令模式允许你将请求的发送者与执行者解耦，使得请求的发送者不必知道如何执行请求，甚至在某些情况下，可以在不同的时间执行请求。">
+    <meta name="description" content="备忘录模式（Memento Pattern）是一种行为型设计模式，用于在不破坏封装的前提下，捕获并保存对象的内部状态，以便之后可以恢复该状态。通过备忘录模式，我们可以将对象恢复到某个历史状态，从而实现“撤销”或“回滚”操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-命令模式">
-<meta property="og:url" content="https://zzstriker.github.io/2024/10/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="设计模式-备忘录模式">
+<meta property="og:url" content="https://zzstriker.github.io/2024/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="命令模式（Command Pattern）是一种行为型设计模式，它将请求（操作）封装成对象，从而使你可以用不同的请求对客户端进行参数化。命令模式允许你将请求的发送者与执行者解耦，使得请求的发送者不必知道如何执行请求，甚至在某些情况下，可以在不同的时间执行请求。">
+<meta property="og:description" content="备忘录模式（Memento Pattern）是一种行为型设计模式，用于在不破坏封装的前提下，捕获并保存对象的内部状态，以便之后可以恢复该状态。通过备忘录模式，我们可以将对象恢复到某个历史状态，从而实现“撤销”或“回滚”操作。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-23T01:26:03.000Z">
-<meta property="article:modified_time" content="2024-10-23T01:26:03.163Z">
+<meta property="article:published_time" content="2024-10-24T01:21:50.000Z">
+<meta property="article:modified_time" content="2024-10-24T01:21:50.768Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>设计模式-命令模式 - zzstriker blogs</title>
+  <title>设计模式-备忘录模式 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="设计模式-命令模式"></span>
+            <span id="subtitle" data-typed-text="设计模式-备忘录模式"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-23 09:26" pubdate>
-          2024年10月23日 上午
+        <time datetime="2024-10-24 09:21" pubdate>
+          2024年10月24日 上午
         </time>
       </span>
     
@@ -260,48 +260,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">设计模式-命令模式</h1>
+            <h1 id="seo-header">设计模式-备忘录模式</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>命令模式</strong>（Command Pattern）是一种行为型设计模式，它将<strong>请求（操作）封装成对象</strong>，从而使你可以用不同的请求对客户端进行参数化。命令模式允许你将请求的发送者与执行者解耦，使得请求的发送者不必知道如何执行请求，甚至在某些情况下，可以在不同的时间执行请求。</p>
+                <p><strong>备忘录模式</strong>（Memento Pattern）是一种行为型设计模式，用于在不破坏封装的前提下，捕获并保存对象的内部状态，以便之后可以恢复该状态。通过备忘录模式，我们可以将对象恢复到某个历史状态，从而实现“撤销”或“回滚”操作。</p>
 <span id="more"></span>
-<h1>命令模式</h1>
+<h1>备忘录模式</h1>
 <h2 id="组成">组成</h2>
 <ol>
-<li><strong>命令接口（Command）</strong>：声明执行命令的接口，一般包含 <code>execute()</code> 方法。</li>
-<li><strong>具体命令（ConcreteCommand）</strong>：实现命令接口，封装具体的操作细节。通常会维护一个对实际接收者（Receiver）的引用。</li>
-<li><strong>接收者（Receiver）</strong>：执行与请求相关的具体操作，通常由具体命令对象调用。</li>
-<li><strong>调用者（Invoker）</strong>：持有命令对象，并在某个时间点调用命令的 <code>execute()</code> 方法来执行请求。</li>
-<li><strong>客户端（Client）</strong>：负责创建命令对象并将其关联到具体的接收者，通常也会将命令对象传递给调用者。</li>
+<li><strong>发起人（Originator）</strong>：负责创建备忘录以记录当前状态，以及恢复到先前状态。</li>
+<li><strong>备忘录（Memento）</strong>：用于存储发起人的内部状态，备忘录只供发起人自己访问。</li>
+<li><strong>管理者（Caretaker）</strong>：负责保存好备忘录，但不能对备忘录的内容进行操作或修改。</li>
 </ol>
 <h2 id="代码实现">代码实现</h2>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 命令接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Command</span> &#123;</span><br><span class="line">    <span class="title function_">execute</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;This method must be overridden!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收者：灯</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Light</span> &#123;</span><br><span class="line">    <span class="title function_">turnOn</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;The light is on.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">turnOff</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;The light is off.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体命令：打开灯的命令</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LightOnCommand</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Command</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">light</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">light</span> = light; <span class="comment">// 保存接收者对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">execute</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">light</span>.<span class="title function_">turnOn</span>(); <span class="comment">// 调用接收者的具体操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体命令：关闭灯的命令</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LightOffCommand</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Command</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">light</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">light</span> = light; <span class="comment">// 保存接收者对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">execute</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">light</span>.<span class="title function_">turnOff</span>(); <span class="comment">// 调用接收者的具体操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用者：遥控器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemoteControl</span> &#123;</span><br><span class="line">    <span class="title function_">setCommand</span>(<span class="params">command</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">command</span> = command; <span class="comment">// 绑定命令对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">pressButton</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">command</span>.<span class="title function_">execute</span>(); <span class="comment">// 执行绑定的命令</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码：控制灯</span></span><br><span class="line"><span class="keyword">const</span> light = <span class="keyword">new</span> <span class="title class_">Light</span>(); <span class="comment">// 接收者</span></span><br><span class="line"><span class="keyword">const</span> lightOnCommand = <span class="keyword">new</span> <span class="title class_">LightOnCommand</span>(light); <span class="comment">// 创建打开灯的命令</span></span><br><span class="line"><span class="keyword">const</span> lightOffCommand = <span class="keyword">new</span> <span class="title class_">LightOffCommand</span>(light); <span class="comment">// 创建关闭灯的命令</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> remoteControl = <span class="keyword">new</span> <span class="title class_">RemoteControl</span>(); <span class="comment">// 调用者</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打开灯</span></span><br><span class="line">remoteControl.<span class="title function_">setCommand</span>(lightOnCommand);</span><br><span class="line">remoteControl.<span class="title function_">pressButton</span>(); <span class="comment">// 输出：The light is on.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭灯</span></span><br><span class="line">remoteControl.<span class="title function_">setCommand</span>(lightOffCommand);</span><br><span class="line">remoteControl.<span class="title function_">pressButton</span>(); <span class="comment">// 输出：The light is off.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 备忘录类：用于存储发起人的状态</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Memento</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">state</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">state</span> = state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getState</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">state</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发起人类：管理自身状态，并可以创建和恢复备忘录</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TextEditor</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">content</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置状态</span></span><br><span class="line">    <span class="title function_">setState</span>(<span class="params">state</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">content</span> = state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前状态</span></span><br><span class="line">    <span class="title function_">getState</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">content</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建备忘录</span></span><br><span class="line">    <span class="title function_">saveStateToMemento</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Memento</span>(<span class="variable language_">this</span>.<span class="property">content</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从备忘录恢复状态</span></span><br><span class="line">    <span class="title function_">getStateFromMemento</span>(<span class="params">memento</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">content</span> = memento.<span class="title function_">getState</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 管理者类：保存和管理备忘录</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Caretaker</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">mementoList</span> = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存备忘录</span></span><br><span class="line">    <span class="title function_">addMemento</span>(<span class="params">memento</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">mementoList</span>.<span class="title function_">push</span>(memento);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取某个备忘录</span></span><br><span class="line">    <span class="title function_">getMemento</span>(<span class="params">index</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">mementoList</span>[index];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码</span></span><br><span class="line"><span class="keyword">const</span> editor = <span class="keyword">new</span> <span class="title class_">TextEditor</span>();</span><br><span class="line"><span class="keyword">const</span> caretaker = <span class="keyword">new</span> <span class="title class_">Caretaker</span>();</span><br><span class="line"></span><br><span class="line">editor.<span class="title function_">setState</span>(<span class="string">&quot;Version 1&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Current Content: <span class="subst">$&#123;editor.getState()&#125;</span>`</span>); <span class="comment">// 输出: Current Content: Version 1</span></span><br><span class="line">caretaker.<span class="title function_">addMemento</span>(editor.<span class="title function_">saveStateToMemento</span>());   <span class="comment">// 保存状态</span></span><br><span class="line"></span><br><span class="line">editor.<span class="title function_">setState</span>(<span class="string">&quot;Version 2&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Current Content: <span class="subst">$&#123;editor.getState()&#125;</span>`</span>); <span class="comment">// 输出: Current Content: Version 2</span></span><br><span class="line">caretaker.<span class="title function_">addMemento</span>(editor.<span class="title function_">saveStateToMemento</span>());   <span class="comment">// 保存状态</span></span><br><span class="line"></span><br><span class="line">editor.<span class="title function_">setState</span>(<span class="string">&quot;Version 3&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Current Content: <span class="subst">$&#123;editor.getState()&#125;</span>`</span>); <span class="comment">// 输出: Current Content: Version 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 撤销到上一个状态</span></span><br><span class="line">editor.<span class="title function_">getStateFromMemento</span>(caretaker.<span class="title function_">getMemento</span>(<span class="number">1</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Restored to: <span class="subst">$&#123;editor.getState()&#125;</span>`</span>);    <span class="comment">// 输出: Restored to: Version 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 撤销到初始状态</span></span><br><span class="line">editor.<span class="title function_">getStateFromMemento</span>(caretaker.<span class="title function_">getMemento</span>(<span class="number">0</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Restored to: <span class="subst">$&#123;editor.getState()&#125;</span>`</span>);    <span class="comment">// 输出: Restored to: Version 1</span></span><br></pre></td></tr></table></figure>
 <p><strong>说明</strong></p>
 <ol>
-<li><strong>命令接口 <code>Command</code></strong>：它定义了命令的 <code>execute()</code> 方法，所有具体命令类都需要实现这个方法。</li>
-<li><strong>具体命令类 <code>LightOnCommand</code> 和 <code>LightOffCommand</code></strong>：这两个类分别实现了打开和关闭灯的具体命令。它们通过构造函数持有接收者 <code>Light</code> 的引用，并在 <code>execute()</code> 方法中调用接收者的方法。</li>
-<li><strong>接收者 <code>Light</code></strong>：它是执行具体操作的对象，包含了打开和关闭灯的方法。</li>
-<li><strong>调用者 <code>RemoteControl</code></strong>：持有命令对象，并在合适的时机调用命令的 <code>execute()</code> 方法。它可以动态地设置不同的命令，从而执行不同的操作。</li>
-<li><strong>客户端代码</strong>：客户端负责创建具体命令对象并将其传递给调用者。然后，调用者可以在不同时间点调用命令。</li>
+<li><strong>备忘录类 <code>Memento</code></strong>：它是封装状态的类，内部存储了发起人的状态，并通过 <code>getState()</code> 方法提供状态的访问。</li>
+<li><strong>发起人类 <code>TextEditor</code></strong>：发起人是文本编辑器，它负责管理自己的状态。发起人可以创建备忘录对象来保存当前状态，也可以从备忘录中恢复状态。</li>
+<li><strong>管理者类 <code>Caretaker</code></strong>：管理者维护了一个备忘录列表，用于保存多个历史状态。它可以根据索引返回某个备忘录，发起人通过这个备忘录来恢复状态。</li>
+<li><strong>客户端代码</strong>：通过发起人和管理者类，实现了保存和恢复文本状态的功能。用户输入不同的文本状态，管理者负责保存状态，发起人通过管理者的备忘录实现状态的回滚。</li>
 </ol>
 <h2 id="优点">优点</h2>
 <ol>
-<li><strong>解耦请求者与执行者</strong>：命令模式将请求的发送者和实际执行者解耦，使得调用者不需要知道具体操作的实现细节。</li>
-<li><strong>支持撤销和重做操作</strong>：命令模式天然支持命令的记录和撤销操作，因为每个命令都是一个独立的对象，可以轻松保存和恢复。</li>
-<li><strong>扩展性强</strong>：可以很容易地添加新的命令，扩展系统功能而无需修改现有代码。</li>
+<li><strong>状态恢复</strong>：可以方便地保存和恢复对象的历史状态，支持撤销/回滚操作。</li>
+<li><strong>封装性</strong>：备忘录将发起人的状态存储起来，但不会暴露发起人的实现细节，保持了封装性。</li>
+<li><strong>简化管理</strong>：通过备忘录模式，可以将状态管理委托给管理者对象，简化了发起人的逻辑。</li>
 </ol>
 <h2 id="缺点">缺点</h2>
 <ol>
-<li><strong>增加类的数量</strong>：每一个命令都需要一个类，这可能导致类数量急剧增加，增加了系统的复杂性。</li>
+<li><strong>资源消耗</strong>：如果对象状态比较复杂或存储备忘录频率较高，可能会占用较多内存资源。</li>
+<li><strong>额外的维护复杂性</strong>：备忘录需要存储和管理对象的多个状态，增加了系统的复杂性。</li>
 </ol>
 <h2 id="与其他模式的对比">与其他模式的对比</h2>
 <ol>
-<li><strong>命令模式 vs 策略模式</strong>
+<li><strong>备忘录模式 vs 原型模式</strong>
 <ul>
-<li><strong>命令模式</strong>：将<strong>动作请求</strong>封装为对象，主要用于解耦请求的发送者与接收者，同时支持操作的撤销与重做。</li>
-<li><strong>策略模式</strong>：将<strong>行为或算法</strong>封装为对象，主要用于替换不同的算法，以实现不同的行为。</li>
+<li><strong>备忘录模式</strong>：主要用于保存和恢复对象的历史状态，强调状态的回滚或撤销。</li>
+<li><strong>原型模式</strong>：用于通过克隆的方式创建对象，原型模式中的对象复制不一定会保存对象的历史状态。</li>
 </ul>
 </li>
 </ol>
@@ -352,18 +350,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" title="设计模式-备忘录模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">设计模式-备忘录模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F/" title="设计模式-职责链模式">
-                        <span class="hidden-mobile">设计模式-职责链模式</span>
+                      <a href="/2024/10/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" title="设计模式-命令模式">
+                        <span class="hidden-mobile">设计模式-命令模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
