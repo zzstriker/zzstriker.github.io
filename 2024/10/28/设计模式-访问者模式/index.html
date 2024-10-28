@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="访问者模式（Visitor Pattern）是一种行为型设计模式，它将作用于某种数据结构（如集合或对象结构）中的操作与数据结构本身分离开来，使得在不改变数据结构的前提下增加新的操作变得更加容易。访问者模式通过为数据结构中的每个元素定义新的操作，避免了频繁修改数据结构的类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-访问者模式">
+<meta property="og:url" content="https://zzstriker.github.io/2024/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="访问者模式（Visitor Pattern）是一种行为型设计模式，它将作用于某种数据结构（如集合或对象结构）中的操作与数据结构本身分离开来，使得在不改变数据结构的前提下增加新的操作变得更加容易。访问者模式通过为数据结构中的每个元素定义新的操作，避免了频繁修改数据结构的类。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-28T01:30:39.000Z">
+<meta property="article:modified_time" content="2024-10-28T01:30:39.866Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>设计模式-访问者模式 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="设计模式-访问者模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-28 09:30" pubdate>
+          2024年10月28日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">设计模式-访问者模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>访问者模式</strong>（Visitor Pattern）是一种行为型设计模式，它将作用于某种数据结构（如集合或对象结构）中的操作与数据结构本身分离开来，使得在不改变数据结构的前提下增加新的操作变得更加容易。访问者模式通过为数据结构中的每个元素定义新的操作，避免了频繁修改数据结构的类。</p>
+<span id="more"></span>
+<h1>访问者模式</h1>
+<p>访问者模式的核心在于允许**定义操作（即访问者）**来作用于一组对象（即被访问的对象）上，而这些对象的具体类型在编译期是已知的。访问者通过将操作从对象类中分离出来，使得新操作可以独立地扩展。</p>
+<p>访问者模式的一个典型场景是，数据结构相对稳定，但是需要在其基础上定义许多不同的操作。通过使用访问者模式，我们可以避免在对象类中增加大量与具体操作相关的代码。</p>
+<h2 id="组成">组成</h2>
+<ol>
+<li><strong>访问者接口（Visitor）</strong>：为所有具体访问者声明一个接口，定义每个具体元素的访问操作。</li>
+<li><strong>具体访问者类（Concrete Visitor）</strong>：实现访问者接口，为不同的对象（元素）定义具体的操作行为。</li>
+<li><strong>元素接口（Element）</strong>：为能够被访问的对象（元素）定义一个 <code>accept()</code> 方法，该方法接受一个访问者对象作为参数。</li>
+<li><strong>具体元素类（Concrete Element）</strong>：实现元素接口，定义 <code>accept()</code> 方法。通常这个方法会调用访问者的对应方法。</li>
+<li><strong>对象结构（Object Structure）</strong>：包含一组元素对象，可以通过遍历对象结构，执行访问者的操作。</li>
+</ol>
+<h2 id="工作原理">工作原理</h2>
+<p>访问者模式使用双重分派（Double Dispatch）机制，确保操作的执行不仅依赖于访问者的类型，还依赖于被访问对象的类型。</p>
+<ol>
+<li>通过元素对象的 <code>accept()</code> 方法，传入访问者。</li>
+<li>元素对象调用访问者的 <code>visit()</code> 方法，并将自身作为参数传递给访问者，从而让访问者根据元素的具体类型进行处理。</li>
+</ol>
+<h2 id="代码实现">代码实现</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 访问者接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ShapeVisitor</span> &#123;</span><br><span class="line">    <span class="title function_">visitCircle</span>(<span class="params">circle</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;This method should be overridden&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">visitRectangle</span>(<span class="params">rectangle</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;This method should be overridden&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体访问者类：计算面积</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AreaCalculator</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ShapeVisitor</span> &#123;</span><br><span class="line">    <span class="title function_">visitCircle</span>(<span class="params">circle</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> area = <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="title class_">Math</span>.<span class="title function_">pow</span>(circle.<span class="property">radius</span>, <span class="number">2</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`圆的面积: <span class="subst">$&#123;area.toFixed(<span class="number">2</span>)&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">visitRectangle</span>(<span class="params">rectangle</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> area = rectangle.<span class="property">width</span> * rectangle.<span class="property">height</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`矩形的面积: <span class="subst">$&#123;area&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体访问者类：绘制形状</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ShapeDrawer</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ShapeVisitor</span> &#123;</span><br><span class="line">    <span class="title function_">visitCircle</span>(<span class="params">circle</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`绘制圆形，半径: <span class="subst">$&#123;circle.radius&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">visitRectangle</span>(<span class="params">rectangle</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`绘制矩形，宽度: <span class="subst">$&#123;rectangle.width&#125;</span>, 高度: <span class="subst">$&#123;rectangle.height&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="title function_">accept</span>(<span class="params">visitor</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;This method should be overridden&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体元素类：圆形</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Shape</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">radius</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">radius</span> = radius;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">accept</span>(<span class="params">visitor</span>) &#123;</span><br><span class="line">        visitor.<span class="title function_">visitCircle</span>(<span class="variable language_">this</span>); <span class="comment">// 调用访问者的 visitCircle 方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体元素类：矩形</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Shape</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">width, height</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span> = width;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span> = height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">accept</span>(<span class="params">visitor</span>) &#123;</span><br><span class="line">        visitor.<span class="title function_">visitRectangle</span>(<span class="variable language_">this</span>); <span class="comment">// 调用访问者的 visitRectangle 方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码：操作图形</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> shapes = [</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">5</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Rectangle</span>(<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> areaCalculator = <span class="keyword">new</span> <span class="title class_">AreaCalculator</span>();</span><br><span class="line">    <span class="keyword">const</span> shapeDrawer = <span class="keyword">new</span> <span class="title class_">ShapeDrawer</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算面积</span></span><br><span class="line">    shapes.<span class="title function_">forEach</span>(<span class="function"><span class="params">shape</span> =&gt;</span> shape.<span class="title function_">accept</span>(areaCalculator));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制形状</span></span><br><span class="line">    shapes.<span class="title function_">forEach</span>(<span class="function"><span class="params">shape</span> =&gt;</span> shape.<span class="title function_">accept</span>(shapeDrawer));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">main</span>();</span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// 圆的面积: 78.54</span></span><br><span class="line"><span class="comment">// 矩形的面积: 200</span></span><br><span class="line"><span class="comment">// 绘制圆形，半径: 5</span></span><br><span class="line"><span class="comment">// 绘制矩形，宽度: 10, 高度: 20</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong></p>
+<ol>
+<li><strong>访问者接口 <code>ShapeVisitor</code></strong>：定义了访问圆形和矩形的方法 <code>visitCircle()</code> 和 <code>visitRectangle()</code>，具体访问者类会实现这些方法。</li>
+<li><strong>具体访问者 <code>AreaCalculator</code> 和 <code>ShapeDrawer</code></strong>：分别负责计算面积和绘制形状。它们根据不同形状（圆形、矩形）实现不同的操作。</li>
+<li><strong>元素接口 <code>Shape</code></strong>：提供了 <code>accept()</code> 方法，允许访问者访问具体元素。</li>
+<li><strong>具体元素 <code>Circle</code> 和 <code>Rectangle</code></strong>：实现了 <code>accept()</code> 方法。每当需要操作这些元素时，它们会接受访问者，并将自身作为参数传递给访问者的 <code>visit()</code> 方法。</li>
+<li><strong>客户端代码</strong>：创建了一组图形对象，并通过访问者模式分别计算其面积和绘制它们。</li>
+</ol>
+<h2 id="优点">优点</h2>
+<ol>
+<li><strong>符合单一职责原则</strong>：将数据结构与操作解耦，使得每个访问者可以专注于其特定的功能，数据结构类则不会被多种操作耦合。</li>
+<li><strong>开闭原则</strong>：可以在不修改元素类的前提下添加新的访问者，从而实现新的功能或操作。</li>
+<li><strong>灵活性高</strong>：访问者可以对对象结构中不同类型的元素执行不同的操作，这种灵活性让访问者可以方便地扩展现有系统。</li>
+</ol>
+<h2 id="缺点">缺点</h2>
+<ol>
+<li><strong>违反依赖倒置原则</strong>：访问者模式要求访问者知道所有具体元素的详细信息，这导致访问者依赖具体类而非抽象接口。</li>
+<li><strong>元素类修改不方便</strong>：如果需要对元素类进行修改或增加新的元素类，那么必须修改所有的访问者类，扩展性受到影响。</li>
+<li><strong>复杂性增加</strong>：如果元素类的种类繁多或复杂，会导致访问者类的实现变得复杂。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="print-no-link">#设计模式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" title="设计模式-状态模式">
+                        <span class="hidden-mobile">设计模式-状态模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
