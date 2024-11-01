@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TypeScript 是由微软开发并维护的开源编程语言，它是 JavaScript 的超集，即在现有 JavaScript 基础上增加了静态类型和其他特性。TypeScript 主要用于开发大型应用程序，同时仍能编译为纯 JavaScript 运行在任何浏览器、Node.js 环境或任何支持 JavaScript 的地方。">
+    <meta name="description" content="TypeScript 继承了 JavaScript 的类型，在这个基础上，定义了一套自己的类型系统。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TS学习-TypeScript简介">
-<meta property="og:url" content="https://zzstriker.github.io/2024/10/31/TS%E5%AD%A6%E4%B9%A0-TypeScript%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:title" content="TS学习-数据类型">
+<meta property="og:url" content="https://zzstriker.github.io/2024/11/01/TS%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="TypeScript 是由微软开发并维护的开源编程语言，它是 JavaScript 的超集，即在现有 JavaScript 基础上增加了静态类型和其他特性。TypeScript 主要用于开发大型应用程序，同时仍能编译为纯 JavaScript 运行在任何浏览器、Node.js 环境或任何支持 JavaScript 的地方。">
+<meta property="og:description" content="TypeScript 继承了 JavaScript 的类型，在这个基础上，定义了一套自己的类型系统。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-31T09:23:56.000Z">
-<meta property="article:modified_time" content="2024-10-31T09:23:56.503Z">
+<meta property="article:published_time" content="2024-11-01T10:28:28.000Z">
+<meta property="article:modified_time" content="2024-11-01T10:28:28.227Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>TS学习-TypeScript简介 - zzstriker blogs</title>
+  <title>TS学习-数据类型 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TS学习-TypeScript简介"></span>
+            <span id="subtitle" data-typed-text="TS学习-数据类型"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-31 17:23" pubdate>
-          2024年10月31日 下午
+        <time datetime="2024-11-01 18:28" pubdate>
+          2024年11月1日 晚上
         </time>
       </span>
     
@@ -260,59 +260,83 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">TS学习-TypeScript简介</h1>
+            <h1 id="seo-header">TS学习-数据类型</h1>
             
             
               <div class="markdown-body">
                 
-                <p>TypeScript 是由微软开发并维护的开源编程语言，它是 JavaScript 的<strong>超集</strong>，即在现有 JavaScript 基础上增加了<strong>静态类型</strong>和<strong>其他特性</strong>。TypeScript 主要用于开发大型应用程序，同时仍能编译为纯 JavaScript 运行在任何浏览器、Node.js 环境或任何支持 JavaScript 的地方。</p>
+                <p>TypeScript 继承了 JavaScript 的类型，在这个基础上，定义了一套自己的类型系统。</p>
 <span id="more"></span>
-<h1>TypeScript简介</h1>
-<h2 id="TypeScript特性">TypeScript特性</h2>
-<ol>
-<li><strong>超集</strong> ：TypeScript 是 JavaScript 的超集；</li>
-<li><strong>类型系统</strong> ：TypeScript在JavaScript的基础上，包装了类型机制，使其变身为静态类型语言；</li>
-<li><strong>编辑器功能</strong> ：增强了编辑器和IDE功能，包括代码补全、接口提示、跳转到定义、重构等；</li>
-<li><strong>错误提示</strong> ：可以在编译阶段就发现大部分错误，帮助调试程序。</li>
-</ol>
-<h2 id="类型">类型</h2>
-<p>类型（type）指的是一组具有相同特征的值。如果两个值具有某种共同的特征，就可以说，它们属于同一种类型。可以理解为**类型是人为添加的一种编程约束和用法提示。**目的是在软件开发过程中，为编译器和开发工具提供更多的验证和帮助，帮助提高代码质量，减少错误。</p>
-<p>我们知道，JavaScript 是一门非常灵活的编程语言：</p>
-<ul>
-<li>它没有类型约束，一个变量可能初始化时是字符串，过一会儿又被赋值为数字。</li>
-<li>由于隐式类型转换的存在，有的变量的类型很难在运行前就确定。</li>
-<li>基于原型的面向对象编程，使得原型上的属性或方法可以在运行时被修改。</li>
-<li>函数是 JavaScript 中的一等公民，可以赋值给变量，也可以当作参数或返回值。</li>
-</ul>
-<p>这种灵活性就像一把双刃剑，一方面使得 JavaScript 蓬勃发展，无所不能；另一方面也使得它的代码质量参差不齐，维护成本高，运行时错误多。</p>
-<p>TypeScript在JavaScript的基础上，包装了类型机制，使其变身成为<strong>静态类型</strong>语言。在 TypeScript 中，不仅可以轻易复用 JavaScript 的代码、最新特性，还能使用可选的静态类型进行检查报错，使得编写的代码更健壮、更易于维护。</p>
-<h3 id="动态类型与静态类型">动态类型与静态类型</h3>
-<h4 id="动态类型">动态类型</h4>
-<p>动态类型是指在运行时才会进行类型检查，这种语言的类型错误往往会导致运行时错误。</p>
-<p>JavaScript 是一门解释型语言，没有编译阶段，所以它是动态类型，以下这段代码在运行时才会报错：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="number">1</span>;</span><br><span class="line">foo.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>); <span class="comment">// Uncaught TypeError: foo.split is not a function</span></span><br></pre></td></tr></table></figure>
-<h4 id="静态类型">静态类型</h4>
-<p>静态类型是指编译阶段就能确定每个变量的类型，这种语言的类型错误往往会导致语法错误。TypeScript 在运行前需要先编译为 JavaScript，而在编译阶段就会进行类型检查，所以 <strong>TypeScript 是静态类型</strong>，这段 TypeScript 代码在编译阶段就会报错了：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="number">1</span>;</span><br><span class="line">foo.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>); <span class="comment">// Property &#x27;split&#x27; does not exist on type &#x27;number&#x27;.</span></span><br></pre></td></tr></table></figure>
-<h3 id="显式类型与隐式类型">显式类型与隐式类型</h3>
-<p>类型会按照「是否允许隐式类型转换」来分类，可以分为强类型和弱类型。</p>
-<p>TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时的特性，所以<strong>它们都是弱类型</strong>。</p>
-<p>以下这段代码不管是在 JavaScript 中还是在 TypeScript 中都是可以正常运行的，运行时数字 <code>1</code> 会被隐式类型转换为字符串 <code>'1'</code>，加号 <code>+</code> 被识别为字符串拼接。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span> + <span class="string">&#x27;1&#x27;</span>); <span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
-<p>TypeScript 会尽可能的去推断类型信息，以便在开发过程中以更小的成本为我们提供类型安全。通俗来讲就是，即使我们不去显式的声明变量的类型，TypeScript也会自动判断数据类型。比如下面的代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span></span><br><span class="line">a = <span class="string">&quot;996&quot;</span> <span class="comment">// 报错：不能将类型“string”分配给类型“number”。</span></span><br></pre></td></tr></table></figure>
-<h3 id="类型结构化">类型结构化</h3>
-<p>在一些语言中，类型总是有一些不必要的复杂的存在方式，而 TypeScript 的类型是结构化的。比如下面的例子中，函数会接受它所期望的参数：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">interface <span class="title class_">Point2D</span> &#123;</span><br><span class="line">	<span class="attr">x</span>: number;</span><br><span class="line">	<span class="attr">y</span>: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Point3D</span> &#123;</span><br><span class="line">    <span class="attr">x</span>: number;</span><br><span class="line">    <span class="attr">y</span>: number;</span><br><span class="line">    <span class="attr">z</span>: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">point2D</span>: <span class="title class_">Point2D</span> = &#123;<span class="attr">x</span>: <span class="number">10</span>, <span class="attr">y</span>: <span class="number">10</span>&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">point3D</span>: <span class="title class_">Point3D</span> = &#123;<span class="attr">x</span>: <span class="number">20</span>, <span class="attr">y</span>: <span class="number">20</span>, <span class="attr">z</span>: <span class="number">20</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">takePoint2D</span>(<span class="params">point: Point2D</span>)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">takePoint2D</span>(point2D)  <span class="comment">// 正确，完全匹配</span></span><br><span class="line"><span class="title function_">takePoint2D</span>(point3D)  <span class="comment">// 正确，可以有额外的信息</span></span><br><span class="line"><span class="title function_">takePoint2D</span>(&#123;<span class="attr">x</span>: <span class="number">30</span>&#125;)  <span class="comment">// 错误，缺少y</span></span><br></pre></td></tr></table></figure>
-<h3 id="类型错误不会影响JS运行">类型错误不会影响JS运行</h3>
-<p>为了便于把 JavaScript 代码迁移至 TypeScript，即使存在编译错误，在默认的情况下，TypeScript 也会尽可能的被编译为 JavaScript 代码。因此，我们可以将JavaScript代码逐步迁移至 TypeScript。</p>
-<h2 id="安装">安装</h2>
-<p>TypeScript 的命令行工具安装方法如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g typescript</span><br></pre></td></tr></table></figure>
-<p>以上命令会在全局环境下安装 <code>tsc</code> 命令，安装完成之后，我们就可以在任何地方执行 <code>tsc</code> 命令了。</p>
-<p>编译一个 TypeScript 文件很简单：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc hello.ts</span><br></pre></td></tr></table></figure>
-<p>我们约定使用 TypeScript 编写的文件以 <code>.ts</code> 为后缀</p>
+<h1>数据类型</h1>
+<p>在语法层面，缺省类型注解的 TypeScript 与 JavaScript 完全一致。因此，可以把 TypeScript 代码的编写看作是为 JavaScript 代码添加类型注解。</p>
+<p>在 TypeScript 语法中，类型的标注主要通过类型后置语法来实现：“<strong>变量: 类型</strong>”</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">996</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">num</span>: <span class="built_in">number</span> = <span class="number">996</span></span><br></pre></td></tr></table></figure>
+<h2 id="基本数据类型">基本数据类型</h2>
+<p>JavaScript 中将值分成 8 种类型，包括：number、boolean、string、null、undefined、symbol、bigInt。TypeScript 继承了 JavaScript 的类型设计，以上 8 种类型可以看作 TypeScript 的基本类型。</p>
+<table>
+<thead>
+<tr>
+<th>JavaScript基本数据类型</th>
+<th>TypeScript类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number</td>
+<td>number</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>string</td>
+<td>string</td>
+</tr>
+<tr>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>symbol</td>
+</tr>
+<tr>
+<td>bigInt</td>
+<td>bigInt</td>
+</tr>
+</tbody>
+</table>
+<h3 id="number类型">number类型</h3>
+<p>TypeScript 中的 <code>number</code> 类型涵盖整数和浮点数，与 JavaScript 一致。同时，TypeScript 还支持十进制、十六进制、二进制、和八进制等不同数值表示方法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">decimal</span>: <span class="built_in">number</span> = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">hex</span>: <span class="built_in">number</span> = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">binary</span>: <span class="built_in">number</span> = <span class="number">0b1010</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">octal</span>: <span class="built_in">number</span> = <span class="number">0o744</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="boolean类型">boolean类型</h3>
+<p><code>boolean</code>类型只包含<code>true</code>和<code>false</code>两个布尔值。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">x</span>: <span class="built_in">boolean</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">y</span>: <span class="built_in">boolean</span> = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="string类型">string类型</h3>
+<p><code>string</code> 表示文本数据。TypeScript 支持双引号 (<code>&quot;</code>)、单引号 (<code>'</code>)、模板字符串（用反引号 ``` 标识）。模板字符串允许嵌入表达式和多行字符串。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">str</span>: <span class="built_in">string</span> = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">str = <span class="string">&quot;Hello TypeScript&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> first = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> last = <span class="string">&quot;TypeScript&quot;</span>;</span><br><span class="line">str = <span class="string">`<span class="subst">$&#123;first&#125;</span> <span class="subst">$&#123;last&#125;</span>`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str) <span class="comment">// 结果: Hello TypeScript</span></span><br></pre></td></tr></table></figure>
+<h3 id="undefined-类型和null-类型">undefined 类型和null 类型</h3>
+<p>undefined 和 null 是两种独立类型，它们各自都只有一个值。</p>
+<p>undefined 类型只包含一个值<code>undefined</code>，表示未定义（即还未给出定义，以后可能会有定义）。</p>
+<p>null 类型也只包含一个值<code>null</code>，表示为空（即此处没有值）。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">empty</span>: <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">notDefined</span>: <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="bigInt类型">bigInt类型</h3>
+<p>bigInt是ES6中新引入的数据类型，它是一种内置对象，它提供了一种方法来表示大于 $ 2^{53} -1 $ 的整数，BigInt可以表示任意大的整数。</p>
+<p>使用 <code>BigInt</code> 可以安全地存储和操作大整数，即使这个数已经超出了JavaScript构造函数 Number 能够表示的安全整数范围。</p>
+<p>我们知道，在 JavaScript 中采用双精度浮点数，这导致精度有限，比如 <code>Number.MAX_SAFE_INTEGER</code> 给出了可以安全递增的最大可能整数，即$ 2^{53} - 1$</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> max = <span class="title class_">Number</span>.<span class="property">MAX_SAFE_INTEGER</span>;</span><br><span class="line"><span class="keyword">const</span> max1 = max + <span class="number">1</span></span><br><span class="line"><span class="keyword">const</span> max2 = max + <span class="number">2</span></span><br><span class="line">max1 === max2     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，最终返回了true，这就是超过精读范围造成的问题，而<code>BigInt</code>正是解决这类问题而生的</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> max = <span class="title class_">BigInt</span>(<span class="title class_">Number</span>.<span class="property">MAX_SAFE_INTEGER</span>);</span><br><span class="line"><span class="keyword">const</span> max1 = max + <span class="number">1n</span></span><br><span class="line"><span class="keyword">const</span> max2 = max + <span class="number">2n</span></span><br><span class="line">max1 === max2    <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>这里需要用 <code>BigInt(number)</code> 把 Number 转化为 <code>BigInt</code>，同时如果类型是 <code>BigInt</code> ，那么数字后面需要加 <code>n</code>。</p>
+<p>在TypeScript中，<code>number</code> 类型虽然和 <code>BigInt</code> 都表示数字，但是实际上两者类型是完全不同的</p>
+<h3 id="symbol类型">symbol类型</h3>
+<p>symbol 是 ES6 新增的一种基本数据类型，它用来表示独一无二的值，可以通过 Symbol 构造函数生成。</p>
+<h2 id="复杂数据类型">复杂数据类型</h2>
 
                 
               </div>
@@ -360,18 +384,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/01/TS%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="TS学习-数据类型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TS学习-数据类型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" title="设计模式-解释器模式">
-                        <span class="hidden-mobile">设计模式-解释器模式</span>
+                      <a href="/2024/10/31/TS%E5%AD%A6%E4%B9%A0-TypeScript%E7%AE%80%E4%BB%8B/" title="TS学习-TypeScript简介">
+                        <span class="hidden-mobile">TS学习-TypeScript简介</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
