@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在 TypeScript 中，高级概念和设计模式的运用可以极大地提升代码的灵活性、可读性和维护性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TS学习-高级概念与设计模式">
+<meta property="og:url" content="https://zzstriker.github.io/2024/11/14/TS%E5%AD%A6%E4%B9%A0-%E9%AB%98%E7%BA%A7%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="在 TypeScript 中，高级概念和设计模式的运用可以极大地提升代码的灵活性、可读性和维护性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-14T02:34:44.000Z">
+<meta property="article:modified_time" content="2024-11-14T02:34:44.303Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>TS学习-高级概念与设计模式 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TS学习-高级概念与设计模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-14 10:34" pubdate>
+          2024年11月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TS学习-高级概念与设计模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在 TypeScript 中，高级概念和设计模式的运用可以极大地提升代码的灵活性、可读性和维护性。</p>
+<span id="more"></span>
+<h1>高级概念与设计模式</h1>
+<h2 id="装饰器">装饰器</h2>
+<p>TypeScript 装饰器用于修改类、方法、访问器、属性或参数的行为。装饰器分为四种：类装饰器、方法装饰器、访问器装饰器和属性装饰器。</p>
+<h3 id="装饰器启用">装饰器启用</h3>
+<p>在使用装饰器前，需要在 <code>tsconfig.json</code> 中启用 <code>experimentalDecorators</code> 选项</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    	<span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="类装饰器">类装饰器</h3>
+<p>类装饰器用于为类添加元数据或增强类的功能。类装饰器会应用于类的构造函数，可以用于修改类的定义或动态添加属性和方法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Logger</span>(<span class="params">constructor: <span class="built_in">Function</span></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Class was instantiated:&quot;</span>, constructor.<span class="property">name</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Logger</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;MyClass constructor called.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// Class was instantiated: MyClass</span></span><br><span class="line"><span class="comment">// MyClass constructor called.</span></span><br></pre></td></tr></table></figure>
+<p><strong>返回值：</strong> 类装饰器可以返回一个新的构造函数，以替换原来的类。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title class_">WithTimestamp</span>&lt;T <span class="keyword">extends</span> &#123; <span class="title function_">new</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): &#123;&#125; &#125;&gt;(<span class="attr">constructor</span>: T) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">extends</span> constructor &#123;</span><br><span class="line">    	timestamp = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WithTimestamp</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Event</span> &#123;</span><br><span class="line">	name = <span class="string">&quot;Some Event&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(event);  <span class="comment">// Event &#123; name: &quot;Some Event&quot;, timestamp: &lt;当前时间&gt; &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="方法装饰器">方法装饰器</h3>
+<p>方法装饰器用于修改或增强类中的方法。它接收三个参数：</p>
+<ol>
+<li><code>target</code>：方法所在的对象（类的原型）。</li>
+<li><code>propertyKey</code>：方法的名称。</li>
+<li><code>descriptor</code>：方法的属性描述符，可以用来修改方法的行为。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">LogMethod</span>(<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> originalMethod = descriptor.<span class="property">value</span>;</span><br><span class="line">    descriptor.<span class="property">value</span> = <span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Method <span class="subst">$&#123;propertyKey&#125;</span> called with args:`</span>, args);</span><br><span class="line">        <span class="keyword">return</span> originalMethod.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line">    <span class="meta">@LogMethod</span></span><br><span class="line">    <span class="title function_">add</span>(<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> calc = <span class="keyword">new</span> <span class="title class_">Calculator</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(calc.<span class="title function_">add</span>(<span class="number">2</span>, <span class="number">3</span>));  </span><br><span class="line"><span class="comment">// Logs: Method add called with args: [2, 3]</span></span><br><span class="line"><span class="comment">// Output: 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="访问器装饰器">访问器装饰器</h3>
+<p>访问器装饰器用于装饰类的 <code>getter</code> 或 <code>setter</code> 方法。访问器装饰器的参数和方法装饰器相同。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">LogAccessor</span>(<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> originalGet = descriptor.<span class="property">get</span>;</span><br><span class="line">    descriptor.<span class="property">get</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Getting value for <span class="subst">$&#123;propertyKey&#125;</span>`</span>);</span><br><span class="line">        <span class="keyword">return</span> originalGet?.<span class="title function_">apply</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_name</span>: <span class="built_in">string</span> = <span class="string">&quot;John Doe&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@LogAccessor</span></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">name</span>() &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_name</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> person = <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);  </span><br><span class="line"><span class="comment">// Logs: Getting value for name</span></span><br><span class="line"><span class="comment">// Output: John Doe</span></span><br></pre></td></tr></table></figure>
+<h3 id="属性装饰器">属性装饰器</h3>
+<p>属性装饰器用于装饰类中的属性。它接受两个参数：</p>
+<ol>
+<li><code>target</code>：类的原型（静态属性则为构造函数）。</li>
+<li><code>propertyKey</code>：属性的名称。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">LogProperty</span>(<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Property <span class="subst">$&#123;propertyKey&#125;</span> added to`</span>, target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="meta">@LogProperty</span></span><br><span class="line">    <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">price: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">price</span> = price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// Property price added to Product &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：属性装饰器无法直接访问属性的值，只能用于添加元数据或标注。</p>
+<h3 id="参数装饰器">参数装饰器</h3>
+<p>参数装饰器用于标记类的构造函数或方法参数。它接收三个参数：</p>
+<ol>
+<li><code>target</code>：类的原型（静态方法则为构造函数）。</li>
+<li><code>propertyKey</code>：方法的名称。</li>
+<li><code>parameterIndex</code>：参数的位置索引。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">LogParameter</span>(<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, parameterIndex: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Parameter <span class="subst">$&#123;parameterIndex&#125;</span> in method <span class="subst">$&#123;propertyKey&#125;</span> was decorated`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="title function_">greet</span>(<span class="params"><span class="meta">@LogParameter</span> name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// Parameter 0 in method greet was decorated</span></span><br></pre></td></tr></table></figure>
+<h3 id="装饰器组合">装饰器组合</h3>
+<p>多个装饰器可以应用在同一个类或方法上。装饰器的执行顺序自下而上应用，自上而下执行。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">First</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;First decorator&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Second</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Second decorator&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Example</span> &#123;</span><br><span class="line">    <span class="meta">@First</span>()</span><br><span class="line">    <span class="meta">@Second</span>()</span><br><span class="line">    <span class="title function_">method</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Method execution&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// Second decorator</span></span><br><span class="line"><span class="comment">// First decorator</span></span><br></pre></td></tr></table></figure>
+<h3 id="装饰器工厂">装饰器工厂</h3>
+<p>装饰器工厂是返回装饰器函数的工厂函数，允许装饰器接受参数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">LogWithPrefix</span>(<span class="params">prefix: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> originalMethod = descriptor.<span class="property">value</span>;</span><br><span class="line">        descriptor.<span class="property">value</span> = <span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;prefix&#125;</span> Method <span class="subst">$&#123;propertyKey&#125;</span> called with args:`</span>, args);</span><br><span class="line">            <span class="keyword">return</span> originalMethod.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line">    <span class="meta">@LogWithPrefix</span>(<span class="string">&quot;INFO:&quot;</span>)</span><br><span class="line">    <span class="title function_">multiply</span>(<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> calc = <span class="keyword">new</span> <span class="title class_">Calculator</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(calc.<span class="title function_">multiply</span>(<span class="number">2</span>, <span class="number">3</span>));  </span><br><span class="line"><span class="comment">// Logs: INFO: Method multiply called with args: [2, 3]</span></span><br><span class="line"><span class="comment">// Output: 6</span></span><br></pre></td></tr></table></figure>
+<h2 id="设计模式">设计模式</h2>
+<h3 id="单例模式">单例模式</h3>
+<p>单例模式确保一个类只有一个实例，并提供一个全局访问点。可以通过私有构造函数和静态方法来实现。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">instance</span>: <span class="title class_">Singleton</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getInstance</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="title class_">Singleton</span>.<span class="property">instance</span>) &#123;</span><br><span class="line">        	<span class="title class_">Singleton</span>.<span class="property">instance</span> = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Singleton</span>.<span class="property">instance</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工厂模式">工厂模式</h3>
+<p>工厂模式通过定义一个接口或抽象类，由具体的工厂类来负责创建对象。适用于对象创建逻辑复杂或类型较多的情况。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">	<span class="title function_">use</span>(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteProductA</span> <span class="keyword">implements</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="title function_">use</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Using product A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProductFactory</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">createProduct</span>(<span class="attr">type</span>: <span class="built_in">string</span>): <span class="title class_">Product</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="string">&quot;A&quot;</span>) &#123;</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ConcreteProductA</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;Unknown product type&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="观察者模式">观察者模式</h3>
+<p>观察者模式定义对象间一对多的依赖关系，在一个对象发生改变时，自动通知并更新所有依赖的对象。可以通过接口实现事件发布订阅。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">	<span class="title function_">update</span>(<span class="attr">data</span>: <span class="built_in">any</span>): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Subject</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">observers</span>: <span class="title class_">Observer</span>[] = [];</span><br><span class="line">    <span class="title function_">addObserver</span>(<span class="params">observer: Observer</span>) &#123;</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">observers</span>.<span class="title function_">push</span>(observer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">notify</span>(<span class="params">data: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">observers</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">observer</span> =&gt;</span> observer.<span class="title function_">update</span>(data));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="装饰器模式">装饰器模式</h3>
+<p>装饰器模式通过将对象组合在一起而非继承的方式来扩展对象的功能。TypeScript 本身也支持装饰器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Logger</span>(<span class="params">target: <span class="built_in">Function</span></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;target.name&#125;</span> was called.`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Logger</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="策略模式">策略模式</h3>
+<p>策略模式定义一组算法，将每个算法封装，并使它们可以互换。适用于一组算法需要互换的情况。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Strategy</span> &#123;</span><br><span class="line">	<span class="title function_">execute</span>(<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddStrategy</span> <span class="keyword">implements</span> <span class="title class_">Strategy</span> &#123;</span><br><span class="line">    <span class="title function_">execute</span>(<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Context</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> strategy: Strategy</span>) &#123;&#125;</span><br><span class="line">    <span class="title function_">setStrategy</span>(<span class="params">strategy: Strategy</span>) &#123;</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">strategy</span> = strategy;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">executeStrategy</span>(<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">strategy</span>.<span class="title function_">execute</span>(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代理模式">代理模式</h3>
+<p>代理模式通过代理对象控制对另一个对象的访问。适用于需要在访问对象前后做预处理或后处理的情况。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Service</span> &#123;</span><br><span class="line">	<span class="title function_">request</span>(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RealService</span> <span class="keyword">implements</span> <span class="title class_">Service</span> &#123;</span><br><span class="line">    <span class="title function_">request</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;RealService request&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProxyService</span> <span class="keyword">implements</span> <span class="title class_">Service</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">realService</span>: <span class="title class_">RealService</span>;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">realService</span> = <span class="keyword">new</span> <span class="title class_">RealService</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">request</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ProxyService: Do some work before calling the real service.&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">realService</span>.<span class="title function_">request</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="中介者模式">中介者模式</h3>
+<p>中介者模式通过中介对象来简化对象间的通信，避免了对象间的直接相互依赖。适用于对象间通信复杂、相互依赖较多的情况。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Mediator</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">components</span>: <span class="title class_">Component</span>[] = [];</span><br><span class="line">    <span class="title function_">register</span>(<span class="params">component: Component</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">components</span>.<span class="title function_">push</span>(component);</span><br><span class="line">        component.<span class="title function_">setMediator</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">notify</span>(<span class="params">sender: Component, event: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">components</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">component</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (component !== sender) &#123;</span><br><span class="line">            	component.<span class="title function_">receive</span>(event);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/TypeScript/" class="category-chain-item">TypeScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/13/TS%E5%AD%A6%E4%B9%A0-TS%E5%B7%A5%E5%85%B7%E9%93%BE/" title="TS学习-TS工具链">
+                        <span class="hidden-mobile">TS学习-TS工具链</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
