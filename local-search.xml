@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Git学习-Git简介</title>
+    <link href="/2024/11/15/Git%E5%AD%A6%E4%B9%A0-Git%E7%AE%80%E4%BB%8B/"/>
+    <url>/2024/11/15/Git%E5%AD%A6%E4%B9%A0-Git%E7%AE%80%E4%BB%8B/</url>
+    
+    <content type="html"><![CDATA[<p>版本控制（Version Control）是管理文件变化的系统，特别适用于开发人员的协作项目。通过版本控制，可以记录文件的历史修改，帮助跟踪和回溯每次变化，解决多人同时编辑时的冲突。</p><span id="more"></span><h1>Git简介</h1><h2 id="版本控制">版本控制</h2><p>版本控制（Version Control）是管理文件变化的系统，特别适用于开发人员的协作项目。通过版本控制，可以记录文件的历史修改，帮助跟踪和回溯每次变化，解决多人同时编辑时的冲突。</p><h3 id="集中式版本控制">集中式版本控制</h3><h3 id="分布式版本控制">分布式版本控制</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>Git</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>TS学习-高级概念与设计模式</title>
     <link href="/2024/11/14/TS%E5%AD%A6%E4%B9%A0-%E9%AB%98%E7%BA%A7%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <url>/2024/11/14/TS%E5%AD%A6%E4%B9%A0-%E9%AB%98%E7%BA%A7%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
