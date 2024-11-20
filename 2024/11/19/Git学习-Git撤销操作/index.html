@@ -16,15 +16,15 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在了解了 Git 之后，我们将继续介绍如何在日常开发中使用 Git 进行基本的版本控制操作。这些操作包括创建仓库、跟踪文件变化、提交修改等。">
+    <meta name="description" content="当我们熟悉了各种 Git 操作之后，不禁会想，人总是会犯错的，如果我们使用了 Git 提交了一些不想提交的信息，我们应该如何撤回这些操作呢？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git学习-Git撤销操作">
 <meta property="og:url" content="https://zzstriker.github.io/2024/11/19/Git%E5%AD%A6%E4%B9%A0-Git%E6%92%A4%E9%94%80%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="在了解了 Git 之后，我们将继续介绍如何在日常开发中使用 Git 进行基本的版本控制操作。这些操作包括创建仓库、跟踪文件变化、提交修改等。">
+<meta property="og:description" content="当我们熟悉了各种 Git 操作之后，不禁会想，人总是会犯错的，如果我们使用了 Git 提交了一些不想提交的信息，我们应该如何撤回这些操作呢？">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-19T08:33:23.000Z">
-<meta property="article:modified_time" content="2024-11-19T10:37:05.795Z">
+<meta property="article:modified_time" content="2024-11-20T07:22:23.011Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +265,7 @@
             
               <div class="markdown-body">
                 
-                <p>在了解了 Git 之后，我们将继续介绍如何在日常开发中使用 Git 进行基本的版本控制操作。这些操作包括创建仓库、跟踪文件变化、提交修改等。</p>
+                <p>当我们熟悉了各种 Git 操作之后，不禁会想，人总是会犯错的，如果我们使用了 Git 提交了一些不想提交的信息，我们应该如何撤回这些操作呢？</p>
 <span id="more"></span>
 <h1>Git撤销操作</h1>
 <h2 id="查看提交记录">查看提交记录</h2>
@@ -329,6 +329,121 @@
 </ul>
 </li>
 </ol>
+<h2 id="查看文件差异">查看文件差异</h2>
+<p>现在我们将目光重新回到 Git 仓库上，我们已经成功地添加并提交了一个<code>README.md</code>文件，现在我们继续修改<code>README.md</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi README.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改README.md内容</span></span><br><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+<p>运行<code>git status</code>命令看看结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">On branch main</span><br><span class="line">Your branch is up to <span class="built_in">date</span> with <span class="string">&#x27;origin/main&#x27;</span>.</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   README.md</span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>通过<code>git status</code>命令我们知道<code>README.md</code>被修改过了，但还没有准备提交的修改。如果你忘记修改了什么内容，可以用<code>git diff</code>这个命令来查看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git diff README.md</span><br><span class="line">diff --git a/README.md b/README.md</span><br><span class="line">index d60788e..9247db6 100644</span><br><span class="line">--- a/README.md</span><br><span class="line">+++ b/README.md</span><br><span class="line">@@ -1 +1,2 @@</span><br><span class="line">-this is a readme <span class="built_in">test</span> text</span><br><span class="line">+Git is a distributed version control system.</span><br><span class="line">+Git is free software.</span><br></pre></td></tr></table></figure>
+<p>我们再通过<code>git add</code>和<code>git commit</code>命令就可以将修改过的<code>README.md</code>文件提交到 Git 仓库中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="string">&#x27;modified README.md&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子仅仅只是查看了某一个文件的差异，<code>git diff</code>命令还有很多的用法：</p>
+<ol>
+<li>
+<p>查看工作区和暂存区之间的差异</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看暂存区和最新提交之间的差异</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看工作区与最新提交之间的差异</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff HEAD</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较两个提交</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;commit1&gt; &lt;commit2&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较某次提交与当前工作区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较某次提交与暂存区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较两个分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;branch1&gt; &lt;branch2&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较当前分支与其他分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看特定文件的差异</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="撤销操作">撤销操作</h2>
+<p>在任何一个阶段，我们都有可能想要撤消某些操作。有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。此时，可以运行带有 <code>--amend</code> 选项的提交命令来重新提交</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我们修改了README.md，并创建了一个test.txt文件</span></span><br><span class="line">vi README.md</span><br><span class="line"><span class="built_in">touch</span> test.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只把README.md添加到暂存区，并提交到 Git 仓库</span></span><br><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="string">&#x27;modified README.md&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此时发现忘了提交test.txt文件，可以通过 git add 和 git commit --amend命令，将test.txt文件添加到暂存区，并且第二次提交将替代第一次提交的结果</span></span><br><span class="line">git add test.txt</span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+<p>假设我们修改了两个文件并且想要将它们作为两次独立的修改提交， 但是却意外地输入 <code>git add *</code> 暂存了它们两个。如何只取消暂存两个中的一个呢？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git add *</span><br><span class="line">git status</span><br><span class="line">On branch main</span><br><span class="line">Your branch is up to <span class="built_in">date</span> with <span class="string">&#x27;origin/main&#x27;</span>.</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        new file:   CONTRIBUTING.md</span><br><span class="line">        modified:   README.md</span><br></pre></td></tr></table></figure>
+<p>这里有三种方法可以操作，Git 版本2.23.0以前推荐使用<code>git reset</code>和<code>git checkout</code>，Git 2.23.0以后的版本可以使用<code>git restore</code></p>
+<h3 id="git-reset">git reset</h3>
+<p><code>git reset</code> 主要用于调整 <strong>提交记录</strong> 和 <strong>暂存区</strong> 的状态，可能会影响提交历史。</p>
+<ol>
+<li>
+<p>重置到指定的提交：将当前分支回退到 <code>&lt;commit&gt;</code>，并将更改保留在工作区。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>移除暂存区的文件：将文件从暂存区移除，但不影响工作区中的实际更改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改提交记录的类型</p>
+<ul>
+<li>
+<p><strong>软重置（<code>--soft</code>）：</strong> 只重置提交记录，暂存区和工作区不受影响。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD~1</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>混合重置（<code>--mixed</code>，默认）：</strong> 重置提交记录和暂存区，保留工作区更改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --mixed HEAD~1</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>硬重置（<code>--hard</code>）：</strong> 重置提交记录、暂存区和工作区，彻底清除更改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="git-checkout">git checkout</h3>
+<p><code>git checkout</code> 是一个多功能命令，用于切换分支或恢复文件。它在 Git 2.23.0 后逐步被 <code>git switch</code> 和 <code>git restore</code> 替代。</p>
+<ol>
+<li>
+<p>切换分支：切换到指定的分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>恢复文件：将指定文件恢复为暂存区或指定提交的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>检出到某个提交：将工作区切换到指定提交，不影响分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="git-restore">git restore</h3>
+<p><code>git restore</code> 是 Git 2.23.0 引入的新命令，用于专门恢复文件的内容，增强了可读性和安全性。</p>
+<ol>
+<li>
+<p>恢复工作区中的文件：撤销工作区中的更改，将文件恢复到暂存区的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>恢复暂存区中的文件：从暂存区中移除文件，但保留工作区中的更改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore --staged &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>从某个提交恢复文件：将文件恢复到指定提交的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore --<span class="built_in">source</span>=&lt;commit&gt; &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
                 
               </div>
@@ -375,6 +490,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/11/20/Git%E5%AD%A6%E4%B9%A0-Git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="Git学习-Git远程仓库">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git学习-Git远程仓库</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
