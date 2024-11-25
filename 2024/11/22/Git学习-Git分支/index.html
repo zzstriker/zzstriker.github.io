@@ -24,7 +24,7 @@
 <meta property="og:description" content="分支是 Git 的核心功能之一，也是其最强大的特性之一。分支让开发者可以并行地处理不同的功能、修复错误或试验新特性，而不会干扰到主分支的代码。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-22T10:45:19.000Z">
-<meta property="article:modified_time" content="2024-11-22T10:45:19.856Z">
+<meta property="article:modified_time" content="2024-11-25T02:57:38.091Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary_large_image">
@@ -328,6 +328,59 @@
 <h3 id="删除远程分支">删除远程分支</h3>
 <p>使用 <code>git push</code> 命令加上<code>--delete</code>参数可以从远程仓库中删除指定分支</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git push &lt;remote_name&gt; --delete &lt;branch_name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">git push origin --delete feature-1</span><br></pre></td></tr></table></figure>
+<h2 id="变基">变基</h2>
+<p><code>git rebase</code> 是一种用来重新整理和修改提交历史的工具，它可以将分支上的提交应用到另一个分支的基础上，从而使历史记录更清晰。</p>
+<h3 id="基础使用">基础使用</h3>
+<p>将当前分支的提交重新应用到指定分支（<code>&lt;base_branch&gt;</code>）的最新提交上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git rebase &lt;base_branch&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例，feature 分支上的提交将被重新应用到 main 分支的最新提交之上。</span></span><br><span class="line">git switch feature</span><br><span class="line">git rebase main</span><br></pre></td></tr></table></figure>
+<h3 id="持续变基">持续变基</h3>
+<p>当需要从分叉点之后的提交进行变基，将 <code>&lt;branch&gt;</code> 上的提交应用到新的基础（<code>&lt;new_base&gt;</code>）上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git rebase --onto &lt;new_base&gt; &lt;upstream_branch&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例，将 feature 分支从 develop 分支的基础切换到 main 分支。</span></span><br><span class="line">git rebase --onto main develop feature</span><br></pre></td></tr></table></figure>
+<h3 id="解决冲突">解决冲突</h3>
+<p>在 <code>git rebase</code> 过程中，如果不同分支修改了同一部分代码，可能会产生冲突。此时需要手动解决冲突。</p>
+<h4 id="查看冲突文件">查看冲突文件</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<h4 id="手动解决冲突">手动解决冲突</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑冲突文件，选择合适的代码，使用 git add 标记冲突解决。</span></span><br><span class="line">git add CONTRIBUTING.md</span><br></pre></td></tr></table></figure>
+<h4 id="继续变基">继续变基</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --<span class="built_in">continue</span></span><br></pre></td></tr></table></figure>
+<h4 id="放弃变基">放弃变基</h4>
+<p>放弃当前未完成的变基操作，返回到变基前的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --abort</span><br></pre></td></tr></table></figure>
+<h3 id="变基的风险">变基的风险</h3>
+<p>变基操作的实质是丢弃一些现有的提交，然后相应地新建一些内容一样但实际上不同的提交。<strong>如果提交存在于你的仓库之外，而别人可能基于这些提交进行开发，那么不要执行变基。</strong></p>
+<h3 id="变基VS合并">变基VS合并</h3>
+<table>
+<thead>
+<tr>
+<th><strong>功能</strong></th>
+<th><strong>git rebase</strong></th>
+<th><strong>git merge</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>历史记录</strong></td>
+<td>将分支历史整理为线性记录，使提交记录清晰简洁。</td>
+<td>保留完整的分支历史，显示分叉和合并信息。</td>
+</tr>
+<tr>
+<td><strong>使用场景</strong></td>
+<td>团队合作中避免过多分支记录、整理提交历史。</td>
+<td>保留所有开发分支和合并记录，用于审查历史。</td>
+</tr>
+<tr>
+<td><strong>冲突处理</strong></td>
+<td>逐次处理每个提交的冲突。</td>
+<td>一次性处理所有冲突。</td>
+</tr>
+<tr>
+<td><strong>推荐用法</strong></td>
+<td>用于个人开发时整理提交。</td>
+<td>用于团队协作，避免历史重写。</td>
+</tr>
+</tbody>
+</table>
 
                 
               </div>
@@ -374,6 +427,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/11/25/Node%E5%AD%A6%E4%B9%A0-Node%E7%AE%80%E4%BB%8B/" title="Node学习-Node简介">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Node学习-Node简介</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
