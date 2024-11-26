@@ -16,25 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I&#x2F;O的模型，使其轻量又高效。Node.js 的包管理工具 npm 是全球最大的开源库生态系统。">
+    <meta name="description" content="在 Node.js 中，以模块为单位划分所有功能，并且提供了一个完整的模块加载机制，这使得我们可以将应用划分为各个不同的部分，并且对这些部分进行很好的协同管理。通过将各种可复用代码编写在模块中的方法，可以极大地减少应用的代码量，提高开发的效率以及代码可读性。通过模块加载机制，也可以将各种第三方模块引入到我们的应用中。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node学习-Node简介">
-<meta property="og:url" content="https://zzstriker.github.io/2024/11/25/Node%E5%AD%A6%E4%B9%A0-Node%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:title" content="Node学习-模块">
+<meta property="og:url" content="https://zzstriker.github.io/2024/11/26/Node%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9D%97/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I&#x2F;O的模型，使其轻量又高效。Node.js 的包管理工具 npm 是全球最大的开源库生态系统。">
+<meta property="og:description" content="在 Node.js 中，以模块为单位划分所有功能，并且提供了一个完整的模块加载机制，这使得我们可以将应用划分为各个不同的部分，并且对这些部分进行很好的协同管理。通过将各种可复用代码编写在模块中的方法，可以极大地减少应用的代码量，提高开发的效率以及代码可读性。通过模块加载机制，也可以将各种第三方模块引入到我们的应用中。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zzstriker.github.io/imgs/Node/node_composition.png">
-<meta property="og:image" content="https://zzstriker.github.io/imgs/Node/node_architecture.png">
-<meta property="article:published_time" content="2024-11-25T05:51:00.000Z">
-<meta property="article:modified_time" content="2024-11-26T09:40:15.572Z">
+<meta property="article:published_time" content="2024-11-26T06:55:36.000Z">
+<meta property="article:modified_time" content="2024-11-26T10:25:26.929Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="Node">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zzstriker.github.io/imgs/Node/node_composition.png">
   
   
   
-  <title>Node学习-Node简介 - zzstriker blogs</title>
+  <title>Node学习-模块 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Node学习-Node简介"></span>
+            <span id="subtitle" data-typed-text="Node学习-模块"></span>
           
         </div>
 
@@ -206,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-25 13:51" pubdate>
-          2024年11月25日 下午
+        <time datetime="2024-11-26 14:55" pubdate>
+          2024年11月26日 下午
         </time>
       </span>
     
@@ -263,88 +260,47 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Node学习-Node简介</h1>
+            <h1 id="seo-header">Node学习-模块</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Node.js 是一个基于 <strong>Chrome V8 引擎</strong>的 JavaScript 运行环境。Node.js 使用了一个<strong>事件驱动</strong>、<strong>非阻塞式 I/O</strong>的模型，使其轻量又高效。Node.js 的包管理工具 npm 是全球最大的开源库生态系统。</p>
+                <p>在 Node.js 中，以模块为单位划分所有功能，并且提供了一个完整的模块加载机制，这使得我们可以将应用划分为各个不同的部分，并且对这些部分进行很好的协同管理。通过将各种可复用代码编写在模块中的方法，可以极大地减少应用的代码量，提高开发的效率以及代码可读性。通过模块加载机制，也可以将各种第三方模块引入到我们的应用中。</p>
 <span id="more"></span>
-<h1>Node简介</h1>
-<p>Node.js 不是一门语言，也不是 JavaScript 的框架，也不是像Nginx一样的Web服务器 ，<strong>Node.js 是 JavaScript 在服务器端的运行环境（平台）</strong>。</p>
-<h2 id="Node组成">Node组成</h2>
-<p>在 Node.js 里运行 JavaScript，跟在 Chrome 里运行 JavaScript 有什么不同？</p>
-<p>二者采用的是同样的 JS 引擎。在 Node.js 里写 JS，和在前端写 JS，几乎没有不同。在写法上的区别在于：Node.js 没有浏览器、页面标签相关的 API，但是新增了一些 Node.js 相关的 API。通俗来说，对于开发者而言，在前端写 JS 是用于控制浏览器；而 Node.js 环境写 JS 可以控制整个计算机。</p>
-<p>我们知道，JavaScript 的组成分为三个部分：</p>
+<h1>模块</h1>
+<h2 id="模块规范">模块规范</h2>
+<p>在 JavaScript 的发展历程中，它主要在浏览器端发光发热。由于官方规范（ECMAScript）规范化的时间较早，规范涵盖的范畴非常小。这些规范中包含词法、类型、上下文、表达式、声明、方法、对象等语言的基本要素。在 Web 应用的时代，浏览器中出现了更多、更强大的 API 供 JavaScript 调用，但在服务端 JavaScript 的规范却远远落后，缺陷在于：</p>
 <ol>
-<li>ECMAScript</li>
-<li>DOM：标签元素相关的API</li>
-<li>BOM：浏览器相关的API</li>
+<li>没有模块系统</li>
+<li>标准库较少，ECMAScript 仅定义了部分核心库，对于文件系统，I/O 流等常见需求却没有标准的 API</li>
+<li>没有标准接口，比如 Web 服务器或数据库之类的标准统一接口</li>
+<li>缺乏包管理系统，JavaScript 应用中基本没有自动加载和安装依赖的能力</li>
 </ol>
-<p>ECMAScript 是 JS 的语法；DOM 和 BOM 浏览器端为 JS 提供的 API。</p>
-<p>而 Node.js 的组成分为：</p>
+<h3 id="CommonJS规范">CommonJS规范</h3>
+<p>CommonJS 对模块的定义十分简单，主要分为模块引用、模块定义和模块标识3个部分。</p>
+<h4 id="模块引用">模块引用</h4>
+<p>在 CommonJS 规范中，存在<code>require()</code>方法，这个方法接受模块标识，以此引入一个模块的 API 到当前上下文中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">&#x27;math&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="模块定义">模块定义</h4>
+<p>在模块中，上下文提供<code>require()</code>方法来引入外部模块。对应引入的功能，上下文提供了<strong>exports</strong>对象用于导出当前模块的方法或者变量，并且它是唯一导出的出口。在模块中，还存在一个<strong>module</strong>对象，它代表模块自身，而<strong>exports</strong>是<strong>module</strong>的属性。在 Node 中，一个文件就是一个模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hello.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>!`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">const</span> greet = <span class="built_in">require</span>(<span class="string">&#x27;./hello&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">greet</span>(<span class="string">&#x27;Alice&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// calc.js</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">add</span> = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">subtract</span> = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">add</span> = (<span class="params">a, b</span>) =&gt; a + b;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">subtract</span> = (<span class="params">a, b</span>) =&gt; a - b;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    add,</span><br><span class="line">    subtract</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">&#x27;./calc&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(math.<span class="title function_">add</span>(<span class="number">5</span>, <span class="number">3</span>));  <span class="comment">// 8</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(math.<span class="title function_">subtract</span>(<span class="number">5</span>, <span class="number">3</span>)); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h4 id="模块标识">模块标识</h4>
+<p>模块标识其实就是传递给<code>require()</code>方法的参数，它必须是符合小驼峰命名的字符串，或者以<code>.</code>、<code>..</code>开头的相对路径，或者绝对路径。</p>
+<h2 id="模块实现">模块实现</h2>
+<p>Node 在实现中并非完全按照规范实现，而是对模块规范进行了一定的取舍。在 Node 中引入模块，需要经历3个步骤：</p>
 <ol>
-<li><strong>ECMAScript</strong>。ECMAScript 的所有语法在 Node 环境中都可以使用。</li>
-<li><strong>Node 环境</strong>提供的一些<strong>附加 API</strong>(包括文件、网络等相关的 API)。</li>
+<li>路径分析</li>
+<li>文件定位</li>
+<li>编译执行</li>
 </ol>
-<p><img src="/imgs/Node/node_composition.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<h2 id="Node架构">Node架构</h2>
-<p><img src="/imgs/Node/node_architecture.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>Node.js 内部采用 Google Chrome 的 V8 引擎，作为 JavaScript 语言解释器；同时结合自行开发的 libuv 库，<strong>扩展了 JS 在后端的能力（比如 I/O 操作、文件读写、数据库操作等）</strong>。使得 JS 既可以在前端进行 DOM 操作（浏览器前端），又可以在后端调用操作系统资源，是目前最简单的全栈式语言。</p>
-<h3 id="Node运行环境的核心">Node运行环境的核心</h3>
-<p>Node.js 是 JavaScript 在服务器端的运行环境，在这个意义上，Node.js 的地位其实就是 JavaScript 在服务器端的虚拟机，类似于 Java 语言中的 Java 虚拟机。</p>
-<ul>
-<li>V8 引擎：编译和执行 JS 代码、管理内存、垃圾回收。V8 给 JS 提供了运行环境，可以说是 JS 的虚拟机。</li>
-<li>libuv：libuv 是一个专注于异步 I/O 的跨平台类库，目前主要在 Node.js 上使用，是Node.js的底层类库。</li>
-</ul>
-<h2 id="Node特点">Node特点</h2>
+<p>在 Node 中，模块分为两类：一类是 Node 提供的模块，成为核心模块；另一类是用户编写的模块，称为文件模块。</p>
 <ol>
-<li>
-<p><strong>事件驱动与非阻塞 I/O</strong></p>
-<ul>
-<li>
-<p>Node.js 使用单线程事件循环处理高并发请求。</p>
-</li>
-<li>
-<p>异步编程模型可以避免阻塞操作，提高性能。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>高性能</strong></p>
-<ul>
-<li>基于 Google 的 V8 引擎，Node.js 的 JavaScript 代码执行速度非常快。</li>
-</ul>
-</li>
-<li>
-<p><strong>轻量化</strong></p>
-<ul>
-<li>Node.js 以模块化设计，核心只包含最基础的功能，其他功能通过 npm 包扩展。</li>
-</ul>
-</li>
-<li>
-<p><strong>跨平台支持</strong></p>
-<ul>
-<li>Node.js 支持 Windows、macOS 和 Linux。</li>
-</ul>
-</li>
-<li>
-<p><strong>NPM（Node Package Manager）</strong></p>
-<ul>
-<li>包管理工具，拥有世界上最大的开源生态系统。</li>
-</ul>
-</li>
+<li>核心模块部分在 Node 源代码的编译过程中，编译进了二进制执行文件。在 Node 进程启动时，部分核心模块就被直接加载进内存中，所以这部分核心模块引入时，文件定位和编译执行这两个步骤可以省略掉，并且在路径分析中优先判断，所以它的加载速度是最快的。</li>
+<li>文件模块则是在运行时动态加载，需要完整的路径分析、文件定位、编译执行过程，速度比核心模块慢。</li>
 </ol>
-<h2 id="Node安装">Node安装</h2>
-<p>官方推荐的做法是<strong>先安装 NVM，然后通过 NVM 安装 Node.js</strong>。</p>
-<h3 id="NVM">NVM</h3>
-<p>node.js version manager，用来管理 node 的版本。</p>
-<h4 id="安装">安装</h4>
-<p>可以通过 <a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases">github</a> 下载安装NVM的安装包</p>
-<h4 id="验证">验证</h4>
-<p>在 cmd 命令行中输入命令，输入<code>nvm</code>命令查看环境变量是否配置成功</p>
-<h4 id="常用命令">常用命令</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已安装的所有 node 版本</span></span><br><span class="line">nvm <span class="built_in">ls</span></span><br><span class="line">nvm list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已安装的 nvm 版本</span></span><br><span class="line">nvm -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看正在使用的 node 版本</span></span><br><span class="line">node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装指定版本的 Node.js</span></span><br><span class="line">nvm install 版本号</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用已安装的 Node.js</span></span><br><span class="line">nvm use 版本号</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载指定版本的 Node.js</span></span><br><span class="line">nvm uninstall 版本号</span><br></pre></td></tr></table></figure>
+<h3 id="模块缓存">模块缓存</h3>
+<p>Node 对引入过的模块都会进行缓存，以减少二次引入时的开销。Node 缓存的是编译和执行之后的对象。不论是核心模块还是文件模块，<code>require()</code>方法对相同模块的二次加载都一律采用缓存优先的方式，不同之处在于核心模块的缓存检查先于文件模块的缓存检查。</p>
+<h3 id="路径分析">路径分析</h3>
 
                 
               </div>
@@ -392,18 +348,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/26/Node%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9D%97/" title="Node学习-模块">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Node学习-模块</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/22/Git%E5%AD%A6%E4%B9%A0-Git%E5%88%86%E6%94%AF/" title="Git学习-Git分支">
-                        <span class="hidden-mobile">Git学习-Git分支</span>
+                      <a href="/2024/11/25/Node%E5%AD%A6%E4%B9%A0-Node%E7%AE%80%E4%BB%8B/" title="Node学习-Node简介">
+                        <span class="hidden-mobile">Node学习-Node简介</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
