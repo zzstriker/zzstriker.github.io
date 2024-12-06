@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="随着网络安全性和数据处理需求的日益增加，安全的加密算法和高效的压缩方法在现代应用中扮演着越来越重要的角色。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node学习-加密与压缩">
+<meta property="og:url" content="https://zzstriker.github.io/2024/12/06/Node%E5%AD%A6%E4%B9%A0-%E5%8A%A0%E5%AF%86%E4%B8%8E%E5%8E%8B%E7%BC%A9/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="随着网络安全性和数据处理需求的日益增加，安全的加密算法和高效的压缩方法在现代应用中扮演着越来越重要的角色。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-06T01:31:54.000Z">
+<meta property="article:modified_time" content="2024-12-06T01:31:54.771Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="Node">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Node学习-加密与压缩 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Node学习-加密与压缩"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-06 09:31" pubdate>
+          2024年12月6日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Node学习-加密与压缩</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>随着网络安全性和数据处理需求的日益增加，安全的加密算法和高效的压缩方法在现代应用中扮演着越来越重要的角色。</p>
+<span id="more"></span>
+<h1>加密与压缩</h1>
+<p><strong>加密的重要性</strong></p>
+<p>加密是确保数据安全性的关键技术之一，它保护数据在传输和存储过程中不被窃取或篡改。常见的加密应用包括HTTPS协议、文件加密、消息加密等。加密和解密的过程使用了各种算法来保护数据的完整性与机密性。</p>
+<p><strong>压缩的重要性</strong></p>
+<p>压缩是指将数据以较小的体积进行存储或传输，从而节省带宽和存储空间。压缩技术常用于大数据传输、日志文件存储、图片和视频压缩等场景。</p>
+<h2 id="加密与解密">加密与解密</h2>
+<p><code>crypto</code> 是 Node.js 中用于加密功能的核心模块，提供了加密、解密、哈希、数字签名等功能。它基于 OpenSSL，能够满足大多数安全需求，适用于身份验证、数据保护以及密码操作。</p>
+<h3 id="哈希算法">哈希算法</h3>
+<p>哈希是一种将任意长度的数据转换为固定长度字符串的算法，常用于数据完整性验证。常见的哈希算法有<code>md5</code>、<code>sha1</code>、<code>sha256</code>、<code>sha512</code> 等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> hash = crypto.<span class="title function_">createHash</span>(<span class="string">&#x27;sha256&#x27;</span>);  <span class="comment">// 创建SHA-256哈希实例</span></span><br><span class="line">hash.<span class="title function_">update</span>(<span class="string">&#x27;Hello, World!&#x27;</span>);  <span class="comment">// 更新数据</span></span><br><span class="line"><span class="keyword">const</span> result = hash.<span class="title function_">digest</span>(<span class="string">&#x27;hex&#x27;</span>);  <span class="comment">// 获取哈希结果，以十六进制形式返回</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result);  <span class="comment">// 打印哈希值</span></span><br></pre></td></tr></table></figure>
+<h3 id="HMAC-基于密钥的哈希">HMAC (基于密钥的哈希)</h3>
+<p>HMAC是一种基于哈希算法的加密方式，结合了密钥进行验证，常用于数据的完整性和认证。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hmac = crypto.<span class="title function_">createHmac</span>(<span class="string">&#x27;sha256&#x27;</span>, <span class="string">&#x27;secret-key&#x27;</span>);</span><br><span class="line">hmac.<span class="title function_">update</span>(<span class="string">&#x27;Hello, World!&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> result = hmac.<span class="title function_">digest</span>(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br></pre></td></tr></table></figure>
+<h3 id="对称加密">对称加密</h3>
+<p>加密和解密使用相同的密钥。常见的对称加密算法包括AES（高级加密标准）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; randomBytes, createCipheriv, createDecipheriv &#125; = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成随机密钥和初始化向量</span></span><br><span class="line"><span class="keyword">const</span> key = <span class="title function_">randomBytes</span>(<span class="number">32</span>);  <span class="comment">// 32字节密钥</span></span><br><span class="line"><span class="keyword">const</span> iv = <span class="title function_">randomBytes</span>(<span class="number">16</span>);  <span class="comment">// 16字节初始化向量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 加密</span></span><br><span class="line"><span class="keyword">const</span> cipher = <span class="title function_">createCipheriv</span>(<span class="string">&#x27;aes-256-cbc&#x27;</span>, key, iv);</span><br><span class="line"><span class="keyword">let</span> encrypted = cipher.<span class="title function_">update</span>(<span class="string">&#x27;Hello, World!&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>, <span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line">encrypted += cipher.<span class="title function_">final</span>(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解密</span></span><br><span class="line"><span class="keyword">const</span> decipher = <span class="title function_">createDecipheriv</span>(<span class="string">&#x27;aes-256-cbc&#x27;</span>, key, iv);</span><br><span class="line"><span class="keyword">let</span> decrypted = decipher.<span class="title function_">update</span>(encrypted, <span class="string">&#x27;hex&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line">decrypted += decipher.<span class="title function_">final</span>(<span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Encrypted:&#x27;</span>, encrypted);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Decrypted:&#x27;</span>, decrypted);</span><br></pre></td></tr></table></figure>
+<h3 id="非对称加密">非对称加密</h3>
+<p>使用一对公钥和私钥。公钥加密，私钥解密，常见的非对称加密算法包括RSA、DSA等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; generateKeyPairSync, publicEncrypt, privateDecrypt &#125; = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成RSA公钥和私钥</span></span><br><span class="line"><span class="keyword">const</span> &#123; publicKey, privateKey &#125; = <span class="title function_">generateKeyPairSync</span>(<span class="string">&#x27;rsa&#x27;</span>, &#123;</span><br><span class="line">	<span class="attr">modulusLength</span>: <span class="number">2048</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用公钥加密</span></span><br><span class="line"><span class="keyword">const</span> encrypted = <span class="title function_">publicEncrypt</span>(publicKey, <span class="title class_">Buffer</span>.<span class="title function_">from</span>(<span class="string">&#x27;Hello, World!&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用私钥解密</span></span><br><span class="line"><span class="keyword">const</span> decrypted = <span class="title function_">privateDecrypt</span>(privateKey, encrypted);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Encrypted:&#x27;</span>, encrypted.<span class="title function_">toString</span>(<span class="string">&#x27;hex&#x27;</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Decrypted:&#x27;</span>, decrypted.<span class="title function_">toString</span>());</span><br></pre></td></tr></table></figure>
+<h3 id="数字签名与验证">数字签名与验证</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sign = crypto.<span class="title function_">createSign</span>(<span class="string">&#x27;SHA256&#x27;</span>);</span><br><span class="line">sign.<span class="title function_">update</span>(<span class="string">&#x27;Message to be signed&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> signature = sign.<span class="title function_">sign</span>(privateKey, <span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Signature:&#x27;</span>, signature);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> verify = crypto.<span class="title function_">createVerify</span>(<span class="string">&#x27;SHA256&#x27;</span>);</span><br><span class="line">verify.<span class="title function_">update</span>(<span class="string">&#x27;Message to be signed&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> isVerified = verify.<span class="title function_">verify</span>(publicKey, signature, <span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Verified:&#x27;</span>, isVerified); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="压缩与解压缩">压缩与解压缩</h2>
+<p><code>zlib</code> 是 Node.js 中的一个核心模块，提供了压缩和解压缩的功能。它基于 zlib 库和 gzip、deflate 等算法，能够处理各种压缩格式的数据。<code>zlib</code> 模块在数据传输和存储优化方面非常有用，常用于 HTTP 请求和响应的压缩、文件压缩等场景。</p>
+<h3 id="压缩数据">压缩数据</h3>
+<p><code>zlib</code>提供了<code>gzip</code>、<code>deflate</code>和<code>brotliCompress</code>等压缩算法，常用于文件或数据的压缩。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> input = <span class="string">&#x27;Hello, Node.js! Compress me!&#x27;</span>;</span><br><span class="line">zlib.<span class="title function_">gzip</span>(input, <span class="function">(<span class="params">err, buffer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error compressing data:&#x27;</span>, err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Compressed data:&#x27;</span>, buffer.<span class="title function_">toString</span>(<span class="string">&#x27;base64&#x27;</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="解压缩数据">解压缩数据</h3>
+<p><code>zlib</code>提供了<code>gunzip</code>、<code>inflate</code>和<code>brotliDecompress</code>等压缩算法，可以恢复压缩后的数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compressedData = <span class="title class_">Buffer</span>.<span class="title function_">from</span>(<span class="string">&#x27;H4sIAAAAAAAAC... (省略)&#x27;</span>, <span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line">zlib.<span class="title function_">gunzip</span>(compressedData, <span class="function">(<span class="params">err, buffer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error decompressing data:&#x27;</span>, err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Decompressed data:&#x27;</span>, buffer.<span class="title function_">toString</span>());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="压缩和解压文件流">压缩和解压文件流</h3>
+<p>Node.js 提供了流（stream）接口，使得 <code>zlib</code> 模块可以处理大文件或流式数据，避免内存不足的问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 压缩文件</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> zlib = <span class="built_in">require</span>(<span class="string">&#x27;zlib&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> input = fs.<span class="title function_">createReadStream</span>(<span class="string">&#x27;example.txt&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> output = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;example.txt.gz&#x27;</span>);</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">pipe</span>(zlib.<span class="title function_">createGzip</span>()).<span class="title function_">pipe</span>(output);</span><br><span class="line"></span><br><span class="line"><span class="comment">//解压文件</span></span><br><span class="line"><span class="keyword">const</span> input = fs.<span class="title function_">createReadStream</span>(<span class="string">&#x27;example.txt.gz&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> output = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;example_unzipped.txt&#x27;</span>);</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">pipe</span>(zlib.<span class="title function_">createGunzip</span>()).<span class="title function_">pipe</span>(output);</span><br></pre></td></tr></table></figure>
+<h3 id="同步和异步API">同步和异步API</h3>
+<p><code>zlib</code> 提供了两种 API：</p>
+<ol>
+<li><strong>异步 API</strong>：基于回调函数的非阻塞方式（推荐）。</li>
+<li><strong>同步 API</strong>：阻塞调用，适合简单、快速的操作。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同步压缩</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> buffer = zlib.<span class="title function_">gzipSync</span>(<span class="string">&#x27;Hello, Sync!&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Compressed data (sync):&#x27;</span>, buffer.<span class="title function_">toString</span>(<span class="string">&#x27;base64&#x27;</span>));</span><br><span class="line">&#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, err);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 同步解压</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> buffer = zlib.<span class="title function_">gunzipSync</span>(compressedData);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Decompressed data (sync):&#x27;</span>, buffer.<span class="title function_">toString</span>());</span><br><span class="line">&#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="常见选项">常见选项</h3>
+<p><code>zlib</code> 支持通过选项调整压缩性能和效率：</p>
+<ol>
+<li><code>level</code>：压缩级别，范围从 0（无压缩）到 9（最高压缩）。</li>
+<li><code>strategy</code>：压缩策略，例如 <code>zlib.constants.Z_DEFAULT_STRATEGY</code>。</li>
+<li><code>chunkSize</code>：处理数据块的大小（默认 16 KB）。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">zlib.<span class="title function_">gzip</span>(<span class="string">&#x27;Custom options example&#x27;</span>, &#123; <span class="attr">level</span>: <span class="number">9</span> &#125;, <span class="function">(<span class="params">err, buffer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Compressed with custom options:&#x27;</span>, buffer.<span class="title function_">toString</span>(<span class="string">&#x27;base64&#x27;</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Node/" class="category-chain-item">Node</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Node/" class="print-no-link">#Node</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/05/Node%E5%AD%A6%E4%B9%A0-%E9%94%99%E8%AF%AF%E4%B8%8E%E6%96%AD%E8%A8%80%E5%A4%84%E7%90%86/" title="Node学习-错误与断言处理">
+                        <span class="hidden-mobile">Node学习-错误与断言处理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
