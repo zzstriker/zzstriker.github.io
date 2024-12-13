@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Express学习-Express简介</title>
+    <link href="/2024/12/13/Express%E5%AD%A6%E4%B9%A0-Express%E7%AE%80%E4%BB%8B/"/>
+    <url>/2024/12/13/Express%E5%AD%A6%E4%B9%A0-Express%E7%AE%80%E4%BB%8B/</url>
+    
+    <content type="html"><![CDATA[<p>贝塞尔曲线(Bezier curve)，是应用于二维图形应用程序的数学曲线。一般的矢量图形软件通过它来精确画出曲线，贝兹曲线由线段与节点组成，节点是可拖动的支点，线段像可伸缩的皮筋，塞尔曲线是计算机图形学中相当重要的参数曲线。</p><span id="more"></span><h1>Express简介</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>Node</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Express</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Node学习-测试</title>
     <link href="/2024/12/12/Node%E5%AD%A6%E4%B9%A0-%E6%B5%8B%E8%AF%95/"/>
     <url>/2024/12/12/Node%E5%AD%A6%E4%B9%A0-%E6%B5%8B%E8%AF%95/</url>
