@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在Express框架中，请求和响应是服务器与客户端之间交互的核心。Express通过提供强大的req和res对象，使开发者能够轻松处理客户端请求和返回响应。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Express学习-请求和响应">
+<meta property="og:url" content="https://zzstriker.github.io/2024/12/16/Express%E5%AD%A6%E4%B9%A0-%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="在Express框架中，请求和响应是服务器与客户端之间交互的核心。Express通过提供强大的req和res对象，使开发者能够轻松处理客户端请求和返回响应。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-16T07:59:32.000Z">
+<meta property="article:modified_time" content="2024-12-17T03:16:48.267Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="Express">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Express学习-请求和响应 - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Express学习-请求和响应"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-16 15:59" pubdate>
+          2024年12月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Express学习-请求和响应</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在Express框架中，<strong>请求</strong>和<strong>响应</strong>是服务器与客户端之间交互的核心。Express通过提供强大的<code>req</code>和<code>res</code>对象，使开发者能够轻松处理客户端请求和返回响应。</p>
+<span id="more"></span>
+<h1>请求和响应</h1>
+<h2 id="Express请求对象">Express请求对象</h2>
+<p>请求对象<code>req</code>包含了客户端请求的所有信息，包括请求头、参数、主体等。通过<code>req</code>，开发者可以提取并使用这些数据来实现各种逻辑。</p>
+<h3 id="请求方法">请求方法</h3>
+<p><code>req.method</code>表示请求的HTTP方法，例如<code>GET</code>、<code>POST</code>、<code>PUT</code>、<code>DELETE</code>等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`请求方法：<span class="subst">$&#123;req.method&#125;</span>`</span>);</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="请求URL">请求URL</h3>
+<ol>
+<li><code>req.url</code>：获取请求的完整URL路径。</li>
+<li><code>req.path</code>：获取请求路径（不包含查询参数）。</li>
+<li><code>req.query</code>：获取查询参数。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/search&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`路径：<span class="subst">$&#123;req.path&#125;</span>`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`查询参数：<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(req.query)&#125;</span>`</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;查询已记录&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 访问/search?q=express&amp;lang=en时，req.query将返回&#123; q: &#x27;express&#x27;, lang: &#x27;en&#x27; &#125;。</span></span><br></pre></td></tr></table></figure>
+<h3 id="请求参数">请求参数</h3>
+<h4 id="路径参数">路径参数</h4>
+<p>通过<code>req.params</code>获取动态路径中的参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/user/:id&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`用户ID：<span class="subst">$&#123;req.params.id&#125;</span>`</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">`用户ID是：<span class="subst">$&#123;req.params.id&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="请求主体">请求主体</h4>
+<p>在POST或PUT请求中，通过<code>req.body</code>获取请求体的数据。需要引入中间件（如<code>express.json()</code>）来解析数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/login&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`用户名：<span class="subst">$&#123;req.body.username&#125;</span>`</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;登录成功&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="请求头">请求头</h3>
+<p>通过<code>req.headers</code>访问请求头信息，或使用<code>req.get()</code>方法获取特定字段。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> userAgent = req.<span class="title function_">get</span>(<span class="string">&#x27;User-Agent&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`客户端信息：<span class="subst">$&#123;userAgent&#125;</span>`</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;请求头已记录&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="常见请求属性">常见请求属性</h3>
+<ol>
+<li><code>req.ip</code>：获取请求的客户端IP地址。</li>
+<li><code>req.protocol</code>：获取请求使用的协议（如HTTP或HTTPS）。</li>
+<li><code>req.cookies</code>：获取请求中的Cookies（需使用<code>cookie-parser</code>中间件）。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cookieParser = <span class="built_in">require</span>(<span class="string">&#x27;cookie-parser&#x27;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cookieParser</span>());</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/cookies&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Cookies：<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(req.cookies)&#125;</span>`</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;Cookies已读取&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Express响应对象">Express响应对象</h2>
+<p>响应对象<code>res</code>用于控制服务器向客户端返回的数据或状态，包括HTML内容、JSON数据、文件等。</p>
+<h3 id="发送简单响应">发送简单响应</h3>
+<h4 id="发送文本">发送文本</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">send</span>(<span class="string">&#x27;欢迎访问Express应用&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="发送HTML">发送HTML</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/html&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">send</span>(<span class="string">&#x27;&lt;h1&gt;这是HTML内容&lt;/h1&gt;&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="发送JSON数据">发送JSON数据</h3>
+<p><code>res.json()</code>方法可直接返回JSON格式的数据，适用于API开发。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/api/user&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">json</span>(&#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span> &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="设置状态码">设置状态码</h3>
+<h4 id="设置响应状态码">设置响应状态码</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/not-found&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">status</span>(<span class="number">404</span>).<span class="title function_">send</span>(<span class="string">&#x27;页面未找到&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="链式调用状态码和响应内容">链式调用状态码和响应内容</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/error&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;服务器内部错误&#x27;</span> &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="设置响应头">设置响应头</h3>
+<p>通过<code>res.set()</code>方法设置响应头</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/headers&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">set</span>(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;text/plain&#x27;</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;自定义响应头已设置&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="重定向">重定向</h3>
+<p>使用<code>res.redirect()</code>将客户端请求重定向到另一个URL。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/old-route&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">redirect</span>(<span class="string">&#x27;/new-route&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/new-route&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">	res.<span class="title function_">send</span>(<span class="string">&#x27;欢迎访问新地址&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="发送文件">发送文件</h3>
+<p><code>res.sendFile()</code>用于向客户端发送文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/download&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;example.txt&#x27;</span>);</span><br><span class="line">    res.<span class="title function_">sendFile</span>(filePath);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="处理Cookies">处理Cookies</h3>
+<p>使用<code>cookie-parser</code>中间件，可以轻松设置和清除Cookies。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cookieParser = <span class="built_in">require</span>(<span class="string">&#x27;cookie-parser&#x27;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cookieParser</span>());</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/set-cookie&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">cookie</span>(<span class="string">&#x27;token&#x27;</span>, <span class="string">&#x27;12345&#x27;</span>, &#123; <span class="attr">httpOnly</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;Cookie已设置&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/clear-cookie&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">clearCookie</span>(<span class="string">&#x27;token&#x27;</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;Cookie已清除&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="完整示例">完整示例</h2>
+<p>以下是一个处理登录请求的示例，涵盖了请求数据解析、验证和响应返回的过程。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>()); <span class="comment">// 解析JSON请求体</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/login&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; username, password &#125; = req.<span class="property">body</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (username === <span class="string">&#x27;admin&#x27;</span> &amp;&amp; password === <span class="string">&#x27;password&#x27;</span>) &#123;</span><br><span class="line">    	res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">json</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27;登录成功&#x27;</span>, <span class="attr">token</span>: <span class="string">&#x27;abc123&#x27;</span> &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    	res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;用户名或密码错误&#x27;</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;服务器运行中...&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Node/" class="category-chain-item">Node</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Express/" class="print-no-link">#Express</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/17/Express%E5%AD%A6%E4%B9%A0-%E8%B7%AF%E7%94%B1/" title="Express学习-路由">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Express学习-路由</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/13/Express%E5%AD%A6%E4%B9%A0-Express%E7%AE%80%E4%BB%8B/" title="Express学习-Express简介">
+                        <span class="hidden-mobile">Express学习-Express简介</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
