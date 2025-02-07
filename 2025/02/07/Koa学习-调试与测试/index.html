@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在 Web 开发中，后端通常需要连接数据库来存储和管理数据。Koa 作为一个轻量级的 Node.js 框架，支持多种数据库，如 MySQL、PostgreSQL、MongoDB 等。">
+    <meta name="description" content="在 Koa 项目开发过程中，调试 和 测试 是确保应用稳定性和可靠性的重要环节。通过调试，可以快速定位和修复代码中的问题；通过测试，可以确保代码在各种场景下都能正常运行。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Koa学习-连接数据库">
-<meta property="og:url" content="https://zzstriker.github.io/2025/02/06/Koa%E5%AD%A6%E4%B9%A0-%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:title" content="Koa学习-调试与测试">
+<meta property="og:url" content="https://zzstriker.github.io/2025/02/07/Koa%E5%AD%A6%E4%B9%A0-%E8%B0%83%E8%AF%95%E4%B8%8E%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="在 Web 开发中，后端通常需要连接数据库来存储和管理数据。Koa 作为一个轻量级的 Node.js 框架，支持多种数据库，如 MySQL、PostgreSQL、MongoDB 等。">
+<meta property="og:description" content="在 Koa 项目开发过程中，调试 和 测试 是确保应用稳定性和可靠性的重要环节。通过调试，可以快速定位和修复代码中的问题；通过测试，可以确保代码在各种场景下都能正常运行。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-02-06T09:14:09.000Z">
-<meta property="article:modified_time" content="2025-02-06T09:57:18.396Z">
+<meta property="article:published_time" content="2025-02-07T07:18:23.000Z">
+<meta property="article:modified_time" content="2025-02-07T08:21:23.036Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="Koa">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Koa学习-连接数据库 - zzstriker blogs</title>
+  <title>Koa学习-调试与测试 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Koa学习-连接数据库"></span>
+            <span id="subtitle" data-typed-text="Koa学习-调试与测试"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-06 17:14" pubdate>
-          2025年2月6日 下午
+        <time datetime="2025-02-07 15:18" pubdate>
+          2025年2月7日 下午
         </time>
       </span>
     
@@ -260,56 +260,58 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Koa学习-连接数据库</h1>
+            <h1 id="seo-header">Koa学习-调试与测试</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在 Web 开发中，后端通常需要连接数据库来存储和管理数据。Koa 作为一个轻量级的 Node.js 框架，支持多种数据库，如 <strong>MySQL、PostgreSQL、MongoDB</strong> 等。</p>
+                <p>在 Koa 项目开发过程中，<strong>调试</strong> 和 <strong>测试</strong> 是确保应用稳定性和可靠性的重要环节。通过调试，可以快速定位和修复代码中的问题；通过测试，可以确保代码在各种场景下都能正常运行。</p>
 <span id="more"></span>
-<h1>连接数据库</h1>
-<p>数据库是存储和管理数据的核心组件。无论是用户信息、商品数据，还是日志记录，都需要通过数据库进行持久化存储。Koa 本身并不提供数据库连接功能，但可以通过第三方库轻松实现与各种数据库的交互。</p>
-<h2 id="选择数据库">选择数据库</h2>
-<p>Koa 支持连接多种数据库，常见的有：</p>
+<h1>调试与测试</h1>
+<h2 id="Koa-调试">Koa 调试</h2>
+<p>在 Koa 开发中，我们通常会遇到以下问题：</p>
 <ol>
-<li><strong>关系型数据库</strong>：如 MySQL、PostgreSQL</li>
-<li><strong>NoSQL 数据库</strong>：如 MongoDB、Redis</li>
+<li>代码运行错误，但没有详细错误信息</li>
+<li>API 调用失败，不清楚发生了什么</li>
+<li>需要查看请求和响应数据</li>
 </ol>
-<h2 id="使用-MySQL">使用 MySQL</h2>
-<h3 id="安装依赖">安装依赖</h3>
-<p>在 Koa 中连接数据库，首先需要安装对应的数据库驱动。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mysql2</span><br></pre></td></tr></table></figure>
-<h3 id="配置数据库连接">配置数据库连接</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql2/promise&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pool = mysql.<span class="title function_">createPool</span>(&#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;password&#x27;</span>,</span><br><span class="line">    <span class="attr">database</span>: <span class="string">&#x27;test_db&#x27;</span>,</span><br><span class="line">    <span class="attr">waitForConnections</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">connectionLimit</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">queueLimit</span>: <span class="number">0</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="在-Koa-中使用">在 Koa 中使用</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Koa</span> = <span class="built_in">require</span>(<span class="string">&#x27;koa&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Koa</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> [rows] = <span class="keyword">await</span> pool.<span class="title function_">query</span>(<span class="string">&#x27;SELECT * FROM users&#x27;</span>);</span><br><span class="line">    ctx.<span class="property">body</span> = rows;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Server running on http://localhost:3000&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="使用-MongoDB">使用 MongoDB</h2>
-<h3 id="安装依赖-2">安装依赖</h3>
-<p>在 Koa 中连接数据库，首先需要安装对应的数据库驱动。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mongoose</span><br></pre></td></tr></table></figure>
-<h3 id="配置数据库连接-2">配置数据库连接</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">&#x27;mongoose&#x27;</span>);</span><br><span class="line"></span><br><span class="line">mongoose.<span class="title function_">connect</span>(<span class="string">&#x27;mongodb://localhost:27017/test_db&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">useNewUrlParser</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">useUnifiedTopology</span>: <span class="literal">true</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="定义模型">定义模型</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> userSchema = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="title class_">Number</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">User</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;User&#x27;</span>, userSchema);</span><br></pre></td></tr></table></figure>
-<h3 id="在-Koa-中使用-2">在 Koa 中使用</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Koa</span> = <span class="built_in">require</span>(<span class="string">&#x27;koa&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Koa</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> users = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">find</span>();</span><br><span class="line">    ctx.<span class="property">body</span> = users;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Server running on http://localhost:3000&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="使用-Redis">使用 Redis</h2>
-<h3 id="安装依赖-3">安装依赖</h3>
-<p>在 Koa 中连接数据库，首先需要安装对应的数据库驱动。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install redis</span><br></pre></td></tr></table></figure>
-<h3 id="配置数据库连接-3">配置数据库连接</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> redis = <span class="built_in">require</span>(<span class="string">&#x27;redis&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> client = redis.<span class="title function_">createClient</span>();</span><br><span class="line"></span><br><span class="line">client.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Redis error:&#x27;</span>, err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="在-Koa-中使用-3">在 Koa 中使用</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Koa</span> = <span class="built_in">require</span>(<span class="string">&#x27;koa&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Koa</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> client.<span class="title function_">set</span>(<span class="string">&#x27;key&#x27;</span>, <span class="string">&#x27;value&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> value = <span class="keyword">await</span> client.<span class="title function_">get</span>(<span class="string">&#x27;key&#x27;</span>);</span><br><span class="line">    ctx.<span class="property">body</span> = value;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Server running on http://localhost:3000&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="数据库连接最佳实践">数据库连接最佳实践</h2>
-<h3 id="使用连接池">使用连接池</h3>
-<p>对于关系型数据库（如 MySQL、PostgreSQL），建议使用连接池来管理数据库连接，以提高性能和资源利用率。</p>
-<h3 id="错误处理">错误处理</h3>
-<p>在数据库操作中，务必添加错误处理逻辑，避免程序因数据库错误而崩溃。</p>
-<h3 id="环境变量配置">环境变量配置</h3>
-<p>将数据库连接信息（如用户名、密码）存储在环境变量中，避免硬编码。</p>
-<h3 id="使用-ORM-ODM">使用 ORM/ODM</h3>
-<p>对于复杂项目，建议使用 ORM（如 Sequelize）或 ODM（如 Mongoose）来简化数据库操作。</p>
+<h3 id="使用-console-log">使用 <code>console.log</code></h3>
+<p>最简单的调试方法是在代码中插入 <code>console.log</code> 语句，输出变量值或执行路径。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Request URL:&#x27;</span>, ctx.<span class="property">url</span>);</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="使用-debug-模块">使用 <code>debug</code> 模块</h3>
+<p><code>debug</code> 是一个常用的调试工具，可以通过环境变量控制调试信息的输出。</p>
+<p>安装 <code>debug</code> 模块：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install debug</span><br></pre></td></tr></table></figure>
+<p>在代码中使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debug = <span class="built_in">require</span>(<span class="string">&#x27;debug&#x27;</span>)(<span class="string">&#x27;koa-app&#x27;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="title function_">debug</span>(<span class="string">&#x27;Request URL: %s&#x27;</span>, ctx.<span class="property">url</span>);</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>启动应用时，设置环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG=koa-app node app.js</span><br></pre></td></tr></table></figure>
+<h3 id="使用-koa-logger">使用 <code>koa-logger</code></h3>
+<p><code>koa-logger</code> 是一个中间件，可打印 HTTP 请求日志，方便调试 API 请求。</p>
+<p>安装 <code>koa-logger</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install koa-logger</span><br></pre></td></tr></table></figure>
+<p>使用 <code>koa-logger</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> logger = <span class="built_in">require</span>(<span class="string">&#x27;koa-logger&#x27;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">logger</span>());</span><br></pre></td></tr></table></figure>
+<h3 id="使用-VS-Code-调试">使用 VS Code 调试</h3>
+<p>VS Code 提供了强大的调试功能。首先，在项目根目录下创建 <code>.vscode/launch.json</code> 文件，配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Debug Koa App&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceFolder&#125;/app.js&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Koa-测试">Koa 测试</h2>
+<h3 id="单元测试">单元测试</h3>
+<p>单元测试是对代码的最小单元进行测试，通常针对单个函数或模块。可以使用 <code>Mocha</code> 和 <code>Chai</code> 进行单元测试。</p>
+<h4 id="安装依赖">安装依赖</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mocha chai --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="编写测试用例">编写测试用例</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> chai = <span class="built_in">require</span>(<span class="string">&#x27;chai&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> chaiHttp = <span class="built_in">require</span>(<span class="string">&#x27;chai-http&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">&#x27;../app&#x27;</span>);</span><br><span class="line"></span><br><span class="line">chai.<span class="title function_">use</span>(chaiHttp);</span><br><span class="line"><span class="keyword">const</span> expect = chai.<span class="property">expect</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;GET /&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;should return Hello World&#x27;</span>, <span class="function">(<span class="params">done</span>) =&gt;</span> &#123;</span><br><span class="line">        chai.<span class="title function_">request</span>(app)</span><br><span class="line">            .<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">            .<span class="title function_">end</span>(<span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="title function_">expect</span>(res).<span class="property">to</span>.<span class="property">have</span>.<span class="title function_">status</span>(<span class="number">200</span>);</span><br><span class="line">                <span class="title function_">expect</span>(res.<span class="property">text</span>).<span class="property">to</span>.<span class="title function_">equal</span>(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">                <span class="title function_">done</span>();</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="运行测试">运行测试</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx mocha</span><br></pre></td></tr></table></figure>
+<h3 id="集成测试">集成测试</h3>
+<p>集成测试是对多个模块或整个应用进行测试，确保它们能够协同工作。可以使用 <code>Supertest</code> 进行集成测试。</p>
+<h4 id="安装依赖-2">安装依赖</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install jest supertest --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="编写测试用例-2">编写测试用例</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">&#x27;supertest&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">&#x27;../app&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;GET /&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;should return Hello World&#x27;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">request</span>(app).<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">        <span class="title function_">expect</span>(res.<span class="property">status</span>).<span class="title function_">toBe</span>(<span class="number">200</span>);</span><br><span class="line">        <span class="title function_">expect</span>(res.<span class="property">text</span>).<span class="title function_">toBe</span>(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="运行测试-2">运行测试</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx jest</span><br></pre></td></tr></table></figure>
 
                 
               </div>
@@ -357,18 +359,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/07/Koa%E5%AD%A6%E4%B9%A0-%E8%B0%83%E8%AF%95%E4%B8%8E%E6%B5%8B%E8%AF%95/" title="Koa学习-调试与测试">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Koa学习-调试与测试</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/05/Koa%E5%AD%A6%E4%B9%A0-%E4%B8%8A%E4%B8%8B%E6%96%87/" title="Koa学习-上下文">
-                        <span class="hidden-mobile">Koa学习-上下文</span>
+                      <a href="/2025/02/06/Koa%E5%AD%A6%E4%B9%A0-%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Koa学习-连接数据库">
+                        <span class="hidden-mobile">Koa学习-连接数据库</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
