@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Egg学习-Middleware</title>
+    <link href="/2025/02/17/Egg%E5%AD%A6%E4%B9%A0-Middleware/"/>
+    <url>/2025/02/17/Egg%E5%AD%A6%E4%B9%A0-Middleware/</url>
+    
+    <content type="html"><![CDATA[<p>中间件是在请求生命周期中的一个函数链，允许请求进入 Controller 之前或返回响应之后执行额外的逻辑。Egg.js 基于 Koa 中间件模型构建，并在此基础上实现了<strong>配置化加载</strong>、<strong>多级作用域控制</strong>和<strong>插件集成能力</strong>。</p><span id="more"></span><h1>Middleware</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>Node</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Egg</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Egg学习-Service</title>
     <link href="/2025/02/14/Egg%E5%AD%A6%E4%B9%A0-Service/"/>
     <url>/2025/02/14/Egg%E5%AD%A6%E4%B9%A0-Service/</url>
