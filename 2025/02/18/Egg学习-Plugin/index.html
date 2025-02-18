@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/code.png">
+  <link rel="icon" href="/img/code.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zzstriker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在 Egg.js 中，插件是为应用扩展功能的一种机制，实现功能解耦和生态复用。通过插件，可以将数据库连接、缓存管理、身份认证、日志记录、GraphQL、WebSocket 等封装成独立模块，在不同项目中灵活组合使用。这种设计不仅提升了开发效率，更让复杂系统保持可维护性和可扩展性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Egg学习-Plugin">
+<meta property="og:url" content="https://zzstriker.github.io/2025/02/18/Egg%E5%AD%A6%E4%B9%A0-Plugin/index.html">
+<meta property="og:site_name" content="zzstriker blogs">
+<meta property="og:description" content="在 Egg.js 中，插件是为应用扩展功能的一种机制，实现功能解耦和生态复用。通过插件，可以将数据库连接、缓存管理、身份认证、日志记录、GraphQL、WebSocket 等封装成独立模块，在不同项目中灵活组合使用。这种设计不仅提升了开发效率，更让复杂系统保持可维护性和可扩展性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-18T09:52:49.000Z">
+<meta property="article:modified_time" content="2025-02-18T10:37:16.892Z">
+<meta property="article:author" content="zzstriker">
+<meta property="article:tag" content="Egg">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Egg学习-Plugin - zzstriker blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zzstriker.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zzstriker Blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Egg学习-Plugin"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-18 17:52" pubdate>
+          2025年2月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Egg学习-Plugin</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在 Egg.js 中，插件是为应用扩展功能的一种机制，实现<strong>功能解耦</strong>和<strong>生态复用</strong>。通过插件，可以将数据库连接、缓存管理、身份认证、日志记录、GraphQL、WebSocket 等封装成独立模块，在不同项目中灵活组合使用。这种设计不仅提升了开发效率，更让复杂系统保持可维护性和可扩展性。</p>
+<span id="more"></span>
+<h1>Plugin</h1>
+<h2 id="特点">特点</h2>
+<ol>
+<li><strong>模块化扩展</strong>：Plugin 将特定功能封装成独立模块，便于复用与维护。</li>
+<li><strong>配置化管理</strong>：所有 Plugin 均通过配置文件统一管理，支持不同环境下的灵活配置。</li>
+<li><strong>按需加载</strong>：只有在配置文件中启用了相应 Plugin 时，框架才会加载它，从而提高性能和安全性。</li>
+</ol>
+<h2 id="使用-Plugin">使用 Plugin</h2>
+<h3 id="安装">安装</h3>
+<p>Plugin 通常通过 npm 进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i egg-mysql --save</span><br></pre></td></tr></table></figure>
+<h3 id="Plugin-配置文件">Plugin 配置文件</h3>
+<p>Egg.js 通过 <code>config/plugin.js</code> 文件来管理 Plugin 的启用状态和基本配置。在该文件中，可以为每个 Plugin 指定是否启用以及所使用的包名。</p>
+<p><code>plugin.js</code> 中的每个配置项支持：</p>
+<ol>
+<li><code>&#123;Boolean&#125; enable</code> - 是否开启此 Plugin，默认为 true</li>
+<li><code>&#123;String&#125; package</code> - <code>npm</code> 模块名称，通过 <code>npm</code> 模块形式引入 Plugin</li>
+<li><code>&#123;String&#125; path</code> - Plugin 绝对路径，与 package 配置互斥</li>
+<li><code>&#123;Array&#125; env</code> - 只有在指定运行环境才能开启，会覆盖该 Plugin 自身 <code>package.json</code> 中的配置</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/plugin.js</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">redis</span> = &#123;</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span>,    <span class="comment">// 启用插件</span></span><br><span class="line">    <span class="attr">package</span>: <span class="string">&#x27;egg-redis&#x27;</span> <span class="comment">// 指定 npm 包名</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本地插件开发时使用 path 配置</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">myPlugin</span> = &#123;</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../plugins/egg-my-plugin&#x27;</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Plugin-配置">Plugin 配置</h3>
+<p>每个 Plugin 通常都需要在 <code>config/config.default.js</code>（或其他环境配置文件）中进行详细配置。这些配置项会传递给 Plugin，并控制其行为。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function"><span class="params">appInfo</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> config = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 应用名称</span></span><br><span class="line">    config.<span class="property">appName</span> = <span class="string">&#x27;MyEggApp&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MySQL 配置</span></span><br><span class="line">    config.<span class="property">mysql</span> = &#123;</span><br><span class="line">        <span class="attr">client</span>: &#123;</span><br><span class="line">            <span class="attr">host</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">            <span class="attr">port</span>: <span class="string">&#x27;3306&#x27;</span>,</span><br><span class="line">            <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">            <span class="attr">password</span>: <span class="string">&#x27;123456&#x27;</span>,</span><br><span class="line">            <span class="attr">database</span>: <span class="string">&#x27;egg_db&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 是否加载到 app 上，默认开启</span></span><br><span class="line">        <span class="attr">app</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="comment">// 是否加载到 agent 上，默认关闭</span></span><br><span class="line">        <span class="attr">agent</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使用">使用</h3>
+<p>Plugin 在配置完成后，便可以在应用中直接使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/service/user.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Service</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;egg&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserService</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Service</span> &#123;</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">find</span>(<span class="params">id</span>) &#123;</span><br><span class="line">        <span class="comment">// 通过 this.app.mysql 调用插件提供的数据库操作方法</span></span><br><span class="line">        <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">app</span>.<span class="property">mysql</span>.<span class="title function_">get</span>(<span class="string">&#x27;users&#x27;</span>, &#123; id &#125;);</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">UserService</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="插件开发">插件开发</h2>
+<h3 id="脚手架初始化">脚手架初始化</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> egg-my-plugin &amp;&amp; <span class="built_in">cd</span> egg-my-plugin</span><br><span class="line">npm init egg --<span class="built_in">type</span>=plugin</span><br></pre></td></tr></table></figure>
+<h3 id="目录结构">目录结构</h3>
+<p>一个插件其实就是一个“迷你的应用”，包含了 Service、中间件、配置、框架扩展等，但是没有独立的 Router 和 Controller，也不能定义自己的 <code>plugin.js</code>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">egg-my-plugin</span><br><span class="line">├── package<span class="selector-class">.json</span></span><br><span class="line">├── app<span class="selector-class">.js</span>（可选）</span><br><span class="line">├── agent<span class="selector-class">.js</span>（可选）</span><br><span class="line">├── app</span><br><span class="line">│   ├── extend（可选）</span><br><span class="line">│   │   ├── helper<span class="selector-class">.js</span>（可选）</span><br><span class="line">│   │   ├── request<span class="selector-class">.js</span>（可选）</span><br><span class="line">│   │   ├── response<span class="selector-class">.js</span>（可选）</span><br><span class="line">│   │   ├── context<span class="selector-class">.js</span>（可选）</span><br><span class="line">│   │   ├── application<span class="selector-class">.js</span>（可选）</span><br><span class="line">│   │   └── agent<span class="selector-class">.js</span>（可选）</span><br><span class="line">│   ├── service（可选）</span><br><span class="line">│   └── middleware（可选）</span><br><span class="line">│       └── mw<span class="selector-class">.js</span></span><br><span class="line">├── config</span><br><span class="line">│   ├── config<span class="selector-class">.default</span><span class="selector-class">.js</span></span><br><span class="line">│   ├── config<span class="selector-class">.prod</span><span class="selector-class">.js</span></span><br><span class="line">│   ├── config<span class="selector-class">.test</span><span class="selector-class">.js</span>（可选）</span><br><span class="line">│   ├── config<span class="selector-class">.local</span><span class="selector-class">.js</span>（可选）</span><br><span class="line">│   └── config<span class="selector-class">.unittest</span><span class="selector-class">.js</span>（可选）</span><br><span class="line">└── test</span><br><span class="line">    └── middleware</span><br><span class="line">        └── mw<span class="selector-class">.test</span><span class="selector-class">.js</span></span><br></pre></td></tr></table></figure>
+<h3 id="核心开发步骤">核心开发步骤</h3>
+<h4 id="拓展Application对象">拓展Application对象</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/extend/application.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="title function_">myMethod</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;This method is injected to app&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="创建Service">创建Service</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/service/data.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Service</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;egg&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DataService</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Service</span> &#123;</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">fetch</span>(<span class="params"></span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> &#123; <span class="attr">data</span>: <span class="string">&#x27;from plugin&#x27;</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">DataService</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="声明依赖关系">声明依赖关系</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;egg-my-plugin&quot;</span>,</span><br><span class="line">    <span class="string">&quot;eggPlugin&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;myPlugin&quot;</span>,</span><br><span class="line">        <span class="string">&quot;dependencies&quot;</span>: [<span class="string">&quot;redis&quot;</span>], <span class="comment">// 声明依赖的插件</span></span><br><span class="line">        <span class="string">&quot;optionalDependencies&quot;</span>: [<span class="string">&quot;mysql&quot;</span>] </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Node/" class="category-chain-item">Node</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Egg/" class="print-no-link">#Egg</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/17/Egg%E5%AD%A6%E4%B9%A0-Middleware/" title="Egg学习-Middleware">
+                        <span class="hidden-mobile">Egg学习-Middleware</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="中间件是在请求生命周期中的一个函数链，允许请求进入 Controller 之前或返回响应之后执行额外的逻辑。Egg.js 基于 Koa 中间件模型构建，并在此基础上实现了配置化加载、多级作用域控制和插件集成能力。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-17T02:54:24.000Z">
-<meta property="article:modified_time" content="2025-02-17T08:51:52.015Z">
+<meta property="article:modified_time" content="2025-02-18T09:50:39.133Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="Egg">
 <meta name="twitter:card" content="summary_large_image">
@@ -268,6 +268,46 @@
                 <p>中间件是在请求生命周期中的一个函数链，允许请求进入 Controller 之前或返回响应之后执行额外的逻辑。Egg.js 基于 Koa 中间件模型构建，并在此基础上实现了<strong>配置化加载</strong>、<strong>多级作用域控制</strong>和<strong>插件集成能力</strong>。</p>
 <span id="more"></span>
 <h1>Middleware</h1>
+<h2 id="核心概念">核心概念</h2>
+<h3 id="洋葱圈模型">洋葱圈模型</h3>
+<p>Egg.js 是基于 Koa 实现的，所以 Egg 的中间件形式和 Koa 的中间件形式是一样的，都是基于<strong>洋葱圈模型</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    A[Request] --&gt; B[Middleware 1]</span><br><span class="line">    B --&gt; C[Middleware 2]</span><br><span class="line">    C --&gt; D[Controller]</span><br><span class="line">    D --&gt; C</span><br><span class="line">    C --&gt; B</span><br><span class="line">    B --&gt; A[Response]</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>先进后出</strong>：中间件按注册顺序正序执行，逆序完成</li>
+<li><strong>双向处理</strong>：可在请求到达和响应返回时插入逻辑</li>
+</ol>
+<h3 id="特性">特性</h3>
+<ol>
+<li><strong>配置化加载</strong>：通过配置文件统一管理</li>
+<li><strong>作用域控制</strong>：可以在全局、路由级别或局部使用中间件，根据需要进行灵活定制。</li>
+<li><strong>插件集成</strong>：将通用逻辑（如鉴权、日志、错误捕获等）抽离出来，通过插件机制复用生态中间件</li>
+</ol>
+<h2 id="内置与自定义-Middleware">内置与自定义 Middleware</h2>
+<p>Egg.js 提供了一些常用的内置中间件，同时也支持创建自定义中间件。</p>
+<h3 id="内置-Middleware">内置 Middleware</h3>
+<p>Egg.js 内置了用于错误处理、静态资源服务、请求体解析等中间件。</p>
+<h3 id="自定义-Middleware">自定义 Middleware</h3>
+<p>创建自定义中间件的步骤非常简单，只需在 <code>app/middleware</code> 目录下创建对应的文件，然后在中间件中编写逻辑。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/middleware/auth.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">(<span class="params">options, app</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">auth</span>(<span class="params">ctx, next</span>) &#123;</span><br><span class="line">        <span class="comment">// 从请求 header 中获取 token</span></span><br><span class="line">        <span class="keyword">const</span> token = ctx.<span class="property">headers</span>.<span class="property">token</span>;</span><br><span class="line">        <span class="keyword">if</span> (!token) &#123;</span><br><span class="line">            ctx.<span class="property">status</span> = <span class="number">401</span>;</span><br><span class="line">            ctx.<span class="property">body</span> = &#123; <span class="attr">error</span>: <span class="string">&#x27;Unauthorized: token is missing&#x27;</span> &#125;;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 可在此处进行 token 校验逻辑</span></span><br><span class="line">        <span class="comment">// 如果 token 无效，也可以直接抛出异常或返回错误信息</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行后续中间件或 Controller</span></span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">next</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="配置-Middleware">配置 Middleware</h2>
+<h3 id="全局配置-Middleware">全局配置 Middleware</h3>
+<p>在全局注册的中间件会对所有请求生效。可以在 <code>config/config.default.js</code> 文件中配置 <code>middleware</code> 数组来指定需要加载的中间件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function"><span class="params">appInfo</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="comment">// 指定全局中间件加载顺序</span></span><br><span class="line">        <span class="attr">middleware</span>: [ <span class="string">&#x27;errorHandler&#x27;</span>, <span class="string">&#x27;auth&#x27;</span> ],</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 针对各个中间件的详细配置</span></span><br><span class="line">        <span class="attr">auth</span>: &#123;</span><br><span class="line">            <span class="comment">// 可以定义一些中间件的配置项，比如忽略的路由</span></span><br><span class="line">            <span class="attr">ignore</span>: [ <span class="string">&#x27;/public&#x27;</span> ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="局部配置-Middleware">局部配置 Middleware</h3>
+<p>一般来说，中间件也会有自己的配置。在框架中，一个完整的中间件包含了配置处理。我们约定一个中间件是一个放置于 <code>app/middleware</code> 目录下的单独文件。它需要 <code>exports</code> 一个普通的函数，接受两个参数：</p>
+<ol>
+<li><code>options</code>：中间件的配置项，框架会将 <code>app.config[$&#123;middlewareName&#125;]</code> 传递进来。</li>
+<li><code>app</code>：当前应用 <code>Application</code> 的实例。</li>
+</ol>
+<p>对特定路由使用某个中间件，可以在 <code>app/router.js</code> 文件中通过 <code>app.middleware.[middlewareName]()</code> 来注册中间件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/middleware/auth.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">(<span class="params">options, app</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">auth</span>(<span class="params">ctx, next</span>) &#123;</span><br><span class="line">        <span class="comment">// 从请求 header 中获取 token</span></span><br><span class="line">        <span class="keyword">const</span> token = ctx.<span class="property">headers</span>.<span class="property">token</span>;</span><br><span class="line">        <span class="keyword">if</span> (!token) &#123;</span><br><span class="line">            ctx.<span class="property">status</span> = <span class="number">401</span>;</span><br><span class="line">            ctx.<span class="property">body</span> = &#123; <span class="attr">error</span>: <span class="string">&#x27;Unauthorized: token is missing&#x27;</span> &#125;;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 可在此处进行 token 校验逻辑</span></span><br><span class="line">        <span class="comment">// 如果 token 无效，也可以直接抛出异常或返回错误信息</span></span><br><span class="line">        <span class="comment">// 执行后续中间件或 Controller</span></span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">next</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app/router.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; router, controller &#125; = app;</span><br><span class="line">    <span class="comment">// 对 /secure 路由应用 auth 中间件，其他路由则不受影响</span></span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/secure&#x27;</span>, app.<span class="property">middleware</span>.<span class="title function_">auth</span>(), controller.<span class="property">secure</span>.<span class="property">index</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="通用配置">通用配置</h3>
+<p>无论是自定义 Middleware 还是内置 Middleware，都支持几个通用的配置项：</p>
+<ol>
+<li><code>enable</code>：控制中间件是否开启。</li>
+<li><code>match</code>：设置只有符合某些规则的请求才会经过这个中间件。</li>
+<li><code>ignore</code>：设置符合某些规则的请求不经过这个中间件。</li>
+</ol>
 
                 
               </div>
@@ -314,6 +354,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/02/18/Egg%E5%AD%A6%E4%B9%A0-Plugin/" title="Egg学习-Plugin">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Egg学习-Plugin</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
