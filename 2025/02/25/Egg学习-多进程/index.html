@@ -16,22 +16,22 @@
   <meta name="author" content="zzstriker">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Egg.js 提供了一整套完善的生命周期钩子，允许开发者在应用启动、运行以及关闭的各个阶段插入自定义逻辑，从而实现配置修改、插件初始化、异步任务加载、资源清理等操作。">
+    <meta name="description" content="在现代 Web 应用中，单进程的Node.js应用无法满足生产需求，充分利用多核 CPU 能力以提高性能和稳定性至关重要。Egg.js基于Node.js Cluster模块进行深度封装，提出多进程模型和进程间协作机制，无需关注底层复杂度即可构建高性能应用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Egg学习-生命周期">
-<meta property="og:url" content="https://zzstriker.github.io/2025/02/24/Egg%E5%AD%A6%E4%B9%A0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/index.html">
+<meta property="og:title" content="Egg学习-多进程">
+<meta property="og:url" content="https://zzstriker.github.io/2025/02/25/Egg%E5%AD%A6%E4%B9%A0-%E5%A4%9A%E8%BF%9B%E7%A8%8B/index.html">
 <meta property="og:site_name" content="zzstriker blogs">
-<meta property="og:description" content="Egg.js 提供了一整套完善的生命周期钩子，允许开发者在应用启动、运行以及关闭的各个阶段插入自定义逻辑，从而实现配置修改、插件初始化、异步任务加载、资源清理等操作。">
+<meta property="og:description" content="在现代 Web 应用中，单进程的Node.js应用无法满足生产需求，充分利用多核 CPU 能力以提高性能和稳定性至关重要。Egg.js基于Node.js Cluster模块进行深度封装，提出多进程模型和进程间协作机制，无需关注底层复杂度即可构建高性能应用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-02-24T02:27:47.000Z">
-<meta property="article:modified_time" content="2025-02-24T06:53:35.525Z">
+<meta property="article:published_time" content="2025-02-25T01:51:52.000Z">
+<meta property="article:modified_time" content="2025-02-25T10:26:09.521Z">
 <meta property="article:author" content="zzstriker">
 <meta property="article:tag" content="Egg">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Egg学习-生命周期 - zzstriker blogs</title>
+  <title>Egg学习-多进程 - zzstriker blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Egg学习-生命周期"></span>
+            <span id="subtitle" data-typed-text="Egg学习-多进程"></span>
           
         </div>
 
@@ -203,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-24 10:27" pubdate>
-          2025年2月24日 上午
+        <time datetime="2025-02-25 09:51" pubdate>
+          2025年2月25日 上午
         </time>
       </span>
     
@@ -260,75 +260,68 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Egg学习-生命周期</h1>
+            <h1 id="seo-header">Egg学习-多进程</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Egg.js 提供了一整套完善的生命周期钩子，允许开发者在应用启动、运行以及关闭的各个阶段插入自定义逻辑，从而实现配置修改、插件初始化、异步任务加载、资源清理等操作。</p>
+                <p>在现代 Web 应用中，单进程的Node.js应用无法满足生产需求，充分利用多核 CPU 能力以提高性能和稳定性至关重要。Egg.js基于Node.js Cluster模块进行深度封装，提出<strong>多进程模型</strong>和<strong>进程间协作机制</strong>，无需关注底层复杂度即可构建高性能应用。</p>
 <span id="more"></span>
-<h1>生命周期</h1>
-<h2 id="概述">概述</h2>
-<p>Egg.js 的生命周期大致可以分为以下几个阶段：</p>
+<h1>多进程</h1>
+<h2 id="特点">特点</h2>
 <ol>
-<li><strong>configWillLoad</strong>
-<ul>
-<li><strong>触发时机</strong>：配置加载之前。</li>
-<li><strong>作用</strong>：此时配置文件已经被读取，但还未合并到最终配置中，适合对配置进行修改或增加自定义的配置项。</li>
-</ul>
-</li>
-<li><strong>configDidLoad</strong>
-<ul>
-<li><strong>触发时机</strong>：所有配置文件加载并合并之后，但插件尚未加载前。</li>
-<li><strong>作用</strong>：可以在这个阶段读取到最终的配置信息，适合初始化一些依赖配置信息的变量或资源。</li>
-</ul>
-</li>
-<li><strong>didLoad</strong>
-<ul>
-<li><strong>触发时机</strong>：所有文件（包括插件、扩展、服务等）加载完成。</li>
-<li><strong>作用</strong>：此阶段可以做一些数据初始化工作，例如加载自定义的中间件、扩展对象等。</li>
-</ul>
-</li>
-<li><strong>willReady</strong>
-<ul>
-<li><strong>触发时机</strong>：所有插件都已经启动，但应用还没有完全准备好。</li>
-<li><strong>作用</strong>：通常在这里进行异步数据初始化、预加载数据等操作，此时可以进行一些关键业务操作的预热。</li>
-</ul>
-</li>
-<li><strong>didReady</strong>
-<ul>
-<li><strong>触发时机</strong>：应用完全启动、所有异步操作都已完成。</li>
-<li><strong>作用</strong>：整个应用已经准备就绪，此阶段可以执行一些仅需在启动后运行一次的操作。</li>
-</ul>
-</li>
-<li><strong>serverDidReady</strong>
-<ul>
-<li><strong>触发时机</strong>：HTTP/HTTPS 服务启动之后。</li>
-<li><strong>作用</strong>：可以在此阶段执行一些依赖网络服务的初始化操作，例如建立 WebSocket 连接、启动定时任务等。</li>
-</ul>
-</li>
-<li><strong>beforeClose</strong>
-<ul>
-<li><strong>触发时机</strong>：应用即将关闭之前。</li>
-<li><strong>作用</strong>：适合做资源释放、断开数据库连接、清理缓存、关闭服务等操作，保证应用安全退出。</li>
-</ul>
-</li>
+<li><strong>充分利用多核 CPU</strong>：Node.js 本身是单线程模型，而多进程模式能让应用同时运行在多个 CPU 核心上，从而提升并发处理能力。</li>
+<li><strong>高可用性</strong>：在多进程架构中，单个 worker 崩溃不会导致整个应用瘫痪，master 进程会自动重启故障 worker，增强了应用的稳定性。</li>
+<li><strong>解耦资源</strong>：每个 worker 拥有独立的内存空间，可以降低不同请求之间因资源共享而导致的安全隐患或冲突。</li>
 </ol>
-<h2 id="示例">示例</h2>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 1. 配置加载之前，可以修改或增加配置项</span></span><br><span class="line">    app.<span class="title function_">configWillLoad</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] configWillLoad: 配置加载之前&#x27;</span>);</span><br><span class="line">        <span class="comment">// 例如：动态修改某个配置项</span></span><br><span class="line">        <span class="comment">// app.config.myConfig = &#x27;newValue&#x27;;</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 配置加载完成后，插件尚未加载前</span></span><br><span class="line">    app.<span class="title function_">configDidLoad</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] configDidLoad: 配置加载完成&#x27;</span>);</span><br><span class="line">        <span class="comment">// 此时可以读取合并后的配置，做一些初始化工作</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 所有文件加载完成后</span></span><br><span class="line">    app.<span class="title function_">didLoad</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] didLoad: 所有文件加载完成&#x27;</span>);</span><br><span class="line">        <span class="comment">// 例如：加载自定义中间件、扩展对象</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 应用即将启动之前，执行异步初始化任务</span></span><br><span class="line">    app.<span class="title function_">willReady</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] willReady: 应用即将准备就绪&#x27;</span>);</span><br><span class="line">        <span class="comment">// 例如：预加载数据、建立外部依赖连接</span></span><br><span class="line">        <span class="comment">// await app.service.someService.initData();</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 应用完全启动后</span></span><br><span class="line">    app.<span class="title function_">didReady</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] didReady: 应用完全启动&#x27;</span>);</span><br><span class="line">        <span class="comment">// 此时可以执行仅需启动一次的操作</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6. HTTP/HTTPS 服务启动后</span></span><br><span class="line">    app.<span class="title function_">serverDidReady</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] serverDidReady: HTTP 服务已启动&#x27;</span>);</span><br><span class="line">        <span class="comment">// 例如：启动 WebSocket 服务、定时任务等</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 应用关闭前，释放资源</span></span><br><span class="line">    app.<span class="title function_">beforeClose</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        app.<span class="property">logger</span>.<span class="title function_">info</span>(<span class="string">&#x27;[Egg.js Lifecycle] beforeClose: 应用即将关闭&#x27;</span>);</span><br><span class="line">        <span class="comment">// 例如：关闭数据库连接、清理缓存</span></span><br><span class="line">        <span class="comment">// await app.mysql.end();</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="最佳实践">最佳实践</h2>
-<h3 id="设计原则">设计原则</h3>
+<h2 id="多进程模型">多进程模型</h2>
+<h3 id="设计原理">设计原理</h3>
+<p>Egg.js 基于 Node.js 内置的 Cluster 模块，采用以下结构：</p>
 <ol>
-<li><strong>单一职责</strong>：每个阶段聚焦一类初始化操作</li>
-<li><strong>异步优先</strong>：使用 async/await 避免阻塞启动流程</li>
-<li><strong>错误防御</strong>：关键阶段添加 try/catch 并记录日志</li>
-<li><strong>资源释放</strong>：beforeClose 阶段必须释放所有长期持有的资源</li>
+<li><strong>Master 进程</strong>：负责启动和管理所有 worker 和 agent 进程，调度它们的生命周期，以及监听和转发信号，实现平滑重启和故障恢复。</li>
+<li><strong>Worker 进程</strong>：每个 worker 进程独立运行一个完整的 Egg.js 应用实例，处理 HTTP/HTTPS 请求、WebSocket 连接等业务逻辑。通常，worker 数量默认与 CPU 核数相同，也可以根据业务需求自定义配置。</li>
+<li><strong>Agent 进程（可选）</strong>：用于执行一些全局性的任务，例如定时任务、监控、消息处理等。agent 进程与 worker 进程互不干扰，主要用于共享资源或处理全局状态。</li>
 </ol>
-<h3 id="性能优化">性能优化</h3>
+<h3 id="启动时序">启动时序</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    Master-&gt;&gt;Master: 初始化</span><br><span class="line">    Master-&gt;&gt;Agent: Fork Agent进程</span><br><span class="line">    Agent--&gt;&gt;Master: 启动成功</span><br><span class="line">    Master-&gt;&gt;Worker: 批量Fork Worker</span><br><span class="line">    Worker--&gt;&gt;Master: 各Worker就绪</span><br><span class="line">    Master-&gt;&gt;Client: 服务可用</span><br></pre></td></tr></table></figure>
+<h2 id="多进程配置">多进程配置</h2>
+<p>Egg.js 的多进程配置主要体现在 <code>config/config.default.js</code> 和启动命令中。</p>
+<h3 id="默认配置">默认配置</h3>
+<p>Egg.js 默认会根据系统 CPU 数量自动启动相同数量的 worker。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function"><span class="params">appInfo</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> config = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Cluster 配置：指定监听的端口和 host</span></span><br><span class="line">    config.<span class="property">cluster</span> = &#123;</span><br><span class="line">        <span class="attr">listen</span>: &#123;</span><br><span class="line">            <span class="attr">port</span>: <span class="number">7001</span>,</span><br><span class="line">            <span class="attr">hostname</span>: <span class="string">&#x27;0.0.0.0&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他全局配置...</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Agent-配置">Agent 配置</h3>
+<p>如果项目中需要 agent 进程来执行全局任务，可以在 <code>app/agent.js</code> 中编写 agent 逻辑。Agent 进程一般只会启动一个，不需要像 worker 那样考虑多核问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/agent.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Agent 进程在这里可以进行一些全局初始化，例如：</span></span><br><span class="line">    app.<span class="title function_">beforeStart</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        app.<span class="property">coreLogger</span>.<span class="title function_">info</span>(<span class="string">&#x27;Agent 进程：开始执行全局初始化任务&#x27;</span>);</span><br><span class="line">        <span class="comment">// 比如：定时任务、预加载数据、连接消息队列等</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="进程间通信（IPC）">进程间通信（IPC）</h2>
+<p>在了解IPC之前，先理解一个名词<strong>Cluster</strong>，<strong>Cluster</strong>是什么？</p>
 <ol>
-<li><strong>并行初始化</strong>：对无依赖的组件使用 <strong>Promise.all</strong></li>
-<li><strong>延迟加载</strong>：非核心功能延后到 <strong>serverDidReady</strong></li>
+<li>在服务器上同时启动多个进程。</li>
+<li>每个进程里都运行着同一份源代码。</li>
+<li>这些进程可以同时监听一个端口。</li>
 </ol>
+<p>前面说的<strong>Master</strong>、<strong>Agent</strong>、<strong>Worker</strong>进程构成了<strong>Cluster</strong>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                +--------+          +-------+</span><br><span class="line">                | Master |&lt;--------&gt;| Agent |</span><br><span class="line">                +--------+          +-------+</span><br><span class="line">                ^   ^    ^</span><br><span class="line">               /    |     \</span><br><span class="line">             /      |       \</span><br><span class="line">           /        |         \</span><br><span class="line">         v          v          v</span><br><span class="line">+----------+   +----------+   +----------+</span><br><span class="line">| Worker <span class="number">1</span> |   | Worker <span class="number">2</span> |   | Worker <span class="number">3</span> |</span><br><span class="line">+----------+   +----------+   +----------+</span><br></pre></td></tr></table></figure>
+<p><strong>Cluster</strong>的 IPC 仅在 Master 和 Worker/Agent 之间有效，Worker 与 Agent 间无法直接通讯。Worker 之间的通讯需要经由 Master 转发。</p>
+<h3 id="发送">发送</h3>
+<ol>
+<li><code>app.messenger.broadcast(action, data)</code>: 向所有的 Agent / Worker 进程发送消息（包括自己）。</li>
+<li><code>app.messenger.sendToApp(action, data)</code>: 发送至所有的 Worker 进程。
+<ul>
+<li>app 上调用即发送至自己与其他 app</li>
+<li>agent 上调用则发送至所有 app 进程。</li>
+</ul>
+</li>
+<li><code>app.messenger.sendToAgent(action, data)</code>: 发送消息至 Agent 进程。
+<ul>
+<li>app 上调用即发送至 agent</li>
+<li>agent 上调用即发送至自己。</li>
+</ul>
+</li>
+<li><code>app.messenger.sendTo(pid, action, data)</code>: 向指定进程发送消息。</li>
+</ol>
+<h3 id="接收">接收</h3>
+<p>监听 messenger 上的相应 action 事件可收到其他进程发送的消息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="property">messenger</span>.<span class="title function_">on</span>(action, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="comment">// 处理数据</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
                 
               </div>
@@ -376,18 +369,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/25/Egg%E5%AD%A6%E4%B9%A0-%E5%A4%9A%E8%BF%9B%E7%A8%8B/" title="Egg学习-多进程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Egg学习-多进程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/21/Egg%E5%AD%A6%E4%B9%A0-%E6%B5%8B%E8%AF%95/" title="Egg学习-测试">
-                        <span class="hidden-mobile">Egg学习-测试</span>
+                      <a href="/2025/02/24/Egg%E5%AD%A6%E4%B9%A0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="Egg学习-生命周期">
+                        <span class="hidden-mobile">Egg学习-生命周期</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
